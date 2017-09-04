@@ -1,0 +1,16 @@
+{
+  "name": "light-blog",
+  "version": "1.0.0",
+  "description": "frontend of blog",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lambda47",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "vue": "^2.4.2",
+    "webpack": "^3.5.5"
+  }
+}
