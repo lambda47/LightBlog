@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin/login.css', _external=True) }}"/>
+    <script src="{{ url_for('static', filename='admin/common.js', _external=True) }}"></script>
+    <script src="{{ url_for('static', filename='admin/login.js', _external=True) }}"></script>
+</head>
+<body>
+<div>
+    <form method="post" action="">
+        <h1>Welcome</h1>
+        <span class="line"></span>
+        <div class="form-group">
+            <i></i><input type="text" name="username" placeholder="用户名"/>
+        </div>
+        <div class="form-group">
+            <i></i><input type="text" name="password" placeholder="密码"/>
+        </div>
+        <div>
+            <span>记住我</span><input type="checkbox" name="remember_me" data-on-text="是" data-off-text="否" />
+            <button>Let's go!</button>
+        </div>
+        <span class="triangle"></span>
+    </form>
+</div>
+</body>
+</html>
