@@ -1,2 +1,108 @@
-$YANAGINEZUMI: #B5CAA0 !default;
+@import '../reset';
+@import '../mixin';
+@import '../../font/iconfont.css';
 
+$BLUE: #BCD5D1 !default;
+$BLACK: #1D2120 !default;
+$CROWN: #5A5C51 !default;
+
+#login-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 400px;
+  height: 250px;
+  margin: {
+    top: -150px;
+    left: -200px;
+  }
+
+  background-color:$BLUE;
+  border-radius: 10px;
+
+  h1 {
+    margin: 20px auto 5px;
+
+    text-align: center;
+    font: bold 45px "Lucida Family";
+    color: $BLACK
+  }
+
+  .line {
+    @include line(100px, 2px);
+
+    margin: {
+      bottom: 30px;
+    }
+  }
+
+  .form-group {
+    position: relative;
+
+    width: 230px;
+    height: 20px;
+    margin: 0 auto 10px;
+
+    text-align: center;
+
+    input {
+      width: 230px;
+
+      text-indent: 2em;
+
+      background: transparent;
+      border: {
+        bottom: 1px solid $CROWN;
+      }
+    }
+
+    i {
+      display:block;
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 20px;
+      height: 20px;
+
+      font-size: 14px;
+    }
+  }
+
+  .btn-wrapper {
+    width:230px;
+    margin: 30px auto;
+
+    label {
+      padding-right: 5px;
+
+      font: 14px 'YimHei';
+    }
+
+    .bootstrap-switch-container {
+
+      .bootstrap-switch-primary {
+        background: $CROWN;
+      }
+    }
+
+    button {
+      height: 32px;
+      width: 100px;
+
+      color: #FFFFFF;
+
+      background: $CROWN;
+      border-radius: 3px;
+    }
+  }
+
+  .triangle {
+    position: absolute;
+    top: 250px;
+    left: 70px;
+
+    @include triangle('down', 30px, $BLUE)
+  }
+}
