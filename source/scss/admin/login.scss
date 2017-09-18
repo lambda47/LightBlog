@@ -55,6 +55,8 @@ $CROWN: #5A5C51 !default;
       border: {
         bottom: 1px solid $CROWN;
       }
+
+      outline: none;
     }
 
     i {
@@ -80,6 +82,10 @@ $CROWN: #5A5C51 !default;
       font: 14px 'YimHei';
     }
 
+    input {
+      visibility: hidden;
+    }
+
     .bootstrap-switch-container {
 
       .bootstrap-switch-primary {
@@ -91,6 +97,7 @@ $CROWN: #5A5C51 !default;
       height: 32px;
       width: 100px;
 
+      font: 14px "Lucida Family";
       color: #FFFFFF;
 
       background: $CROWN;
