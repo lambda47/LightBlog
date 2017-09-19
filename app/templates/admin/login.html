@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id="login-panel">
-    <form method="post" action="">
+    <form method="post" action="${ url_for('api_admin.login') }">
         <h1>Welcome</h1>
         <span class="line"></span>
         <div class="form-group">
@@ -19,7 +19,7 @@
             <i class="iconfont icon-password"></i><input type="password" name="password" placeholder="密码"/>
         </div>
         <div class="btn-wrapper">
-            <label>记住我</label><input type="checkbox" name="remember_me" data-on-text="是" data-off-text="否" />
+            <label>记住我</label><input type="checkbox" name="remember_me" value="1" data-on-text="是" data-off-text="否" />
             <button>Let's go!</button>
         </div>
         <span class="triangle"></span>
