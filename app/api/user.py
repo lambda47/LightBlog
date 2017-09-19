@@ -1,9 +1,9 @@
 from flask import Blueprint
 from flask import request
 
-admin = Blueprint('api_admin', __name__)
+user = Blueprint('api_user', __name__)
 
-@admin.route('/login', methods=['POST'])
+@user.route('/login', methods=['POST'])
 def login():
     username = request.form.get('username', '')
     password = request.form.get('password', '')
