@@ -1,6 +1,9 @@
+from bson.objectid import ObjectId
+from .model import Model
 from flask_login import UserMixin
 
-class User(UserMixin):
+class User(UserMixin, Model):
 
     def find(self, id):
-        pass
+        id = ObjectId(id)
+        return self.db.user.find_one({'_id': id})
