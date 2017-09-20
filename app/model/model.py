@@ -1,8 +1,14 @@
-from flask_pymongo import PyMongo
 from flask import current_app
 
-class Model():
+class MongoProxy:
 
-    def __init__(self):
-        self.cx = current_app.mongo.cx
-        self.db = current_app.mongo.db
+    @property
+    def cx(self):
+        return current_app.extensions['pymongo']['MONGO'][0]
+
+    @property
+    def db(self):
+        return current_app.extensions['pymongo']['MONGO'][1]
+
+class Model:
+    mongo = MongoProxy()
