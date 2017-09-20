@@ -1,14 +1,14 @@
 from flask import Blueprint
 from flask import request
 from werkzeug.security import check_password_hash
-
 from flask_login import login_user
-
+from ..lib.apiview import apiview
 from ..model.user import User
 
 user = Blueprint('api_user', __name__)
 
 @user.route('/login', methods=['POST'])
+@apiview
 def login():
     username = request.form.get('username', '')
     password = request.form.get('password', '')
