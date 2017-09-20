@@ -4,7 +4,23 @@ from flask_login import UserMixin
 
 class User(UserMixin, Model):
 
+    @property
+    def id(self):
+        return self._id
+
     @classmethod
-    def find(self, id):
+    def find(cls, id):
         id = ObjectId(id)
-        return User.mongo.db.user.find_one({'_id': id})
+        user = User.mongo.db.user.find_one({'_id': id})
+        if user is None:
+            return None
+        else:
+            return User(user)
+
+    @classmethod
+    def findByUsername(cls, username):
+        user = User.mongo.db.user.find_one({'username': username})
+        if user is None:
+            return None
+        else:
+            return User(user)

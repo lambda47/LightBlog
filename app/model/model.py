@@ -12,3 +12,9 @@ class MongoProxy:
 
 class Model:
     mongo = MongoProxy()
+
+    def __init__(self, attrs = None, **attrs_dict):
+        attrs.update(attrs_dict)
+        if attrs is not None:
+            for attr, val in attrs.items():
+                self.__dict__[attr] = val
