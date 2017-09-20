@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import jsonify
-from ..api.errno import errno
+from ..config.errno import errno
 
 def apiview(func):
     @wraps(func)
