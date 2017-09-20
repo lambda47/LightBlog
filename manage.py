@@ -30,6 +30,7 @@ mongo = PyMongo(app)
 
 app.register_blueprint(view_admin_user, url_prefix = '/admin/user')
 app.register_blueprint(api_user, url_prefix = '/user')
+app.config['SECRET_KEY'] = 'LIGHTBLOG'
 
 if __name__ == '__main__':
     app.run(debug=True)

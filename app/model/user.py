@@ -4,8 +4,7 @@ from flask_login import UserMixin
 
 class User(UserMixin, Model):
 
-    @property
-    def id(self):
+    def get_id(self):
         return self._id
 
     @classmethod
