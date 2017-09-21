@@ -13,8 +13,14 @@ class MongoProxy:
 class Model:
     mongo = MongoProxy()
 
-    def __init__(self, attrs = None, **attrs_dict):
-        attrs.update(attrs_dict)
-        if attrs is not None:
-            for attr, val in attrs.items():
-                self.__dict__[attr] = val
+    def __init__(self, attrs = None, **kwattrs):
+        if attrs is None:
+            attrs = dict()
+        attrs.update(kwattrs)
+        self.__dict__['_data'] = attrs
+
+    def __getattr__(self, item):
+        return self._data[item]
+
+    def __setattr__(self, key, value):
+        self._data[key] = value
