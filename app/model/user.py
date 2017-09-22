@@ -1,6 +1,13 @@
 from bson.objectid import ObjectId
-from .model import Model
 from flask_login import UserMixin
+
+from .. import login_manager
+from .model import Model
+
+
+@login_manager.user_loader
+def load_user(userid):
+    return User.find(userid)
 
 class User(UserMixin, Model):
 
@@ -10,7 +17,7 @@ class User(UserMixin, Model):
     @classmethod
     def find(cls, id):
         id = ObjectId(id)
-        user = User.mongo.db.user.find_one({'_id': id})
+        user = User.db.find_one({'_id': id})
         if user is None:
             return None
         else:
@@ -18,7 +25,7 @@ class User(UserMixin, Model):
 
     @classmethod
     def findByUsername(cls, username):
-        user = User.mongo.db.user.find_one({'username': username})
+        user = User.db.find_one({'username': username})
         if user is None:
             return None
         else:

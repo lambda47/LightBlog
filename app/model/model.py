@@ -1,18 +1,16 @@
 from flask import current_app
+from .. import mongo
 
-class MongoProxy:
+class ModelMetaclass(type):
+    def __new__(cls, name, bases, attrs):
+        attrs['cx'] = mongo.cx
+        if len(bases) == 0:
+            attrs['db'] = mongo.db
+        else:
+            attrs['db'] = getattr(mongo.db, name.lower())
+        return type.__new__(cls, name, bases, attrs)
 
-    @property
-    def cx(self):
-        return current_app.extensions['pymongo']['MONGO'][0]
-
-    @property
-    def db(self):
-        return current_app.extensions['pymongo']['MONGO'][1]
-
-class Model:
-    mongo = MongoProxy()
-
+class Model(metaclass=ModelMetaclass):
     def __init__(self, attrs = None, **kwattrs):
         if attrs is None:
             attrs = dict()
