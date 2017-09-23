@@ -30,6 +30,10 @@ gulp.task('default', function(){
 				{
 					test: /\.(jpe?g|gif|png)$/,
 					use: 'url-loader?limit=10240'
+				},
+				{
+					test: /\.vue$/,
+					use: 'vue-loader'
 				}
 			]
 		},
@@ -47,7 +51,7 @@ gulp.task('default', function(){
 
 		resolve: {
 		    modules: [
-		        'js', 'scss', 'node_modules'
+		        'js', 'scss', 'component', 'node_modules'
             ],
 			alias: {
 				'vue$': 'vue/dist/vue.min.js'
