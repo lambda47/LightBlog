@@ -9,7 +9,7 @@
 </head>
 <body>
 <div id="login-panel">
-    <form method="post" action="${ url_for('api_user.login') }">
+    <vue-form method="post" action="${ url_for('api_user.login') }" @success="loginSuccess">
         <h1>Welcome</h1>
         <span class="line"></span>
         <div class="form-group">
@@ -20,10 +20,10 @@
         </div>
         <div class="btn-wrapper">
             <label>记住我</label><input type="checkbox" name="remember_me" value="1" data-on-text="是" data-off-text="否" />
-            <button>Let's go!</button>
+            <button type="submit">Let's go!</button>
         </div>
         <span class="triangle"></span>
-    </form>
+    </vue-form>
 </div>
 </body>
 </html>

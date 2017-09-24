@@ -1,4 +1,3 @@
-from flask import current_app
 from .. import mongo
 
 class ModelMetaclass(type):
