@@ -13,15 +13,15 @@
         <h1>Welcome</h1>
         <span class="line"></span>
         <div class="form-group">
-            <i class="iconfont icon-account"></i><input type="text" name="username" v-model="username" @focus="clearErrMsg($event)" placeholder="用户名"/>
+            <i class="iconfont icon-account"></i><input type="text" name="username" v-model="username.value" @focus="clearErrMsg($event)" placeholder="用户名"/>
             <transition name="slide-fade">
-                <label class="err-msg" v-if="username_show_err">{{username_err_msg}}</label>
+                <label class="err-msg" v-if="username.show_err">{{username.err_msg}}</label>
             </transition>
         </div>
         <div class="form-group">
-            <i class="iconfont icon-password"></i><input type="password" name="password" v-model="password" @focus="clearErrMsg($event)" placeholder="密码"/>
+            <i class="iconfont icon-password"></i><input type="password" name="password" v-model="password.value" @focus="clearErrMsg($event)" placeholder="密码"/>
             <transition name="slide-fade">
-                <label class="err-msg" v-if="password_show_err">{{password_err_msg}}</label>
+                <label class="err-msg" v-if="password.show_err">{{password.err_msg}}</label>
             </transition>
         </div>
         <div class="btn-wrapper">

@@ -12,36 +12,40 @@ $(function() {
     var vm = new Vue({
         el: '#login-panel',
         data: {
-            username: '',
-            password: '',
-            username_show_err: false,
-            username_err_msg: '',
-            password_show_err: false,
-            password_err_msg: ''
+            username: {
+                value: '',
+                show_err: false,
+                err_msg: ''
+            },
+            password: {
+                value: '',
+                show_err: false,
+                err_msg: ''
+            }
         },
         methods: {
             clearErrMsg: function(event) {
                 if (event.target.name == 'username') {
-                    this.username_show_err = false;
+                    this.username.show_err = false;
                 } else if (event.target.name == 'password') {
-                    this.password_show_err = false;
+                    this.password.show_err = false;
                 }
             },
             loginValid: function () {
-                if (this.username == '') {
-                    this.username_err_msg = '请输入用户名';
-                    this.username_show_err = true;
+                if (this.username.value == '') {
+                    this.username.err_msg = '请输入用户名';
+                    this.username.show_err = true;
                     return false;
                 } else {
-                    this.username_show_err =false;
+                    this.username.show_err =false;
                 }
 
-                if (this.password == '') {
-                    this.password_err_msg = '请输入密码';
-                    this.password_show_err = true;
+                if (this.password.value == '') {
+                    this.password.err_msg = '请输入密码';
+                    this.password.show_err = true;
                     return false;
                 } else {
-                    this.password_show_err =false;
+                    this.password.show_err =false;
                 }
                 return true;
             },
@@ -49,12 +53,14 @@ $(function() {
                 if (data.code == '1000') {
 
                 } else {
-                    if (data.code == 1102 || data.code == 1104) {
-                        this.username_err_msg = data.msg;
-                        this.username_show_err = true;
-                    } else if (data.code == 1103 || data.code == 1105) {
-                        this.password_err_msg = data.msg;
-                        this.password_show_err = true;
+                    if (!this.username.show_err
+                            && data.code == 1102 || data.code == 1104) {
+                        this.username.err_msg = data.msg;
+                        this.username.show_err = true;
+                    } else if (!this.password.show_err
+                            && data.code == 1103 || data.code == 1105) {
+                        this.password.err_msg = data.msg;
+                        this.password.show_err = true;
                     }
                 }
             }
