@@ -20,13 +20,19 @@ $(function() {
             password_err_msg: ''
         },
         methods: {
+            clearErrMsg: function(event) {
+                if (event.target.name == 'username') {
+                    this.username_show_err = false;
+                } else if (event.target.name == 'password') {
+                    this.password_show_err = false;
+                }
+            },
             loginValid: function () {
                 if (this.username == '') {
                     this.username_err_msg = '请输入用户名';
                     this.username_show_err = true;
                     return false;
                 } else {
-                    this.username_err_msg = '';
                     this.username_show_err =false;
                 }
 
@@ -35,7 +41,6 @@ $(function() {
                     this.password_show_err = true;
                     return false;
                 } else {
-                    this.password_err_msg = '';
                     this.password_show_err =false;
                 }
                 return true;
