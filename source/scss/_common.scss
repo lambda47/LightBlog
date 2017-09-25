@@ -4,3 +4,12 @@
 [v-cloak] {
   display: none;
 }
+
+.slide-fade-enter-active, .slide-fade-leave-active {
+  transition: all .5s ease;
+}
+
+.slide-fade-enter, .slide-fade-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
