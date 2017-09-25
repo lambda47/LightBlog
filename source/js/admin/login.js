@@ -11,12 +11,46 @@ $(function() {
 
     var vm = new Vue({
         el: '#login-panel',
+        data: {
+            username: '',
+            password: '',
+            username_show_err: false,
+            username_err_msg: '',
+            password_show_err: false,
+            password_err_msg: ''
+        },
         methods: {
+            loginValid: function () {
+                if (this.username == '') {
+                    this.username_err_msg = '请输入用户名';
+                    this.username_show_err = true;
+                    return false;
+                } else {
+                    this.username_err_msg = '';
+                    this.username_show_err =false;
+                }
+
+                if (this.password == '') {
+                    this.password_err_msg = '请输入密码';
+                    this.password_show_err = true;
+                    return false;
+                } else {
+                    this.password_err_msg = '';
+                    this.password_show_err =false;
+                }
+                return true;
+            },
             loginSuccess: function(data) {
                 if (data.code == '1000') {
 
                 } else {
-                    alert(data.msg);
+                    if (data.code == 1102 || data.code == 1104) {
+                        this.username_err_msg = data.msg;
+                        this.username_show_err = true;
+                    } else if (data.code == 1103 || data.code == 1105) {
+                        this.password_err_msg = data.msg;
+                        this.password_show_err = true;
+                    }
                 }
             }
         },

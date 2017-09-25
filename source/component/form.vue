@@ -19,6 +19,10 @@ export default {
             url: that.action,
             dataType: 'json',
             beforeSubmit: function(arr, $form, action) {
+                var result = that.$emit('valid');
+                if (result == false) {
+                    return false;
+                }
                 var submitArr = that.$emit('before', arr);
                 return submitArr;
             },

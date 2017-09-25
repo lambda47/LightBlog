@@ -8,15 +8,17 @@
     <script src="${ url_for('static', filename='admin/login.js', _external=True) }"></script>
 </head>
 <body>
-<div id="login-panel">
-    <vue-form method="post" action="${ url_for('api_user.login') }" @success="loginSuccess">
+<div id="login-panel" v-cloak>
+    <vue-form method="post" action="${ url_for('api_user.login') }" @valid="loginValid" @success="loginSuccess">
         <h1>Welcome</h1>
         <span class="line"></span>
         <div class="form-group">
-            <i class="iconfont icon-account"></i><input type="text" name="username" placeholder="用户名"/>
+            <i class="iconfont icon-account"></i><input type="text" name="username" v-model="username" placeholder="用户名"/>
+            <label class="err-msg" v-if="username_show_err">{{username_err_msg}}</label>
         </div>
         <div class="form-group">
-            <i class="iconfont icon-password"></i><input type="password" name="password" placeholder="密码"/>
+            <i class="iconfont icon-password"></i><input type="password" name="password" v-model="password" placeholder="密码"/>
+            <label class="err-msg" v-if="password_show_err">{{password_err_msg}}</label>
         </div>
         <div class="btn-wrapper">
             <label>记住我</label><input type="checkbox" name="remember_me" value="1" data-on-text="是" data-off-text="否" />

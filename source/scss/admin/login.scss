@@ -1,5 +1,4 @@
-@import '../reset';
-@import '../mixin';
+@import '../common';
 @import '../../font/iconfont.css';
 
 $BLUE: #BCD5D1 !default;
@@ -69,6 +68,17 @@ $CROWN: #5A5C51 !default;
       height: 20px;
 
       font-size: 14px;
+    }
+
+    .err-msg {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      padding: 0 5px;
+
+      font-weight: normal;
+      color: #D9534F;
     }
   }
 
