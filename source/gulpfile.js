@@ -5,7 +5,8 @@ var extractTextPlugin = require('extract-text-webpack-plugin');
 gulp.task('default', function(){
 	webpack({
 		entry: {
-			'admin/login': './js/admin/login.js'
+			'admin/login': './js/admin/login.js',
+			'admin/index': './js/admin/index.js'
 		},
 
 		output: {

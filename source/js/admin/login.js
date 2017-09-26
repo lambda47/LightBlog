@@ -5,6 +5,7 @@ import 'admin/login.scss';
 import 'bootstrap-switch/dist/js/bootstrap-switch.js';
 import Vue from 'vue';
 import vueForm from 'form.vue';
+import {urls} from 'admin/common'
 
 $(function() {
     Vue.component('vue-form', vueForm);
@@ -51,7 +52,7 @@ $(function() {
             },
             loginSuccess: function(data) {
                 if (data.code == '1000') {
-
+                    document.location.href = urls.view_admin_index;
                 } else {
                     if (!this.username.show_err
                             && data.code == 1102 || data.code == 1104) {

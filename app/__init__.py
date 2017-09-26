@@ -21,9 +21,11 @@ app.config['MONGO_PORT'] = 27017
 app.config['MONGO_DBNAME'] = 'lightblog'
 mongo = PyMongo(app)
 
+app.config['SECRET_KEY'] = 'LIGHTBLOG'
+
+from .admin.index import index as view_admin_index
+app.register_blueprint(view_admin_index, url_prefix = '/admin')
 from .admin.user import user as view_admin_user
 app.register_blueprint(view_admin_user, url_prefix = '/admin/user')
 from .api.user import user as api_user
 app.register_blueprint(api_user, url_prefix = '/user')
-
-app.config['SECRET_KEY'] = 'LIGHTBLOG'
