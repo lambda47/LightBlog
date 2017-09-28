@@ -17,7 +17,10 @@ class Model(metaclass=ModelMetaclass):
         self.__dict__['_data'] = attrs
 
     def __getattr__(self, item):
-        return self._data[item]
+        if item in self._data:
+            return self._data[item]
+        else:
+            return None
 
     def __setattr__(self, key, value):
         self._data[key] = value

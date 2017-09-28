@@ -1,4 +1,5 @@
 errno = {
+    'AUTH_FAILURE': {'code': 1002, 'msg': '权限不足'},
     'REQUIRE_USERNAME' : {'code': 1102, 'msg': '请填写用户名'},
     'REQUIRE_PASSWORD' : {'code': 1103, 'msg': '请填写密码'},
     'USER_NOT_EXIST': {'code': 1104, 'msg': '用户不存在'},
