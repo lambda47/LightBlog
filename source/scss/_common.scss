@@ -1,5 +1,10 @@
 @import 'reset';
 @import 'mixin';
+@import '../../font/iconfont.css';
+
+$BLUE: #BCD5D1 !default;
+$BLACK: #1D2120 !default;
+$CROWN: #5A5C51 !default;
 
 [v-cloak] {
   display: none;
@@ -12,4 +17,80 @@
 .slide-fade-enter, .slide-fade-leave-to {
   transform: translateX(20px);
   opacity: 0;
+}
+
+.navbar {
+  z-index: 2;
+
+  border: none;
+  background-color: $BLACK;
+  opacity: 0.9;
+}
+
+.menu {
+  position: absolute;
+  top: 0;
+  left:0;
+
+  width: 200px;
+  height: 100%;
+  padding: {
+    top: 70px;
+  }
+
+  background-color: $BLUE;
+
+  ul {
+    width: 100%;
+    padding: {
+      left: 0;
+    }
+
+    list-style: none;
+
+    li {
+      margin: {
+        bottom: 10px;
+      }
+
+      a {
+        display: block;
+
+        height: 40px;
+        width: 100%;
+        padding: {
+          left: 40px;
+        }
+
+        font: 18px/40px 'YimHei';
+        color: #FFFFFF;
+
+        text-decoration: none;
+
+        .iconfont {
+          font-size: 18px;
+
+          margin: {
+            right: 30px;
+          }
+        }
+
+        &:hover, &:visited {
+          text-decoration: none;
+
+          cursor: pointer;
+        }
+
+        &:hover {
+          background-color: $CROWN;
+        }
+      }
+
+      &.seprator {
+        text-align: center;
+        color: #5A5C51;
+        font-size: 15px;
+      }
+    }
+  }
 }

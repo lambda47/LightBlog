@@ -59,7 +59,7 @@ gulp.task('default', function(){
 			}
 		},
 
-		watch: false
+		watch: true
 	}, function(err, stats){
 		console.log(err);
 		console.log(stats.toString());
