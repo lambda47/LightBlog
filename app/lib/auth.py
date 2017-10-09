@@ -8,21 +8,15 @@ def _admin_loggedin():
                     current_user.is_active == True and \
                     current_user.is_admin == True
 
-def admin_login_require(func):
+def admin_login_require(func, mode = 'web'):
 
     @wraps(func)
     def auth_validate(*args, **kwargs):
         if _admin_loggedin():
             return func(*args, **kwargs)
         else:
-            return redirect(url_for('view_admin_user.login'))
-    return auth_validate
-
-def admin_login_require_api(func):
-    @wraps(func)
-    def auth_validate(*args, **kwargs):
-        if _admin_loggedin():
-            return func(*args, **kwargs)
-        else:
-            raise Exception('AUTH_FAILURE')
+            if mode == 'api':
+                raise Exception('AUTH_FAILURE')
+            else:
+                return redirect(url_for('view_admin_user.login'))
     return auth_validate
