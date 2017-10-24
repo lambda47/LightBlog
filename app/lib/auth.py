@@ -3,7 +3,7 @@ from flask import url_for
 from flask_login import current_user
 from functools import wraps
 
-def _admin_loggedin():
+def admin_loggedin():
     return current_user.is_authenticated == True and \
                     current_user.is_active == True and \
                     current_user.is_admin == True
@@ -12,7 +12,7 @@ def admin_login_require(func, mode = 'web'):
 
     @wraps(func)
     def auth_validate(*args, **kwargs):
-        if _admin_loggedin():
+        if admin_loggedin():
             return func(*args, **kwargs)
         else:
             if mode == 'api':
