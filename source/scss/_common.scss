@@ -5,6 +5,7 @@
 $BLUE: #BCD5D1 !default;
 $BLACK: #1D2120 !default;
 $CROWN: #5A5C51 !default;
+$WHITE: #FFFFFF !default;
 
 [v-cloak] {
   display: none;
@@ -25,6 +26,20 @@ $CROWN: #5A5C51 !default;
   border: none;
   background-color: $BLACK;
   opacity: 0.9;
+
+  li.dropdown {
+    > a {
+      background-color: $BLACK;
+    }
+
+    &.open > a, > a:hover {
+      background-color: $CROWN;
+    }
+  }
+
+  a {
+    color: $WHITE;
+  }
 }
 
 .menu {
@@ -49,6 +64,8 @@ $CROWN: #5A5C51 !default;
     list-style: none;
 
     li {
+      position: relative;
+
       margin: {
         bottom: 10px;
       }
@@ -84,12 +101,54 @@ $CROWN: #5A5C51 !default;
         &:hover {
           background-color: $CROWN;
         }
+
+        .icon-more {
+          display: block;
+          position: absolute;
+          right: 10px;
+          top: 10px;
+          z-index: 2;
+
+          width: 20px;
+          height: 20px;
+          margin-right: 0;
+
+          color: $WHITE;
+          line-height: 20px;
+
+          transform: rotate(90deg);
+          transition: transform 0.5s;
+        }
+
+        &.collapsed .icon-more {
+            transform:rotate(180deg);
+            transition:transform 0.5s;
+        }
       }
 
       &.seprator {
         text-align: center;
         color: #5A5C51;
         font-size: 15px;
+      }
+
+      ul {
+        margin-top: 10px;
+
+        li {
+          a {
+            padding-left: 60px;
+
+            font-size: 15px;
+
+            .iconfont {
+              margin-right: 20px;
+
+              font-size: 12px;
+              font-weight: bold;
+            }
+          }
+        }
       }
     }
   }
