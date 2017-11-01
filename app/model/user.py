@@ -19,18 +19,6 @@ class User(UserMixin, Model):
         return self._id
 
     @classmethod
-    def find(cls, id):
-        """根据用户Id查找用户
-
-        :param id: 用户Id
-        :return: 查找结果
-        """
-        if not isinstance(id, ObjectId):
-            id = ObjectId(id)
-        user = User.db.find_one({'_id': id})
-        return result(user, User)
-
-    @classmethod
     def findByUsername(cls, username):
         """根据用户名查找用户
 
@@ -38,4 +26,4 @@ class User(UserMixin, Model):
         :return: 查找结果
         """
         user = User.db.find_one({'username': username})
-        return result(user, User)
+        return result(user, cls)

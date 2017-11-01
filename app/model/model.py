@@ -1,4 +1,6 @@
 from .. import mongo
+from bson.objectid import ObjectId
+from ..lib.result import result
 
 class ModelMetaclass(type):
     def __new__(cls, name, bases, attrs):
@@ -24,3 +26,30 @@ class Model(metaclass=ModelMetaclass):
 
     def __setattr__(self, key, value):
         self._data[key] = value
+
+    @classmethod
+    def find(cls, id):
+        """根据用户Id查找数据
+
+        :param id: 用户Id
+        :return: 查找结果
+        """
+        if not isinstance(id, ObjectId):
+            id = ObjectId(id)
+        data = cls.db.find_one({'_id': id})
+        return result(data, cls)
+
+    @classmethod
+    def add(cls, obj):
+        """添加文档
+
+        param obj: 文档数据
+        """
+        return cls.db.insert_one(obj._data).inserted_id
+
+    def save(self):
+        """保存文档"""
+        id = self._id
+        data = self._data
+        del data['_id']
+        return self.db.find_one_and_update({'_id': id}, {'$set': data})
