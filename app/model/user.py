@@ -25,7 +25,7 @@ class User(UserMixin, Model):
         return self._id
 
     @classmethod
-    def findByUsername(cls, username):
+    def find_by_username(cls, username):
         """根据用户名查找用户
 
         :param username: 用户名
