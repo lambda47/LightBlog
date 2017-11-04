@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    {% block head %}
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="${ url_for('static', filename='admin/common.css') }">
+    <script src="${ url_for('static', filename='admin/common.js') }"></script>
+    {% endblock %}
+</head>
+<body>
+    {% include 'admin/common/nav.html' ignore missing %}
+    {% include 'admin/common/menu.html' ignore missing %}
+    <div class="content">{% block content %}{% endblock %}</div>
+    <footer></footer>
+</body>
+</html>
