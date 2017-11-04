@@ -29,7 +29,7 @@ class Model(metaclass=ModelMetaclass):
 
     @classmethod
     def find(cls, id):
-        """根据用户Id查找数据
+        """根据Id查找数据
 
         :param id: 用户Id
         :return: 查找结果
@@ -40,10 +40,19 @@ class Model(metaclass=ModelMetaclass):
         return result(data, cls)
 
     @classmethod
+    def find_all(cls):
+        """ 获取全部数据
+
+        :return: 查找结果
+        """
+        return result(cls.db.find(), cls)
+
+    @classmethod
     def add(cls, obj):
         """添加文档
 
         param obj: 文档数据
+        :return
         """
         return cls.db.insert_one(obj._data).inserted_id
 
@@ -53,3 +62,7 @@ class Model(metaclass=ModelMetaclass):
         data = self._data
         del data['_id']
         return self.db.find_one_and_update({'_id': id}, {'$set': data})
+
+    def as_dict(self):
+        """转换为字典格式"""
+        return self._data

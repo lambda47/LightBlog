@@ -1,4 +1,4 @@
-from bson.objectid import ObjectId
+from flask import session
 from flask_login import UserMixin
 
 from ..lib.result import result
@@ -9,7 +9,13 @@ from .model import Model
 
 @login_manager.user_loader
 def load_user(userid):
-    return User.find(userid)
+    """查找指定Id的用户，会现查找session，然后查找Mongodb"""
+    if 'user' in session and str(session['user']['_id']) == userid:
+        return User(session['user'])
+    else:
+        user = User.find(userid)
+        session['user'] = user.as_dict()
+        return user
 
 class User(UserMixin, Model):
     """用户"""
