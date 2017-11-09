@@ -10,7 +10,6 @@ class Tag(Model):
         """根据名称模糊匹配标签"""
         if name:
             name_rexexp = re.compile('.*{}.*'.format(name), re.IGNORECASE)
-            print(name_rexexp)
             return result(cls.db.find({'name': name_rexexp}), cls)
         else:
             return cls.find_all()
