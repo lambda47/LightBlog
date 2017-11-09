@@ -24,8 +24,15 @@ mongo = PyMongo(app)
 app.config['SECRET_KEY'] = 'LIGHTBLOG'
 
 from .admin.index import index as view_admin_index
-app.register_blueprint(view_admin_index, url_prefix = '/admin')
+app.register_blueprint(view_admin_index, url_prefix='/admin')
 from .admin.user import user as view_admin_user
-app.register_blueprint(view_admin_user, url_prefix = '/admin/user')
+app.register_blueprint(view_admin_user, url_prefix='/admin/user')
+# 管理后台标签设置页
+from .admin.tag import tag as view_admin_tag
+app.register_blueprint(view_admin_tag, url_prefix='/admin/tags')
+# 用户接口
 from .api.user import user as api_user
-app.register_blueprint(api_user, url_prefix = '/user')
+app.register_blueprint(api_user, url_prefix='/user')
+# 标签接口
+from .api.tag import tag as api_tag
+app.register_blueprint(api_tag, url_prefix='/tag')
