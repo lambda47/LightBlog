@@ -1,3 +1,5 @@
+from pymongo.cursor import Cursor
+
 def result(result, t):
     """ 包装查找结果
 
@@ -11,7 +13,7 @@ def result(result, t):
     elif isinstance(result, dict):
         return t(result)
     # 查找结果为多个文档集合
-    elif isinstance(result, list):
+    elif isinstance(result, Cursor):
         return ResultList(t, result)
     else:
         raise Exception('参数类型错误')
@@ -25,7 +27,7 @@ class ResultList:
         self.iter = iter(self.results)
 
     def __iter__(self):
-        return self.iter
+        return self
 
     def __next__(self):
         return self.type(next(self.iter))
