@@ -6,6 +6,9 @@ $BLUE: #BCD5D1 !default;
 $BLACK: #1D2120 !default;
 $CROWN: #5A5C51 !default;
 $WHITE: #FFFFFF !default;
+$GRAY: #F7F7F7 !default;
+$PINK: #FBE7E6 !default;
+$RED: #FF0000 !default;
 
 [v-cloak] {
   display: none;
@@ -20,8 +23,22 @@ $WHITE: #FFFFFF !default;
   opacity: 0;
 }
 
+html {
+  height: 100%;
+}
+
+body {
+  position: relative;
+
+  min-height: 100%;
+}
+
 .navbar {
   z-index: 2;
+
+  margin: {
+    bottom: 0;
+  }
 
   border: none;
   background-color: $BLACK;

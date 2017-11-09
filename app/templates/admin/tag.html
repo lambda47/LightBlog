@@ -1,10 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'admin/base.html' %}
+{% block title %}标签{% endblock %}
+{% block head %}
+    ${ super() }
+    <link rel="stylesheet" href="${ url_for('static', filename='admin/tag.css') }">
+    <script src="${ url_for('static', filename='admin/tag.js') }"></script>
+{% endblock %}
+{% block content %}
+<div class="content-header">
+    <div class="search-bar">
+        <input type="text" /><button class="search-btn iconfont icon-search"></button>
+    </div>
+    <button class="add-btn iconfont icon-add">&nbsp;新增</button>
+</div>
+<div class="content-main container-fluid">
+    <div class="col-lg-3 col-xs-6">
+        <div class="tag-box">
+            <img class="tag-box-icon" />
+            <span class="tag-box-title">测试标签</span>
+            <div class="tag-box-control">
+                <a class="del-btn iconfont icon-delete"></a>
+                <a class="edit-btn iconfont icon-edit"></a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

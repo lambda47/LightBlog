@@ -6,7 +6,8 @@ gulp.task('default', function(){
 	webpack({
 		entry: {
 			'admin/login': './js/admin/login.js',
-			'admin/index': './js/admin/index.js'
+			'admin/index': './js/admin/index.js',
+			'admin/tag': './js/admin/tag.js'
 		},
 
 		output: {
