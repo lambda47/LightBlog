@@ -10,18 +10,33 @@
     <div class="search-bar">
         <input type="text" v-model="name" /><button class="search-btn iconfont icon-search" @click="findTags"></button>
     </div>
-    <button class="add-btn iconfont icon-add">&nbsp;新增</button>
+    <button class="add-btn iconfont icon-add" @click="toAddTag">&nbsp;新增</button>
 </div>
-<div class="content-main container-fluid" v-cloak>
-    <div class="col-lg-3 col-xs-6" v-for="tag in tags">
-        <div class="tag-box" :data-id="tag.id">
-            <img class="tag-box-icon" :src="tag.logo" />
-            <span class="tag-box-title">{{tag.name}}</span>
-            <div class="tag-box-control">
-                <a class="del-btn iconfont icon-delete"></a>
-                <a class="edit-btn iconfont icon-edit"></a>
+<transition-group class="content-main container-fluid" v-cloak name="fade" tag="div">
+    <div class="col-lg-3 col-xs-6" v-for="(tag, index) in tags" :key="tag.id">
+        <div class="tag-box-wrapper" :class="{flipped: index == editingIndex}">
+            <div class="tag-box" :data-index="index">
+                <img class="tag-box-icon" :src="tag.logo" />
+                <span class="tag-box-title">{{tag.name}}</span>
+                <div class="tag-box-control">
+                    <a class="del-btn iconfont icon-delete"></a>
+                    <a class="edit-btn iconfont icon-edit" @click="toEditTag(index)"></a>
+                </div>
             </div>
+            <transition :duration="1000">
+            <div class="tag-box editing" v-if="index == editingIndex">
+                <div class="tag-box-icon-wrapper">
+                    <img :src="tags[editingIndex].logo" class="tag-box-icon" />
+                    <div class="mask"><i class="iconfont icon-add"></i></div>
+                </div>
+                <div class="editor-wraper"><textarea placeholder="标签名...">{{ tags[editingIndex].name }}</textarea></div>
+                <div class="tag-box-control">
+                    <button class="cancel-btn" @click="cancelEdit">取消</button>
+                    <button class="confirm-btn" @click="comfirmEdit">确定</button>
+                </div>
+            </div>
+            </transition>
         </div>
     </div>
-</div>
+</transition-group>
 {% endblock %}

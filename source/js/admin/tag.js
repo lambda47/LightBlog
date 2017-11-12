@@ -11,7 +11,9 @@ $(function () {
         el: '.content',
         data: {
             name: '',
-            tags: []
+            tags: [],
+            mode: null,
+            editingIndex: -1
         },
         methods: {
             findTags: function () {
@@ -20,9 +22,35 @@ $(function () {
                     name: this.name
                 }).then(function (result) {
                     if (result.code == '1000') {
+                        _this.editingIndex = -1;
                         _this.tags = result.data.tags;
                     }
                 });
+            },
+            toEditTag: function(index) {
+                if (this.mode == 'add') {
+                    this.cancelEdit();
+                    index--;
+                }
+                this.mode = 'edit';
+                this.editingIndex = index;
+            },
+            cancelEdit: function () {
+                if (this.mode == 'add') {
+                    this.tags.shift();
+                }
+                this.mode = null;
+                this.editingIndex = -1;
+            },
+            comfirmEdit: function () {
+                this.cancelEdit();
+            },
+            toAddTag: function() {
+                if (this.mode != 'add') {
+                    this.mode = 'add';
+                    this.tags.unshift({'id': '', 'name': '', 'logo': ''});
+                    this.editingIndex = 0;
+                }
             }
         },
         created: function () {
