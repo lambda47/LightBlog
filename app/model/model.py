@@ -12,6 +12,9 @@ class ModelMetaclass(type):
         return type.__new__(cls, name, bases, attrs)
 
 class Model(metaclass=ModelMetaclass):
+    #　软删除
+    soft_del_key = None
+
     def __init__(self, attrs = None, **kwattrs):
         if attrs is None:
             attrs = dict()
@@ -36,16 +39,24 @@ class Model(metaclass=ModelMetaclass):
         """
         if not isinstance(id, ObjectId):
             id = ObjectId(id)
-        data = cls.db.find_one({'_id': id})
+        query = {'_id': id}
+        if cls.soft_del_key is not None:
+            query[cls.soft_del_key] = False
+        data = cls.db.find_one(query)
         return result(data, cls)
 
     @classmethod
-    def find_all(cls):
+    def find_all(cls, query = None, **kwargs):
         """ 获取全部数据
 
         :return: 查找结果
         """
-        return result(cls.db.find(), cls)
+        if query is None:
+            query = {}
+        query.update(kwargs)
+        if cls.soft_del_key is not None:
+            query[cls.soft_del_key] = False
+        return result(cls.db.find(query), cls)
 
     @classmethod
     def add(cls, obj):
@@ -54,7 +65,10 @@ class Model(metaclass=ModelMetaclass):
         param obj: 文档数据
         :return
         """
-        return cls.db.insert_one(obj._data).inserted_id
+        data = obj.as_dict()
+        if cls.soft_del_key is not None:
+            data[cls.soft_del_key] = False
+        return cls.db.insert_one(data).inserted_id
 
     def save(self):
         """保存文档"""
