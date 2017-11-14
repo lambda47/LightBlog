@@ -2,7 +2,7 @@
     <div class="tag-box-icon-wrapper" @mouseenter="enterImg()" @mouseleave="leaveImg" @dragenter="enterImg()">
         <img class="image" :src="imgUrl"/>
         <input type="file" ref="file" :name="name" class="file" @change="upload($event)" />
-        <div class="mask" v-show="showUpload()"  @dragleave="leaveImg()" @click="choose" @drop="upload($event)"><i class="iconfont icon-add"></i></div>
+        <div class="mask" v-show="showUpload"  @dragleave="leaveImg()" @click="choose" @drop="upload($event)"><i class="iconfont icon-add"></i></div>
     </div>
 </template>
 
@@ -23,9 +23,6 @@ export default {
     },
 
     methods: {
-        showUpload: function() {
-            return this.imgUrl == '' || this.isHover;
-        },
         enterImg: function() {
             this.isHover = true;
         },
@@ -61,9 +58,14 @@ export default {
         }
     },
 
+    computed: {
+        showUpload: function() {
+            return this.imgUrl == '' || this.isHover;
+        }
+    },
+
     created: function() {
-        this.showUpload();
-                // 阻止浏览器默认drop事件
+        // 阻止浏览器默认drop事件
         ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function (value, index, array) {
                 document.addEventListener(value, function (event) {
                 event.preventDefault();
