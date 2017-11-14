@@ -4,9 +4,12 @@ import 'admin/tag.scss';
 import 'bootstrap/dist/js/bootstrap.js';
 
 import Vue from 'vue';
+import loading from 'loading.vue';
 import {urls} from 'admin/common';
 
 $(function () {
+    Vue.component('vue-loader', loading);
+
     var vm = new Vue({
         el: '.content',
         data: {
@@ -18,14 +21,19 @@ $(function () {
         methods: {
             findTags: function () {
                 var _this = this;
+                this.$refs.loader.show();
                 $.post(urls.api_tags_find, {
                     name: this.name
                 }).then(function (result) {
+                    _this.$refs.loader.hide();
                     if (result.code == '1000') {
                         _this.editingIndex = -1;
                         _this.tags = result.data.tags;
                     }
                 });
+            },
+            isEditing: function(index) {
+                return this.editingIndex == index;
             },
             toEditTag: function(index) {
                 if (this.mode == 'add') {
@@ -53,7 +61,7 @@ $(function () {
                 }
             }
         },
-        created: function () {
+        mounted: function () {
             this.findTags();
         }
     });

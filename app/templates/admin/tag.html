@@ -14,7 +14,7 @@
 </div>
 <transition-group class="content-main container-fluid" v-cloak name="fade" tag="div">
     <div class="col-lg-3 col-xs-6" v-for="(tag, index) in tags" :key="tag.id">
-        <div class="tag-box-wrapper" :class="{flipped: index == editingIndex}">
+        <div class="tag-box-wrapper" :class="{flipped: isEditing(index)}">
             <div class="tag-box" :data-index="index">
                 <img class="tag-box-icon" :src="tag.logo" />
                 <span class="tag-box-title">{{tag.name}}</span>
@@ -24,12 +24,12 @@
                 </div>
             </div>
             <transition :duration="1000">
-            <div class="tag-box editing" v-if="index == editingIndex">
+            <div class="tag-box editing" v-if="isEditing(index)">
                 <div class="tag-box-icon-wrapper">
-                    <img :src="tags[editingIndex].logo" class="tag-box-icon" />
+                    <img v-if="tag.logo != ''" :src="tag.logo" class="tag-box-icon" />
                     <div class="mask"><i class="iconfont icon-add"></i></div>
                 </div>
-                <div class="editor-wraper"><textarea placeholder="标签名...">{{ tags[editingIndex].name }}</textarea></div>
+                <div class="editor-wraper"><textarea placeholder="标签名...">{{ tag.name }}</textarea></div>
                 <div class="tag-box-control">
                     <button class="cancel-btn" @click="cancelEdit">取消</button>
                     <button class="confirm-btn" @click="comfirmEdit">确定</button>
@@ -39,4 +39,5 @@
         </div>
     </div>
 </transition-group>
+<vue-loader ref="loader"></vue-loader>
 {% endblock %}
