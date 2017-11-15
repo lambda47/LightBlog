@@ -4,3 +4,4 @@ venv/
 app/static/
 flask_session/
 *.pyc
+upload/
