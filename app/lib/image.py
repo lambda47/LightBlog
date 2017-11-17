@@ -2,11 +2,14 @@ from PIL import Image as PILImage
 from functools import wraps
 
 class Image:
+    """对PIL Image对象进行包装，添加自定义方法"""
+
     def __init__(self, im):
         self.im = im
 
     @staticmethod
     def open(filename):
+        """创建Image对象"""
         return Image(PILImage.open(filename))
 
     def __getattr__(self, item):
@@ -25,9 +28,9 @@ class Image:
         """
         生成缩略图
         :param self:
-        :param width:
-        :param height:
-        :return:
+        :param width: 缩略图宽度
+        :param height: 缩略图高度
+        :return: Image对象
         """
 
         ori_w, ori_h = self.im.size
