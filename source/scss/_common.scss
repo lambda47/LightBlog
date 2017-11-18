@@ -184,3 +184,12 @@ body {
     }
   }
 }
+
+.loading {
+  position: absolute;
+  top: 0;
+  left: 50%;
+
+  margin-top: 250px !important;
+  transform: translate3d(-50%, 0, 0);
+}

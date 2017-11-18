@@ -1,6 +1,6 @@
 <template>
     <div class="tag-box-icon-wrapper" @mouseenter="enterImg()" @mouseleave="leaveImg" @dragenter="enterImg()">
-        <img class="image" :src="imgUrl"/>
+        <img class="image" :src="img"/>
         <input type="file" ref="file" :name="name" class="file" @change="upload($event)" />
         <div class="mask" v-show="showUpload"  @dragleave="leaveImg()" @click="choose" @drop="upload($event)"><i class="iconfont icon-add"></i></div>
     </div>
@@ -17,8 +17,7 @@ export default {
 
     data: function() {
         return {
-            isHover: false,
-            imgUrl: this.img
+            isHover: false
         };
     },
 
@@ -60,7 +59,7 @@ export default {
 
     computed: {
         showUpload: function() {
-            return this.imgUrl == '' || this.isHover;
+            return this.img == '' || this.isHover;
         }
     },
 

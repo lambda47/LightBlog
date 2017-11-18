@@ -8,10 +8,11 @@ class Tag(Model):
     timestamps = True
 
     @classmethod
-    def find_by_name(cls, name):
+    def find_by_name(cls, name, fuzzy = True):
         """根据名称模糊匹配标签"""
         if name:
-            name_rexexp = re.compile('.*{}.*'.format(name), re.IGNORECASE)
-            return cls.find_all({'name': name_rexexp}).sort({'created_at': -1})
+            if fuzzy:
+                name = re.compile('.*{}.*'.format(name), re.IGNORECASE)
+            return cls.find_all({'name': name}).sort('created_at', pymongo.DESCENDING)
         else:
             return cls.find_all().sort('created_at', pymongo.DESCENDING)
