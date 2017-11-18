@@ -1,4 +1,5 @@
 from pymongo.cursor import Cursor
+from functools import wraps
 
 def result(result, t):
     """ 包装查找结果
@@ -25,6 +26,18 @@ class ResultList:
         self.results = results_list
         self.type = t
         self.iter = iter(self.results)
+
+    def __getattr__(self, item):
+        attr = getattr(self.results, item)
+        if callable(attr):
+            @wraps(attr)
+            def func(*args, **kwargs):
+                self.results = attr(*args, **kwargs)
+                return self
+            return func
+        else:
+            return attr
+
 
     def __iter__(self):
         return self

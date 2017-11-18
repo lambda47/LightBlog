@@ -1,6 +1,7 @@
 from .. import mongo
 from bson.objectid import ObjectId
 from ..lib.result import result
+import datetime
 
 class ModelMetaclass(type):
     def __new__(cls, name, bases, attrs):
@@ -14,6 +15,8 @@ class ModelMetaclass(type):
 class Model(metaclass=ModelMetaclass):
     #　软删除
     soft_del_key = None
+    # 是否添加时间字段（创建时间，更新时间）
+    timestamps = False
 
     def __init__(self, attrs = None, **kwattrs):
         if attrs is None:
@@ -68,6 +71,10 @@ class Model(metaclass=ModelMetaclass):
         data = obj.as_dict()
         if cls.soft_del_key is not None:
             data[cls.soft_del_key] = False
+        if cls.timestamps:
+            now = datetime.datetime.utcnow()
+            data['created_at'] = now
+            data['updated_at'] = now
         return cls.db.insert_one(data).inserted_id
 
     def save(self):
@@ -75,6 +82,8 @@ class Model(metaclass=ModelMetaclass):
         id = self._id
         data = self._data
         del data['_id']
+        if self.timestamps:
+            data['updated_at'] = datetime.datetime.utcnow()
         return self.db.find_one_and_update({'_id': id}, {'$set': data})
 
     def as_dict(self):
