@@ -28,12 +28,17 @@ class ResultList:
         self.iter = iter(self.results)
 
     def __getattr__(self, item):
+        """映射 pymongo Cursor；方法和属性"""
         attr = getattr(self.results, item)
         if callable(attr):
             @wraps(attr)
             def func(*args, **kwargs):
-                self.results = attr(*args, **kwargs)
-                return self
+                result = attr(*args, **kwargs)
+                if isinstance(result, Cursor):
+                    self.results = result
+                    return self
+                else:
+                    return result
             return func
         else:
             return attr
@@ -44,6 +49,3 @@ class ResultList:
 
     def __next__(self):
         return self.type(next(self.iter))
-
-    def __len__ (self):
-        return len(self.results)

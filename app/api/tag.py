@@ -33,8 +33,9 @@ def add_tag():
         raise Exception('TAG_NAME_PARAM_EMPTY')
     if logo == '':
         raise Exception('TAG_LOGO_PARAM_EMPTY')
+    # 是否存在同名标签
     tags = Tag.find_by_name(name, False)
-    if tags is not None:
+    if tags.count() > 0:
         raise Exception('TAG_ALREADY_EXIST')
     id = Tag.add(Tag(name=name, logo=logo))
     return {'id': str(id)}
@@ -48,10 +49,19 @@ def edit_tag():
     name = request.form.get('name', '')
     logo = request.form.get('logo', '')
 
+    if id == '':
+        raise Exception('TAG_NOT_EXIST')
+    if name == '':
+        raise Exception('TAG_NAME_PARAM_EMPTY')
     tag = Tag.find(id)
     if tag is None:
         raise Exception('TAG_NOT_EXIST')
-
+    # 是否存在其他同名标签
+    if name != tag.name:
+        tags = Tag.find_by_name(name, False)
+        if tags.count() > 0:
+            raise Exception('TAG_ALREADY_EXIST')
     tag.name = name
-    tag.logo = logo
+    if logo != '':
+        tag.logo = logo
     tag.save()

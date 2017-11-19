@@ -53,13 +53,14 @@ $(function () {
                 this.editingTag.index = index;
                 this.editingTag.name = this.tags[index].name;
                 this.editingTag.logo = this.tags[index].logo;
+                this.editingTag.path = '';
             },
             cancelEdit: function () {
+                if (this.mode == 'add') {
+                    this.tags.shift();
+                }
                 this.mode = null;
                 this.editingTag.index = -1;
-                this.editingTag.name = '';
-                this.editingTag.logo = '';
-                this.editingTag.path = '';
             },
             comfirmEdit: function () {
                 if (this.mode == 'add') {
@@ -71,13 +72,27 @@ $(function () {
                             this.tags[this.editingTag.index].name = this.editingTag.name;
                             this.tags[this.editingTag.index].logo = this.editingTag.logo;
                             this.tags[this.editingTag.index].id = result.data.id;
-                            this.cancelEdit();
+                            this.mode = null;
+                            this.editingTag.index = -1;
                         } else {
                             alert(result.msg);
                         }
                     }.bind(this));
                 } else {
-
+                    $.post(urls.api_tags_edit, {
+                        'id': this.tags[this.editingTag.index].id,
+                        'name': this.editingTag.name,
+                        'logo': this.editingTag.path
+                    }).then(function (result) {
+                        if (result.code == '1000') {
+                            this.tags[this.editingTag.index].name = this.editingTag.name;
+                            this.tags[this.editingTag.index].logo = this.editingTag.logo;
+                            this.mode = null;
+                            this.editingTag.index = -1;
+                        } else {
+                            alert(result.msg);
+                        }
+                    }.bind(this));
                 }
 
             },
@@ -93,6 +108,7 @@ $(function () {
                     this.editingTag.index = 0;
                     this.editingTag.name = '';
                     this.editingTag.logo = '';
+                    this.editingTag.path = '';
                 }
             },
             imageUploaded: function (result) {
