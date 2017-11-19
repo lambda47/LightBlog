@@ -89,3 +89,13 @@ class Model(metaclass=ModelMetaclass):
     def as_dict(self):
         """转换为字典格式"""
         return self._data
+
+    def remove(self):
+        """删除文档"""
+        if self.soft_del_key is None:
+            return self.db.delete_one({'_id': self.id})
+        else:
+            setattr(self, self.soft_del_key, True)
+            self.updated_at = datetime.datetime.utcnow()
+            return self.save()
+

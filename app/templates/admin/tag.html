@@ -19,7 +19,7 @@
                 <img v-show="tag.logo" class="tag-box-icon" :src="tag.logo" />
                 <span class="tag-box-title">{{tag.name}}</span>
                 <div class="tag-box-control">
-                    <a class="del-btn iconfont icon-delete"></a>
+                    <a class="del-btn iconfont icon-delete" @click="toDelTag(index)"></a>
                     <a class="edit-btn iconfont icon-edit" @click="toEditTag(index)"></a>
                 </div>
             </div>

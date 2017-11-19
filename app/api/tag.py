@@ -65,3 +65,17 @@ def edit_tag():
     if logo != '':
         tag.logo = logo
     tag.save()
+
+@tag.route('/del', methods=['POST'])
+@apiview
+@admin_login_require('api')
+def del_tag():
+    """删除标签"""
+    id = request.form.get('id', '')
+
+    if id == '':
+        raise Exception('TAG_NOT_EXIST')
+    tag = Tag.find(id)
+    if tag is None:
+        raise Exception('TAG_NOT_EXIST')
+    tag.remove()

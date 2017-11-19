@@ -24,9 +24,13 @@ $(function () {
                path: ''
             },
             mode: null,
+            key: 0,
             uploadAction: urls.api_upload_image
         },
         methods: {
+            nextKey: function () {
+                return this.key++;
+            },
             findTags: function () {
                 this.cancelEdit();
                 $.post(urls.api_tags_find, {
@@ -35,8 +39,8 @@ $(function () {
                     if (result.code == '1000') {
                         this.editingTag.index = -1;
                         result.data.tags.map(function(value, index, array) {
-                            value.key = array.length - index - 1;
-                        });
+                            value.key = this.nextKey();
+                        }.bind(this));
                         this.tags = result.data.tags;
                     }
                 }.bind(this));
@@ -103,12 +107,24 @@ $(function () {
                         id: '',
                         name: '',
                         logo: '',
-                        key: this.tags.length
+                        key: this.nextKey()
                     });
                     this.editingTag.index = 0;
                     this.editingTag.name = '';
                     this.editingTag.logo = '';
                     this.editingTag.path = '';
+                }
+            },
+            toDelTag: function(index) {
+                var result = confirm('是否确认删除标签');
+                if (result) {
+                    $.post(urls.api_tags_del, {
+                        id: this.tags[index].id
+                    }).then(function (result) {
+                        if (result.code == '1000') {
+                           this.tags.splice(index, 1);
+                        }
+                    }.bind(this));
                 }
             },
             imageUploaded: function (result) {
