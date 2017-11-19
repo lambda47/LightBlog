@@ -1,6 +1,7 @@
 from functools import wraps
 from flask import jsonify
 from ..config.errno import errno
+import traceback
 
 def apiview(func):
     @wraps(func)
@@ -21,6 +22,7 @@ def apiview(func):
                 err = errno[err_type]
                 code, msg = err['code'], err['msg']
             else:
+                traceback.print_exc()
                 code, msg = 1001, '未知错误'
             return jsonify({
                 'code': code,
