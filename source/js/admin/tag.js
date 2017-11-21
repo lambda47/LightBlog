@@ -9,7 +9,6 @@ import imageUpload from 'imageUpload.vue';
 import {urls} from 'admin/common';
 
 $(function () {
-    Vue.component('vue-loader', loading);
     Vue.component('vue-img-uploader', imageUpload);
 
     var vm = new Vue({
