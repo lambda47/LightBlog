@@ -4,14 +4,13 @@ import 'admin/tag.scss';
 import 'bootstrap/dist/js/bootstrap.js';
 
 import Vue from 'vue';
-import loading from 'loading.vue';
 import imageUpload from 'imageUpload.vue';
 import {urls} from 'admin/common';
 
 $(function () {
     Vue.component('vue-img-uploader', imageUpload);
 
-    var vm = new Vue({
+    let vm = new Vue({
         el: '.content',
         data: {
             name: '',
@@ -27,27 +26,27 @@ $(function () {
             uploadAction: urls.api_upload_image
         },
         methods: {
-            nextKey: function () {
+            nextKey() {
                 return this.key++;
             },
-            findTags: function () {
+            findTags() {
                 this.cancelEdit();
                 $.post(urls.api_tags_find, {
                     name: this.name
-                }).then(function (result) {
+                }).then(result => {
                     if (result.code == '1000') {
                         this.editingTag.index = -1;
-                        result.data.tags.map(function(value, index, array) {
+                        result.data.tags.map((value, index, array) => {
                             value.key = this.nextKey();
-                        }.bind(this));
+                        });
                         this.tags = result.data.tags;
                     }
-                }.bind(this));
+                });
             },
-            isEditing: function(index) {
+            isEditing(index) {
                 return this.editingTag.index == index;
             },
-            toEditTag: function(index) {
+            toEditTag(index) {
                 if (this.mode == 'add') {
                     this.tags.shift();
                     index--;
@@ -58,19 +57,19 @@ $(function () {
                 this.editingTag.logo = this.tags[index].logo;
                 this.editingTag.path = '';
             },
-            cancelEdit: function () {
+            cancelEdit() {
                 if (this.mode == 'add') {
                     this.tags.shift();
                 }
                 this.mode = null;
                 this.editingTag.index = -1;
             },
-            comfirmEdit: function () {
+            comfirmEdit() {
                 if (this.mode == 'add') {
                     $.post(urls.api_tags_add, {
                         'name': this.editingTag.name,
                         'logo': this.editingTag.path
-                    }).then(function (result) {
+                    }).then(result => {
                         if (result.code == '1000') {
                             this.tags[this.editingTag.index].name = this.editingTag.name;
                             this.tags[this.editingTag.index].logo = this.editingTag.logo;
@@ -80,13 +79,13 @@ $(function () {
                         } else {
                             alert(result.msg);
                         }
-                    }.bind(this));
+                    });
                 } else {
                     $.post(urls.api_tags_edit, {
                         'id': this.tags[this.editingTag.index].id,
                         'name': this.editingTag.name,
                         'logo': this.editingTag.path
-                    }).then(function (result) {
+                    }).then(result => {
                         if (result.code == '1000') {
                             this.tags[this.editingTag.index].name = this.editingTag.name;
                             this.tags[this.editingTag.index].logo = this.editingTag.logo;
@@ -95,11 +94,11 @@ $(function () {
                         } else {
                             alert(result.msg);
                         }
-                    }.bind(this));
+                    });
                 }
 
             },
-            toAddTag: function() {
+            toAddTag() {
                 if (this.mode != 'add') {
                     this.mode = 'add';
                     this.tags.unshift({
@@ -114,26 +113,26 @@ $(function () {
                     this.editingTag.path = '';
                 }
             },
-            toDelTag: function(index) {
-                var result = confirm('是否确认删除标签');
+            toDelTag(index) {
+                let result = confirm('是否确认删除标签');
                 if (result) {
                     $.post(urls.api_tags_del, {
                         id: this.tags[index].id
-                    }).then(function (result) {
+                    }).then(result => {
                         if (result.code == '1000') {
                            this.tags.splice(index, 1);
                         }
-                    }.bind(this));
+                    });
                 }
             },
-            imageUploaded: function (result) {
+            imageUploaded(result) {
                 if (result.code == '1000') {
                     this.editingTag.logo = result.data.url;
                     this.editingTag.path = result.data.path;
                 }
             }
         },
-        mounted: function () {
+        created() {
             this.findTags();
         }
     });

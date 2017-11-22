@@ -10,7 +10,7 @@ import {urls} from 'admin/common'
 $(function() {
     Vue.component('vue-form', vueForm);
 
-    var vm = new Vue({
+    let vm = new Vue({
         el: '#login-panel',
         data: {
             username: {
@@ -25,14 +25,14 @@ $(function() {
             }
         },
         methods: {
-            clearErrMsg: function(event) {
+            clearErrMsg(event) {
                 if (event.target.name == 'username') {
                     this.username.show_err = false;
                 } else if (event.target.name == 'password') {
                     this.password.show_err = false;
                 }
             },
-            loginValid: function () {
+            loginValid() {
                 if (this.username.value == '') {
                     this.username.err_msg = '请输入用户名';
                     this.username.show_err = true;
@@ -50,7 +50,7 @@ $(function() {
                 }
                 return true;
             },
-            loginSuccess: function(data) {
+            loginSuccess(data) {
                 if (data.code == '1000') {
                     document.location.href = urls.view_admin_index;
                 } else {
@@ -66,7 +66,7 @@ $(function() {
                 }
             }
         },
-        mounted: function () {
+        mounted() {
             this.$nextTick(function() {
                 $(":checkbox[name='remember_me']").bootstrapSwitch();
             });

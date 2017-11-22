@@ -15,35 +15,34 @@ export default {
         params: {type: Object, default: {}}
     },
 
-    data: function() {
+    data() {
         return {
             isHover: false
         };
     },
 
     methods: {
-        enterImg: function() {
+        enterImg() {
             this.isHover = true;
         },
-        leaveImg: function() {
+        leaveImg() {
             this.isHover = false;
         },
-        choose: function() {
+        choose() {
             this.$refs.file.click();
         },
-        upload: function(event) {
+        upload(event) {
             if (event.type == 'change') {
                 var file = this.$refs.file.files[0];
             } else {
                 var file = event.dataTransfer.files[0];
             }
-            var formData = new FormData();
+            let formData = new FormData();
             formData.append(this.$refs.file.name, file);
-            var params = this.params;
-            for (var key in params) {
+            let params = this.params;
+            for (let key in params) {
                 formData.append(key, params[key]);
             }
-            var _this = this;
             $.ajax({
                 url: this.action,
                 type: 'post',
@@ -51,22 +50,22 @@ export default {
                 cache: false,
                 processData: false,
                 contentType: false,
-            }).then(function(data) {
-                _this.$emit('result', data);
+            }).then(data => {
+                this.$emit('result', data);
             });
         }
     },
 
     computed: {
-        showUpload: function() {
+        showUpload() {
             return this.img == '' || this.isHover;
         }
     },
 
-    created: function() {
+    created() {
         // 阻止浏览器默认drop事件
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(function (value, index, array) {
-                document.addEventListener(value, function (event) {
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((value, index, array) => {
+                document.addEventListener(value, event => {
                 event.preventDefault();
             }, false);
         })

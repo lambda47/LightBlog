@@ -12,25 +12,23 @@ export default {
         action: {type: 'String', default: ''}
     },
 
-    mounted: function() {
-        var that = this;
-
+    mounted() {
         $(this.$el).ajaxForm({
-            url: that.action,
+            url: this.action,
             dataType: 'json',
-            beforeSubmit: function(arr, $form, action) {
-                var result = that.$emit('valid');
+            beforeSubmit: (arr, $form, action) => {
+                let result = this.$emit('valid');
                 if (result == false) {
                     return false;
                 }
-                var submitArr = that.$emit('before', arr);
+                let submitArr = this.$emit('before', arr);
                 return submitArr;
             },
-            success: function(data, statusText) {
-                that.$emit('success', data);
+            success: (data, statusText) => {
+                this.$emit('success', data);
             },
-            error: function(data) {
-                that.$emit('error', data)
+            error: data => {
+                this.$emit('error', data)
             }
 
         });

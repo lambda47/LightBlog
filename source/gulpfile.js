@@ -18,12 +18,42 @@ gulp.task('default', function(){
 		module: {
 			rules: [
 				{
+					test: /\.js$/,
+                    exclude: /node_modules/,
+					use: {
+					    loader: 'babel-loader',
+                        options: {
+					        presets: ['es2015']
+                        }
+                    }
+
+				},
+				{
 					test: /\.scss$/,
-					use: extractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader?minimize=true!sass-loader'})
+					use: extractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: [{
+                                loader: 'css-loader',
+                                options: {
+                                    minimize: true
+                                }
+                            },
+                            {
+                                loader: 'sass-loader'
+                            }]
+					})
 				},
 				{
 					test: /\.css$/,
-					use: extractTextPlugin.extract({fallback: 'style-loader', use: 'css-loader?minimize=true'})
+					use: extractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: {
+                            loader: 'css-loader',
+                            options: {
+                                minimize: true
+                            }
+                        }
+					})
 				},
 				{
 					test: /\.(ttf|eot|svg|woff|woff2)$/,
@@ -31,7 +61,12 @@ gulp.task('default', function(){
 				},
 				{
 					test: /\.(jpe?g|gif|png)$/,
-					use: 'url-loader?limit=10240'
+					use: {
+					    loader: 'url-loader',
+                        options: {
+					        limit: 10240
+                        }
+                    }
 				},
 				{
 					test: /\.vue$/,
