@@ -70,7 +70,19 @@ gulp.task('default', function(){
 				},
 				{
 					test: /\.vue$/,
-					use: 'vue-loader'
+					use: {
+					    loader: 'vue-loader',
+                        options: {
+					        loaders: {
+					            js: {
+					                loader: 'babel-loader',
+                                    options: {
+					                    presets: ['es2015']
+                                    }
+                                }
+                            }
+                        }
+                    }
 				}
 			]
 		},
@@ -83,7 +95,7 @@ gulp.task('default', function(){
 				jQuery: 'jquery',
 				'window.jQuery': 'jquery'
 			}),
-			new webpack.optimize.UglifyJsPlugin()
+			// new webpack.optimize.UglifyJsPlugin()
 		],
 
 		resolve: {
@@ -95,7 +107,8 @@ gulp.task('default', function(){
 			}
 		},
 
-		watch: true
+		watch: true,
+
 	}, function(err, stats){
 		console.log(err);
 		console.log(stats.toString());
