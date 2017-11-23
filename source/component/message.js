@@ -1,0 +1,25 @@
+import Message from 'message.vue';
+
+export default {
+    install(Vue, options) {
+        let props = options || {duration: 2};
+
+        const instance = new Vue({
+            data: props,
+            render: function (createElement) {
+                return createElement(Message, {
+                    props: props
+                });
+            }
+        });
+
+        const component = instance.$mount();
+        document.body.appendChild(component.$el);
+        const message = instance.$children[0];
+
+        Vue.prototype.$message = {
+            error: message.error,
+            close: message.close
+        };
+    }
+};
