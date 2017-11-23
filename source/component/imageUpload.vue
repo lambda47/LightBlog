@@ -32,16 +32,16 @@ export default {
             this.$refs.file.click();
         },
         upload(event) {
+            let file = null;
             if (event.type == 'change') {
-                var file = this.$refs.file.files[0];
+                file = this.$refs.file.files[0];
             } else {
-                var file = event.dataTransfer.files[0];
+                file = event.dataTransfer.files[0];
             }
             let formData = new FormData();
             formData.append(this.$refs.file.name, file);
-            let params = this.params;
-            for (let key in params) {
-                formData.append(key, params[key]);
+            for (let [key, val] of this.params) {
+                formData.append(key, val);
             }
             $.ajax({
                 url: this.action,
@@ -64,11 +64,11 @@ export default {
 
     created() {
         // 阻止浏览器默认drop事件
-        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach((value, index, array) => {
-                document.addEventListener(value, event => {
+        for (let v of ['dragenter', 'dragover', 'dragleave', 'drop']) {
+                document.addEventListener(v, event => {
                 event.preventDefault();
             }, false);
-        })
+        }
     }
 }
 </script>

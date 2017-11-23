@@ -3,12 +3,20 @@ import 'admin/tag.scss';
 
 import 'bootstrap/dist/js/bootstrap.js';
 
-import Vue from 'vue';
-import imageUpload from 'imageUpload.vue';
 import {urls} from 'admin/common';
+import Vue from 'vue';
+import Message from 'message';
+import imageUpload from 'imageUpload.vue';
 
 $(function () {
+    Vue.use(Message, {transitionName: 'fade', duration: 2, classPre: 'admin'});
     Vue.component('vue-img-uploader', imageUpload);
+
+    const NOT_EDITING = Symbol('no_editing_index');
+    const MODE = {
+        ADD: Symbol('add'),
+        EDIT: Symbol('edit')
+    };
 
     let vm = new Vue({
         el: '.content',
@@ -16,7 +24,7 @@ $(function () {
             name: '',
             tags: [],
             editingTag: {
-               index: -1,
+               index: NOT_EDITING,
                name: '',
                logo: '',
                path: ''
@@ -35,7 +43,7 @@ $(function () {
                     name: this.name
                 }).then(result => {
                     if (result.code == '1000') {
-                        this.editingTag.index = -1;
+                        this.editingTag.index = NOT_EDITING;
                         result.data.tags.map((value, index, array) => {
                             value.key = this.nextKey();
                         });
@@ -47,25 +55,25 @@ $(function () {
                 return this.editingTag.index == index;
             },
             toEditTag(index) {
-                if (this.mode == 'add') {
+                if (this.mode == MODE.ADD) {
                     this.tags.shift();
                     index--;
                 }
-                this.mode = 'edit';
+                this.mode = MODE.EDIT;
                 this.editingTag.index = index;
                 this.editingTag.name = this.tags[index].name;
                 this.editingTag.logo = this.tags[index].logo;
                 this.editingTag.path = '';
             },
             cancelEdit() {
-                if (this.mode == 'add') {
+                if (this.mode == MODE.ADD) {
                     this.tags.shift();
                 }
                 this.mode = null;
-                this.editingTag.index = -1;
+                this.editingTag.index = NOT_EDITING;
             },
             comfirmEdit() {
-                if (this.mode == 'add') {
+                if (this.mode == MODE.ADD) {
                     $.post(urls.api_tags_add, {
                         'name': this.editingTag.name,
                         'logo': this.editingTag.path
@@ -75,7 +83,7 @@ $(function () {
                             this.tags[this.editingTag.index].logo = this.editingTag.logo;
                             this.tags[this.editingTag.index].id = result.data.id;
                             this.mode = null;
-                            this.editingTag.index = -1;
+                            this.editingTag.index = NOT_EDITING;
                         } else {
                             alert(result.msg);
                         }
@@ -90,7 +98,7 @@ $(function () {
                             this.tags[this.editingTag.index].name = this.editingTag.name;
                             this.tags[this.editingTag.index].logo = this.editingTag.logo;
                             this.mode = null;
-                            this.editingTag.index = -1;
+                            this.editingTag.index = NOT_EDITING;
                         } else {
                             alert(result.msg);
                         }
@@ -99,8 +107,8 @@ $(function () {
 
             },
             toAddTag() {
-                if (this.mode != 'add') {
-                    this.mode = 'add';
+                if (this.mode != MODE.ADD) {
+                    this.mode = MODE.ADD;
                     this.tags.unshift({
                         id: '',
                         name: '',
