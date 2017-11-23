@@ -3,7 +3,9 @@
         <li><a><i class="iconfont icon-edit"></i>发布</a></li>
         <li><a><i class="iconfont icon-viewlist"></i>文章</a></li>
         <li class="seprator">设置</li>
-        <li><a href="${ url_for('admin_view_tag.tags') }"><i class="iconfont icon-biaoqian"></i>标签</a></li>
+        <li><a href="${ url_for('admin_view_tag.tags') }" {% if active_page == 'tag' %}class="active"{% endif %}>
+            <i class="iconfont icon-biaoqian"></i>标签</a>
+        </li>
         <li>
             <a href="#my" class="collapsed" data-toggle="collapse">
                 <i class="iconfont icon-account"></i>我的

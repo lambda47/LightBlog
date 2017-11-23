@@ -58,6 +58,7 @@ body {
   }
 }
 
+// 左侧导航菜单
 .menu {
   position: absolute;
   top: 0;
@@ -114,7 +115,7 @@ body {
           cursor: pointer;
         }
 
-        &:hover {
+        &:hover, &.active {
           background-color: $CROWN;
         }
 
