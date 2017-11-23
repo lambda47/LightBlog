@@ -8,7 +8,7 @@ export default {
             data: props,
             render: function (createElement) {
                 return createElement(Message, {
-                    props: props
+                    props
                 });
             }
         });

@@ -9,7 +9,7 @@ import Message from 'message';
 import imageUpload from 'imageUpload.vue';
 
 $(function () {
-    Vue.use(Message, {transitionName: 'fade', duration: 2, classPre: 'admin'});
+    Vue.use(Message, {transitionName: 'message-fade', duration: 2, classPre: 'admin'});
     Vue.component('vue-img-uploader', imageUpload);
 
     const NOT_EDITING = Symbol('no_editing_index');
@@ -73,7 +73,15 @@ $(function () {
                 this.editingTag.index = NOT_EDITING;
             },
             comfirmEdit() {
+                if (this.editingTag.name == '') {
+                    this.$message.error('请填写标签名');
+                    return;
+                }
                 if (this.mode == MODE.ADD) {
+                    if (this.editingTag.name == '') {
+                        this.$message.error('请上传标签图片');
+                        return;
+                    }
                     $.post(urls.api_tags_add, {
                         'name': this.editingTag.name,
                         'logo': this.editingTag.path
@@ -85,7 +93,7 @@ $(function () {
                             this.mode = null;
                             this.editingTag.index = NOT_EDITING;
                         } else {
-                            alert(result.msg);
+                            this.$message.error(result.msg);
                         }
                     });
                 } else {
@@ -100,7 +108,7 @@ $(function () {
                             this.mode = null;
                             this.editingTag.index = NOT_EDITING;
                         } else {
-                            alert(result.msg);
+                            this.$message.error(result.msg);
                         }
                     });
                 }

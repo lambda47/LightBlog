@@ -148,7 +148,7 @@
             right: 10px;
           }
 
-          background-color: $PINK;
+          background-color: lighten($BLUE, 10%);
           border-radius: 0 0 5px 5px;
 
           a {
