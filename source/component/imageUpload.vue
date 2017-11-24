@@ -40,8 +40,8 @@ export default {
             }
             let formData = new FormData();
             formData.append(this.$refs.file.name, file);
-            for (let [key, val] of this.params) {
-                formData.append(key, val);
+            for (let key in this.params) {
+                formData.append(key, this.params[key]);
             }
             $.ajax({
                 url: this.action,
