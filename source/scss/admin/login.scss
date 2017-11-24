@@ -91,10 +91,14 @@
       visibility: hidden;
     }
 
-    .bootstrap-switch-container {
+    .bootstrap-switch {
+      border: 0;
 
-      .bootstrap-switch-primary {
-        background: $CROWN;
+      .bootstrap-switch-container {
+
+        .bootstrap-switch-primary {
+          background: $CROWN;
+        }
       }
     }
 
@@ -107,6 +111,8 @@
 
       background: $CROWN;
       border-radius: 3px;
+
+      outline: none;
     }
   }
 
