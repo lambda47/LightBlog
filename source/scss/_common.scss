@@ -190,6 +190,7 @@ body {
   min-width: 220px;
   padding: 10px 50px 10px 10px;
 
+  border: 1px solid transparent;
   border-radius: 10px;
 
   .admin-content {
@@ -213,8 +214,9 @@ body {
   }
 
   &.error {
-    background-color: darken($PINK, 10%);
-
     color: $WHITE;
+
+    background-color: darken($PINK, 10%);
+    border-color: darken($PINK, 30%);
   }
 }
