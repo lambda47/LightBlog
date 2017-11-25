@@ -1,6 +1,7 @@
 <template>
     <div class="tag-box-icon-wrapper" @mouseenter="enterImg()" @mouseleave="leaveImg" @dragenter="enterImg()">
-        <img class="image" :src="img"/>
+        <img class="image" :src="img" v-if="img"/>
+        <div class="image" v-else></div>
         <input type="file" ref="file" :name="name" class="file" @change="upload($event)" />
         <div class="mask" v-show="showUpload"  @dragleave="leaveImg()" @click="choose" @drop="upload($event)"><i class="iconfont icon-add"></i></div>
     </div>
