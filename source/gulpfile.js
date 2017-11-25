@@ -23,7 +23,8 @@ gulp.task('default', function(){
 					use: {
 					    loader: 'babel-loader',
                         options: {
-					        presets: ['es2015']
+					        presets: ['es2015'],
+							plugins: ['transform-runtime']
                         }
                     }
 
@@ -77,7 +78,8 @@ gulp.task('default', function(){
 					            js: {
 					                loader: 'babel-loader',
                                     options: {
-					                    presets: ['es2015']
+					                    presets: ['es2015'],
+										plugins: ['transform-runtime']
                                     }
                                 }
                             }
@@ -95,7 +97,7 @@ gulp.task('default', function(){
 				jQuery: 'jquery',
 				'window.jQuery': 'jquery'
 			}),
-			// new webpack.optimize.UglifyJsPlugin()
+			new webpack.optimize.UglifyJsPlugin()
 		],
 
 		resolve: {
