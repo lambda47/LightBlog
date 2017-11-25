@@ -5,7 +5,6 @@ export default {
         let props = options || {duration: 2};
 
         const instance = new Vue({
-            data: props,
             render: function (createElement) {
                 return createElement(Message, {
                     props
