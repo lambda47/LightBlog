@@ -7,7 +7,8 @@ gulp.task('default', function(){
 		entry: {
 			'admin/login': './js/admin/login.js',
 			'admin/index': './js/admin/index.js',
-			'admin/tag': './js/admin/tag.js'
+			'admin/tag': './js/admin/tag.js',
+            'admin/article_editor': './js/admin/article_editor.js'
 		},
 
 		output: {
@@ -58,7 +59,13 @@ gulp.task('default', function(){
 				},
 				{
 					test: /\.(ttf|eot|svg|woff|woff2)$/,
-					use: 'file-loader'
+					use: {
+					    loader: 'file-loader',
+                        options: {
+                            outputPath: 'font/',
+                            publicPath: '/static/'
+                        }
+                    }
 				},
 				{
 					test: /\.(jpe?g|gif|png)$/,

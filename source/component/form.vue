@@ -8,7 +8,7 @@
 import 'jquery-form/dist/jquery.form.min.js';
 
 export default {
-    prop: {
+    props: {
         action: {type: 'String', default: ''}
     },
 

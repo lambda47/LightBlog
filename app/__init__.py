@@ -39,13 +39,18 @@ configure_uploads(app, images)
 
 app.config['SECRET_KEY'] = 'LIGHTBLOG'
 
+# 管理后台首页
 from .admin.index import index as view_admin_index
 app.register_blueprint(view_admin_index, url_prefix='/admin')
+# 管理后台用户登录页
 from .admin.user import user as view_admin_user
 app.register_blueprint(view_admin_user, url_prefix='/admin/user')
 # 管理后台标签设置页
 from .admin.tag import tag as view_admin_tag
 app.register_blueprint(view_admin_tag, url_prefix='/admin/tags')
+# 管理后台文章管理页
+from .admin.article import article as view_admin_article
+app.register_blueprint(view_admin_article, url_prefix='/admin/article')
 # 文件上传接口
 from .api.upload import upload as api_upload
 app.register_blueprint(api_upload, url_prefix='/upload')

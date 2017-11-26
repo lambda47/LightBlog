@@ -1,9 +1,6 @@
 @import "../common";
 
 .content {
-  margin: {
-    left: 200px;
-  }
 
   .content-header {
     overflow: auto;
@@ -14,11 +11,6 @@
     }
 
     background-color: $GRAY;
-
-    %btn {
-      height: 30px;
-      font-size: 14px;
-    }
 
     .search-bar {
       float: left;

@@ -16,6 +16,9 @@ $RED: #FF0000 !default;
 }
 
 %btn {
+  height: 30px;
+
+  font-size: 14px;
   color: $WHITE;
   font-family: "YimHei";
   background-color: $CROWN;
@@ -168,6 +171,12 @@ body {
         }
       }
     }
+  }
+}
+
+.content {
+  margin: {
+    left: 200px;
   }
 }
 
