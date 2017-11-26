@@ -52,12 +52,6 @@
 
         border-radius: 10px;
 
-        &.draft-btn {
-        }
-
-        &.publish-btn {
-        }
-
         &:before {
           margin: {
             right: 5px;
@@ -80,6 +74,149 @@
       height: 100%;
 
       resize: none;
+    }
+
+    .article-info {
+      position: fixed;
+      bottom: 0;
+      left: 200px;
+      right: 0;
+      z-index: 1;
+
+      height: 130px;
+      padding: 15px 30px;
+
+      background-color: $GRAY;
+      box-shadow: 0 -3px 5px $BLUE;
+
+      .image-box-wrapper {
+        float:left;
+        position: relative;
+
+        $image_box_width: 100px;
+        $image_box_height: 100px;
+
+        width: $image_box_width;
+        height: $image_box_height;
+
+        .image {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 3;
+
+          width: $image_box_width;
+          height: $image_box_height;
+
+          background-color: $WHITE;
+          border-radius: 5px;
+        }
+
+        .file {
+          display: none;
+        }
+
+        .mask {
+          position: absolute;
+          top: 0;
+          left: 0;
+          z-index: 4;
+
+          width: 100%;
+          height: 100%;
+
+          border-radius: 5px;
+          background-color: $BLACK;
+          opacity: 0.5;
+
+          i {
+            display: block;
+            width: 100%;
+            height: 100%;
+
+            text-align: center;
+            color: $WHITE;
+            font-weight: 900;
+            font-size: 30px;
+            line-height: $image_box_height;
+          }
+        }
+      }
+
+      .tags {
+        overflow: auto;
+
+        height: 100px;
+        margin: {
+          left: 130px;
+          right: 130px;
+        };
+
+        .tag {
+          display: block;
+          position: relative;
+          float: left;
+
+          height: 25px;
+          min-width: 50px;
+          padding: 0 10px;
+          margin: {
+            right: 10px;
+            bottom: 10px;
+          };
+
+          font: 14px/25px 'YimHei';
+
+          background-color: $BLUE;
+          border-radius: 5px;
+
+          input {
+            position: absolute;
+            top: 0;
+            left: 10px;
+            z-index: 1;
+
+            min-width:30px;
+            width: 0;
+
+            background-color: $BLUE;
+          }
+
+          &.error {
+            background-color: $PINK;
+
+            input {
+              background-color: $PINK;
+            }
+          }
+        }
+      }
+
+
+      .btn-group {
+        position: absolute;
+        top: 15px;
+        right: 30px;
+
+        width: 100px;
+
+        button {
+          @extend %btn;
+          float: left;
+
+          width: 80px;
+          margin: {
+            top: 10px;
+            bottom: 10px;
+          };
+
+          border-radius: 10px;
+
+          &.cancel-btn {
+            background-color: darken($GRAY, 15%);
+          }
+        }
+      }
     }
   }
 }

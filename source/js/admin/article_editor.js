@@ -5,10 +5,12 @@ import 'admin/article_editor.scss';
 
 import 'bootstrap/dist/js/bootstrap.js';
 import editor from 'editor.vue';
+import imageUpload from 'imageUpload.vue';
 import {urls} from 'admin/common';
 import Vue from 'vue';
 
 $(function () {
+    Vue.component('vue-img-uploader', imageUpload);
     Vue.component('vue-editor', editor);
 
     let vm = new Vue({
@@ -17,27 +19,6 @@ $(function () {
             editorMinHeight() {
                 return document.body.clientHeight - 240;
             }
-        },
-        mounted() {
-            // window.hljs = hljs;
-            // simplemde = new SimpleMDE({
-            //     element: document.querySelector('.article-editor'),
-            //     autoDownloadFontAwesome: false,
-            //     renderingConfig: {
-		     //        singleLineBreaks: false,
-		     //        codeSyntaxHighlighting: true,
-	         //    }
-            // });
-            //
-            // var testPlain = simplemde.value()
-            // var testMarkdown = simplemde.markdown('```php\n' +
-            //     'echo $a;\n' +
-            //     '```');
-            // console.log(testMarkdown);
-            // let doms = document.querySelectorAll('.CodeMirror, .CodeMirror-scroll');
-            // for (let dom of doms) {
-            //     dom.style.minHeight = (document.body.clientHeight - 250) + 'px';
-            // }
         }
     });
 });
