@@ -12,7 +12,9 @@ import hljs from 'highlight.js';
 export default {
     props: {
         article: {type: String, default: ''},
-        minHeight: {type: Number, default: 300}
+        minHeight: {type: Number, default: 300},
+        uploadAction: {type: String, default: ''},
+        uploadParams: {type: Object, defalut: {}}
     },
 
     data() {
@@ -27,6 +29,16 @@ export default {
         },
         html() {
             return this.simplemde.markdown(this.markdown());
+        },
+        editorStyle(dragOver) {
+            let codeMirrorEditor = document.querySelector('.CodeMirror');
+            if (dragOver) {
+                codeMirrorEditor.style.border = '3px dashed #ddd';
+                codeMirrorEditor.style.padding = '8px';
+            } else {
+                codeMirrorEditor.style.border = '1px solid #ddd';
+                codeMirrorEditor.style.padding = '10px';
+            }
         }
     },
 
@@ -43,8 +55,53 @@ export default {
             }
         });
 
+        // 设置编辑区最小高度
         document.querySelectorAll('.CodeMirror, .CodeMirror-scroll').forEach(dom => {
             dom.style.minHeight = this.minHeight + 'px';
+        });
+
+        let cm = this.simplemde.codemirror;
+
+        // 图片拖拽到编辑区
+        cm.on('dragover', () => {
+            this.editorStyle(true);
+        });
+
+        // 图片拖拽出编辑区
+        cm.on('dragleave', () => {
+            this.editorStyle(false);
+        });
+
+        // 拖拽释放上传图片
+        cm.on('drop', (editor, event) => {
+            this.editorStyle(false);
+
+            let cm = this.simplemde.codemirror;
+            let start = cm.getCursor();
+            cm.replaceSelection('![](uploading...)');
+            let end = cm.getCursor();
+            cm.setOption('readOnly', true);
+
+            let file = event.dataTransfer.files[0];
+            let formData = new FormData();
+            formData.append('image', file);
+            for (let key in this.uploadParams) {
+                formData.append(key, this.uploadParams[key]);
+            }
+            $.ajax({
+                url: this.uploadAction,
+                type: 'post',
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+            }).then(result => {
+                cm.replaceRange(`![](${result.data.url})`, start, end);
+                cm.setOption('readOnly', false);
+            }).fail(() => {
+                cm.replaceRange('![]()', start, end);
+                cm.setOption('readOnly', false);
+            });
         });
     }
 }

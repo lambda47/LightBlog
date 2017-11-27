@@ -15,6 +15,9 @@ $(function () {
 
     let vm = new Vue({
         el: '.content',
+        data: {
+           uploadAction: urls.api_upload_image
+        },
         computed: {
             editorMinHeight() {
                 return document.body.clientHeight - 240;

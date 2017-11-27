@@ -17,7 +17,7 @@
     </div>
 </div>
 <div class="content-main">
-    <vue-editor :min-height="editorMinHeight" ></vue-editor>
+    <vue-editor :upload-action="uploadAction" :upload-params="{type: 'article'}" :min-height="editorMinHeight"></vue-editor>
     <div class="article-info">
         <vue-img-uploader></vue-img-uploader>
         <div class="tags">

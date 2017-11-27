@@ -167,7 +167,7 @@
 
           font: 14px/25px 'YimHei';
 
-          background-color: $BLUE;
+          background-color: lighten($BLUE, 10%);
           border-radius: 5px;
 
           input {
@@ -179,7 +179,7 @@
             min-width:30px;
             width: 0;
 
-            background-color: $BLUE;
+            background-color: lighten($BLUE, 10%);
           }
 
           &.error {
