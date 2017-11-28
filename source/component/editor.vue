@@ -1,7 +1,12 @@
 <template>
     <textarea class="article-editor">{{article}}</textarea>
 </template>
-
+<style>
+.editor-dragover {
+    border: 3px dashed #ddd;
+    padding: 8px;
+}
+</style>
 <script>
 import 'simplemde/dist/simplemde.min.css';
 import 'font-awesome/css/font-awesome.min.css';
@@ -33,11 +38,9 @@ export default {
         editorStyle(dragOver) {
             let codeMirrorEditor = document.querySelector('.CodeMirror');
             if (dragOver) {
-                codeMirrorEditor.style.border = '3px dashed #ddd';
-                codeMirrorEditor.style.padding = '8px';
+                codeMirrorEditor.classList.add('editor-dragover');
             } else {
-                codeMirrorEditor.style.border = '1px solid #ddd';
-                codeMirrorEditor.style.padding = '10px';
+                codeMirrorEditor.classList.remove('editor-dragover');
             }
         }
     },
