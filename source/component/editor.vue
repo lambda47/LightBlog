@@ -42,6 +42,33 @@ export default {
             } else {
                 codeMirrorEditor.classList.remove('editor-dragover');
             }
+        },
+        uploadImage(file) {
+            let cm = this.simplemde.codemirror;
+            let start = cm.getCursor();
+            cm.replaceSelection('![](uploading...)');
+            let end = cm.getCursor();
+            cm.setOption('readOnly', true);
+
+            let formData = new FormData();
+            formData.append('image', file);
+            for (let key in this.uploadParams) {
+                formData.append(key, this.uploadParams[key]);
+            }
+            $.ajax({
+                url: this.uploadAction,
+                type: 'post',
+                data: formData,
+                cache: false,
+                processData: false,
+                contentType: false,
+            }).then(result => {
+                cm.replaceRange(`![](${result.data.url})`, start, end);
+                cm.setOption('readOnly', false);
+            }).fail(() => {
+                cm.replaceRange('![]()', start, end);
+                cm.setOption('readOnly', false);
+            });
         }
     },
 
@@ -78,33 +105,30 @@ export default {
         // 拖拽释放上传图片
         cm.on('drop', (editor, event) => {
             this.editorStyle(false);
-
-            let cm = this.simplemde.codemirror;
-            let start = cm.getCursor();
-            cm.replaceSelection('![](uploading...)');
-            let end = cm.getCursor();
-            cm.setOption('readOnly', true);
-
             let file = event.dataTransfer.files[0];
-            let formData = new FormData();
-            formData.append('image', file);
-            for (let key in this.uploadParams) {
-                formData.append(key, this.uploadParams[key]);
+            this.uploadImage(file);
+        });
+
+        // 粘贴上传
+        cm.on('paste', (editor, event) => {
+            let file = null;
+            if (event.clipboardData.items) {
+                for (let item of event.clipboardData.items) {
+                    if (item.kind === 'file') {
+                        let fileType = item.type;
+                        if (fileType.indexOf('image/') === 0) {
+                            let fileExt = fileType.split('/').pop();
+                            let blob = item.getAsFile();
+                            file = new File([blob], `image.${fileExt}`,
+                                {type: fileType});
+                        }
+                    }
+                }
             }
-            $.ajax({
-                url: this.uploadAction,
-                type: 'post',
-                data: formData,
-                cache: false,
-                processData: false,
-                contentType: false,
-            }).then(result => {
-                cm.replaceRange(`![](${result.data.url})`, start, end);
-                cm.setOption('readOnly', false);
-            }).fail(() => {
-                cm.replaceRange('![]()', start, end);
-                cm.setOption('readOnly', false);
-            });
+
+            if (file) {
+                this.uploadImage(file);
+            }
         });
     }
 }
