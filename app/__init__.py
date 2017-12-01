@@ -60,6 +60,9 @@ app.register_blueprint(api_user, url_prefix='/user')
 # 标签接口
 from .api.tag import tag as api_tag
 app.register_blueprint(api_tag, url_prefix='/tag')
+# 文章接口
+from .api.article import article as api_article
+app.register_blueprint(api_article, url_prefix='/article')
 
 # 上传文件显示
 from .index.upload import upload as view_upload
