@@ -21,7 +21,7 @@ def add_article():
     article = {title: title, draft:draft}
     if type == DRAFT:
         article['content'] = content
-    Article.add(Article(article))
+    Article.add(article)
 
 
 __all__ = ['add_article']

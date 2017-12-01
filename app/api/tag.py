@@ -37,7 +37,7 @@ def add_tag():
     tags = Tag.find_by_name(name, False)
     if tags.count() > 0:
         raise Exception('TAG_ALREADY_EXIST')
-    id = Tag.add(Tag(name=name, logo=logo))
+    id = Tag.add(name=name, logo=logo)
     return {'id': str(id)}
 
 @tag.route('/edit', methods=['POST'])

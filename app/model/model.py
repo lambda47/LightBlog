@@ -62,29 +62,31 @@ class Model(metaclass=ModelMetaclass):
         return result(cls.db.find(query), cls)
 
     @classmethod
-    def add(cls, obj):
+    def add(cls, attrs = None, **kwattrs):
         """添加文档
 
-        param obj: 文档数据
-        :return
+        param attr: 对象属性(Dict类型)
+        param kwattrs: 对象属性
+        :return： 添加后对象
         """
-        data = obj.as_dict()
-        if cls.soft_del_key is not None:
-            data[cls.soft_del_key] = False
-        if cls.timestamps:
-            now = datetime.datetime.utcnow()
-            data['created_at'] = now
-            data['updated_at'] = now
-        return cls.db.insert_one(data).inserted_id
+        return cls(attrs, **kwattrs).save()
 
     def save(self):
-        """保存文档"""
-        id = self._id
-        data = self._data
-        del data['_id']
-        if self.timestamps:
-            data['updated_at'] = datetime.datetime.utcnow()
-        return self.db.find_one_and_update({'_id': id}, {'$set': data})
+        """如果存在_id属性,修改文档，否则添加文档"""
+        if '_id' in self._data:
+            if self.timestamps:
+                self.updated_at = datetime.datetime.utcnow()
+            return self.db.find_one_and_update({'_id': self._id},
+                {'$set': {k: v for k, v in self._data.items() if k != '_id'}})
+        else:
+            if self.soft_del_key is not None:
+                setattr(self, self.soft_del_key, False)
+            if self.timestamps:
+                now = datetime.datetime.utcnow()
+                self.created_at = now
+                self.updated_at = now
+            self._id = self.db.insert_one(self.as_dict()).inserted_id
+            return self
 
     def as_dict(self):
         """转换为字典格式"""
