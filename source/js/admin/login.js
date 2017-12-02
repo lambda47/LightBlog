@@ -26,14 +26,14 @@ $(function() {
         },
         methods: {
             clearErrMsg(event) {
-                if (event.target.name == 'username') {
+                if (event.target.name === 'username') {
                     this.username.show_err = false;
-                } else if (event.target.name == 'password') {
+                } else if (event.target.name === 'password') {
                     this.password.show_err = false;
                 }
             },
             loginValid() {
-                if (this.username.value == '') {
+                if (this.username.value === '') {
                     this.username.err_msg = '请输入用户名';
                     this.username.show_err = true;
                     return false;
@@ -41,7 +41,7 @@ $(function() {
                     this.username.show_err =false;
                 }
 
-                if (this.password.value == '') {
+                if (this.password.value === '') {
                     this.password.err_msg = '请输入密码';
                     this.password.show_err = true;
                     return false;
@@ -51,15 +51,15 @@ $(function() {
                 return true;
             },
             loginSuccess(data) {
-                if (data.code == '1000') {
+                if (data.code === '1000') {
                     document.location.href = urls.view_admin_index;
                 } else {
                     if (!this.username.show_err
-                            && data.code == 1102 || data.code == 1104) {
+                            && data.code === '1102' || data.code === '1104') {
                         this.username.err_msg = data.msg;
                         this.username.show_err = true;
                     } else if (!this.password.show_err
-                            && data.code == 1103 || data.code == 1105) {
+                            && data.code === '1103' || data.code === '1105') {
                         this.password.err_msg = data.msg;
                         this.password.show_err = true;
                     }

@@ -52,10 +52,10 @@ $(function () {
                 });
             },
             isEditing(index) {
-                return this.editingTag.index == index;
+                return this.editingTag.index === index;
             },
             toEditTag(index) {
-                if (this.mode == MODE.ADD) {
+                if (this.mode === MODE.ADD) {
                     this.tags.shift();
                     index--;
                 }
@@ -66,19 +66,19 @@ $(function () {
                 this.editingTag.path = '';
             },
             cancelEdit() {
-                if (this.mode == MODE.ADD) {
+                if (this.mode === MODE.ADD) {
                     this.tags.shift();
                 }
                 this.mode = null;
                 this.editingTag.index = NOT_EDITING;
             },
             comfirmEdit() {
-                if (this.editingTag.name == '') {
+                if (this.editingTag.name === '') {
                     this.$message.error('请填写标签名');
                     return;
                 }
-                if (this.mode == MODE.ADD) {
-                    if (this.editingTag.name == '') {
+                if (this.mode === MODE.ADD) {
+                    if (this.editingTag.logo === '') {
                         this.$message.error('请上传标签图片');
                         return;
                     }
@@ -115,7 +115,7 @@ $(function () {
 
             },
             toAddTag() {
-                if (this.mode != MODE.ADD) {
+                if (this.mode !== MODE.ADD) {
                     this.mode = MODE.ADD;
                     this.tags.unshift({
                         id: '',
@@ -135,14 +135,14 @@ $(function () {
                     $.post(urls.api_tags_del, {
                         id: this.tags[index].id
                     }).then(result => {
-                        if (result.code == '1000') {
+                        if (result.code === '1000') {
                            this.tags.splice(index, 1);
                         }
                     });
                 }
             },
             imageUploaded(result) {
-                if (result.code == '1000') {
+                if (result.code === '1000') {
                     this.editingTag.logo = result.data.url;
                     this.editingTag.path = result.data.path;
                 }

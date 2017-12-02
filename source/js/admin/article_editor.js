@@ -134,10 +134,10 @@ $(function () {
                     }).then(result => {
                         if (result.code === '1000') {
                             this.$message.info('已发布成功');
+                            this.showPublishBar = false;
                         }
                     });
                 }
-                this.showPublishBar = false;
             },
             cancelPublish() {
                 this.showPublishBar = false;
