@@ -32,3 +32,12 @@
 .fade-enter, .fade-leave-to {
   opacity: 0
 }
+
+.fade-slide-up-enter-active, .slide-slide-up-leave-active {
+  transition:  all 1s ease;
+}
+
+.fade-slide-up-enter, .fade-slide-up-leave-to {
+  transform: translateY(100px);
+  opacity: 0;
+}

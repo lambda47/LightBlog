@@ -18,36 +18,20 @@
 </div>
 <div class="content-main" data-id="${article_id}">
     <vue-editor ref="editor" :upload-action="uploadAction" :upload-params="{type: 'article'}" :min-height="editorMinHeight"></vue-editor>
-    <div class="article-info" v-if="showPublishBar">
-        <vue-img-uploader></vue-img-uploader>
-        <div class="tags">
-            <div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div>
-            <div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div><div class="tag"><span>测试</span></div>
-            <div class="tag error"><span>+</span><input type="text"/></div>
+    <transition name="fade-slide-up">
+        <div class="article-info" v-if="showPublishBar">
+            <vue-img-uploader name="image" :img="article.img" :action="uploadAction" :params="{type: 'tag'}" @result="imageUploaded"></vue-img-uploader>
+            <div class="tags">
+                <div class="tag" :class="{error: isErrorTag(index)}" v-for="(tag, index) in article.tags" @click="editTag(index)">
+                    <span>{{tag.name}}</span>
+                    <input type="text" v-if="isEditingTag(index)" v-focus="isEditingTag(index)" v-model="tag.name" @blur="saveTag(index)" />
+                </div>
+            </div>
+            <div class="btn-group">
+                <button class="ok-btn" @click="confirmPublish">确定</button>
+                <button class="cancel-btn" @click="cancelPublish">取消</button>
+            </div>
         </div>
-        <div class="btn-group">
-            <button class="ok-btn">确定</button>
-            <button class="cancel-btn">取消</button>
-        </div>
-    </div>
+    </transition>
 </div>
 {% endblock %}

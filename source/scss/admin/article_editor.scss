@@ -107,6 +107,7 @@
 
           width: $image_box_width;
           height: $image_box_height;
+          object-fit: cover;
 
           background-color: $WHITE;
           border-radius: 5px;
@@ -173,13 +174,17 @@
           input {
             position: absolute;
             top: 0;
-            left: 10px;
+            left: 0;
             z-index: 1;
 
-            min-width:30px;
-            width: 0;
+            width: 100%;
+            padding: {
+              left: 10px;
+              right: 10px;
+            };
 
             background-color: lighten($BLUE, 10%);
+            border-radius: 5px;
           }
 
           &.error {

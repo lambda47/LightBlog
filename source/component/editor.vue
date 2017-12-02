@@ -10,6 +10,7 @@
 <script>
 import 'simplemde/dist/simplemde.min.css';
 import 'font-awesome/css/font-awesome.min.css';
+import 'highlight.js/styles/solarized-dark.css';
 
 import SimpleMDE from 'simplemde';
 import hljs from 'highlight.js';
@@ -18,6 +19,7 @@ export default {
     props: {
         article: {type: String, default: ''},
         minHeight: {type: Number, default: 300},
+        name: {type: String, default: 'file'},
         uploadAction: {type: String, default: ''},
         uploadParams: {type: Object, defalut: {}}
     },
@@ -54,7 +56,7 @@ export default {
             cm.setOption('readOnly', true);
 
             let formData = new FormData();
-            formData.append('image', file);
+            formData.append(this.name, file);
             for (let key in this.uploadParams) {
                 formData.append(key, this.uploadParams[key]);
             }
