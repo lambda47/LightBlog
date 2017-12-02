@@ -1,5 +1,6 @@
 from .. import mongo
 from bson.objectid import ObjectId
+from bson import errors
 from ..lib.result import result
 import datetime
 
@@ -41,7 +42,10 @@ class Model(metaclass=ModelMetaclass):
         :return: 查找结果
         """
         if not isinstance(id, ObjectId):
-            id = ObjectId(id)
+            try:
+                id = ObjectId(id)
+            except errors.InvalidId:
+                return result(None, cls)
         query = {'_id': id}
         if cls.soft_del_key is not None:
             query[cls.soft_del_key] = False
