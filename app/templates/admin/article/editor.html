@@ -9,16 +9,16 @@
 {% block content %}
 <div class="content-header">
     <div class="title-wrapper">
-        <input type="text" class="title" placeholder="标题..." />
+        <input type="text" class="title" placeholder="标题..." v-model="article.title" />
     </div>
     <div class="btn-group">
-        <button class="draft-btn iconfont icon-Drafts">草稿</button>
-        <button class="publish-btn iconfont icon-publish">发布</button>
+        <button class="draft-btn iconfont icon-Drafts" @click="toDraft">草稿</button>
+        <button class="publish-btn iconfont icon-publish" @click="toPublish">发布</button>
     </div>
 </div>
 <div class="content-main">
-    <vue-editor :upload-action="uploadAction" :upload-params="{type: 'article'}" :min-height="editorMinHeight"></vue-editor>
-    <div class="article-info">
+    <vue-editor ref="editor" :article="article.draft" :upload-action="uploadAction" :upload-params="{type: 'article'}" :min-height="editorMinHeight"></vue-editor>
+    <div class="article-info" v-if="showPublishBar">
         <vue-img-uploader></vue-img-uploader>
         <div class="tags">
             <div class="tag"><span>测试</span></div>

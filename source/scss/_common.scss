@@ -9,6 +9,7 @@ $CROWN: #5A5C51 !default;
 $WHITE: #FFFFFF !default;
 $GRAY: #F7F7F7 !default;
 $PINK: #FBE7E6 !default;
+$GREEN: #D4EDDA !default;
 $RED: #FF0000 !default;
 
 [v-cloak] {
@@ -227,5 +228,12 @@ body {
 
     background-color: darken($PINK, 10%);
     border-color: darken($PINK, 30%);
+  }
+
+  &.info {
+    color: darken($GREEN, 50%);
+
+    background-color: $GREEN;
+    border-color: darken($GREEN, 30%);
   }
 }

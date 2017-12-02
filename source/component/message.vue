@@ -23,14 +23,20 @@ export default {
        }
     },
     methods: {
-        error(msg) {
+        showMessage(msg, type) {
             clearTimeout(this.timer);
             this.message = msg;
-            this.type = 'error';
+            this.type = type;
             this.show = true;
             this.timer = setTimeout(() => {
                 this.close();
             }, this.duration * 1000)
+        },
+        error(msg) {
+            this.showMessage(msg, 'error');
+        },
+        info(msg) {
+            this.showMessage(msg, 'info');
         },
         close () {
             this.show = false;

@@ -11,7 +11,7 @@
 <body>
     {% include 'admin/common/nav.html' ignore missing %}
     {% include 'admin/common/menu.html' ignore missing %}
-    <div class="content">{% block content %}{% endblock %}</div>
+    <div class="content" v-cloak>{% block content %}{% endblock %}</div>
     <footer></footer>
 </body>
 </html>

@@ -18,6 +18,7 @@ export default {
 
         Vue.prototype.$message = {
             error: message.error,
+            info: message.info,
             close: message.close
         };
     }

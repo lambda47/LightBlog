@@ -42,7 +42,7 @@ $(function () {
                 $.post(urls.api_tags_find, {
                     name: this.name
                 }).then(result => {
-                    if (result.code == '1000') {
+                    if (result.code === '1000') {
                         this.editingTag.index = NOT_EDITING;
                         result.data.tags.map((value, index, array) => {
                             value.key = this.nextKey();
@@ -86,7 +86,7 @@ $(function () {
                         'name': this.editingTag.name,
                         'logo': this.editingTag.path
                     }).then(result => {
-                        if (result.code == '1000') {
+                        if (result.code === '1000') {
                             this.tags[this.editingTag.index].name = this.editingTag.name;
                             this.tags[this.editingTag.index].logo = this.editingTag.logo;
                             this.tags[this.editingTag.index].id = result.data.id;
@@ -102,7 +102,7 @@ $(function () {
                         'name': this.editingTag.name,
                         'logo': this.editingTag.path
                     }).then(result => {
-                        if (result.code == '1000') {
+                        if (result.code === '1000') {
                             this.tags[this.editingTag.index].name = this.editingTag.name;
                             this.tags[this.editingTag.index].logo = this.editingTag.logo;
                             this.mode = null;

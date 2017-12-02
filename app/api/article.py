@@ -18,7 +18,7 @@ def add_article():
     title = request.form.get('title', '')
     draft = request.form.get('draft', '')
     content = request.form.get('content', '')
-    article = {title: title, draft:draft}
+    article = {'title': title, 'draft': draft, 'status': type}
     if type == DRAFT:
         article['content'] = content
     Article.add(article)

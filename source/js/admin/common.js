@@ -5,7 +5,8 @@ const urls = {
     api_tags_add: '/tag/add',
     api_tags_edit: '/tag/edit',
     api_tags_del: '/tag/del',
-    api_upload_image: '/upload/image'
+    api_upload_image: '/upload/image',
+    api_article_add: '/article/add',
 };
 
 export {urls};
