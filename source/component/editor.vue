@@ -29,8 +29,11 @@ export default {
     },
 
     methods: {
-        markdown() {
-            return this.simplemde.value();
+        markdown(value = '') {
+            if (value === '')
+                return this.simplemde.value();
+            else
+                this.simplemde.value(value);
         },
         html() {
             return this.simplemde.markdown(this.markdown());

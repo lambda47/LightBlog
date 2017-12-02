@@ -23,5 +23,18 @@ def add_article():
         article['content'] = content
     Article.add(article)
 
+@article.route('/detail', methods=['POST'])
+@apiview
+@admin_login_require('api')
+def article_detial():
+    """文章详情"""
+    id = request.form.get('id')
+    if id is None:
+        raise Exception('ARTICLE_NOT_EXIST')
+    article = Article.find(id)
+    if article is None:
+        raise Exception('ARTICLE_NOT_EXIST')
+    return {'article': {'id': id, 'title': article.title, 'draft': article.draft,
+                        'tags': article.tags}}
 
-__all__ = ['add_article']
+__all__ = ['add_article', 'detail']

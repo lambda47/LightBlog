@@ -16,8 +16,8 @@
         <button class="publish-btn iconfont icon-publish" @click="toPublish">发布</button>
     </div>
 </div>
-<div class="content-main">
-    <vue-editor ref="editor" :article="article.draft" :upload-action="uploadAction" :upload-params="{type: 'article'}" :min-height="editorMinHeight"></vue-editor>
+<div class="content-main" data-id="${article_id}">
+    <vue-editor ref="editor" :upload-action="uploadAction" :upload-params="{type: 'article'}" :min-height="editorMinHeight"></vue-editor>
     <div class="article-info" v-if="showPublishBar">
         <vue-img-uploader></vue-img-uploader>
         <div class="tags">

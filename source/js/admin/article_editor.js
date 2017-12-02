@@ -22,8 +22,9 @@ $(function () {
         el: '.content',
         data: {
             article: {
-                title: "",
-                draft: "",
+                id: '',
+                title: '',
+                draft: '',
                 tags: []
             },
             showPublishBar: false,
@@ -35,6 +36,20 @@ $(function () {
             }
         },
         methods: {
+            findArticle(id) {
+                $.post(urls.api_article_detail, {
+                    id: id
+                }).then(result => {
+                    if (result.code === '1000') {
+                        const article = result.data.article;
+                        this.article.title = article.title;
+                        this.article.draft = article.draft;
+                        this.article.tags = article.tags;
+                    } else {
+                        this.$message.error(result.msg);
+                    }
+                });
+            },
             toDraft() {
                 if (this.article.title === '') {
                     this.$message.error('请输入文章标题');
@@ -52,6 +67,19 @@ $(function () {
             },
             toPublish() {
 
+            }
+        },
+        watch: {
+            ['article.draft'](draft) {
+                this.$refs.editor.markdown(draft);
+            }
+        },
+        created() {
+            const contentMain = document.querySelector('.content-main');
+            const id = contentMain ? contentMain.getAttribute('data-id') : '';
+            if (id && id !== '') {
+                this.article.id = id;
+                this.findArticle(id);
             }
         }
     });

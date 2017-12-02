@@ -7,6 +7,7 @@ const urls = {
     api_tags_del: '/tag/del',
     api_upload_image: '/upload/image',
     api_article_add: '/article/add',
+    api_article_detail: '/article/detail'
 };
 
 export {urls};
