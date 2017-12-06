@@ -4,8 +4,8 @@ import 'admin/login.scss';
 
 import 'bootstrap-switch/dist/js/bootstrap-switch.js';
 import Vue from 'vue';
-import vueForm from 'form.vue';
 import {urls} from 'admin/common'
+import userService from './service/user';
 
 $(function() {
     Vue.component('vue-form', vueForm);
@@ -50,18 +50,21 @@ $(function() {
                 }
                 return true;
             },
-            loginSuccess(data) {
-                if (data.code === '1000') {
-                    document.location.href = urls.view_admin_index;
-                } else {
-                    if (!this.username.show_err
-                            && data.code === '1102' || data.code === '1104') {
-                        this.username.err_msg = data.msg;
-                        this.username.show_err = true;
-                    } else if (!this.password.show_err
-                            && data.code === '1103' || data.code === '1105') {
-                        this.password.err_msg = data.msg;
-                        this.password.show_err = true;
+            async login() {
+                if (this.loginValid()) {
+                    let {code, msg, data} = await userService.login(this.username.value,
+                        this.password.value);
+                    if (code === '1000') {
+                        document.location.href = urls.view_admin_index;
+                    } else {
+                        if (!this.username.show_err && code === '1102' || code === '1104') {
+                            this.username.err_msg = msg;
+                            this.username.show_err = true;
+                        } else if (!this.password.show_err && code === '1103'
+                                || code === '1105') {
+                            this.password.err_msg = msg;
+                            this.password.show_err = true;
+                        }
                     }
                 }
             }
