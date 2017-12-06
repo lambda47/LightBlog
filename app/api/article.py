@@ -49,9 +49,9 @@ def article_detial():
     if article.tags is None:
         article.tags = []
     else:
-        tags = Tag.find_all({'_id': {'$in': article.tags}})
-        tags = {str(tag._id): {'id': tag._id, 'name': tag.name} for tag in tags}
-        article.tags = {tags[str(id)] for id in article.tags if str(id) in tags}
+        all_tags = Tag.find_all({'_id': {'$in': article.tags}})
+        all_tags = {str(tag._id): {'id': str(tag._id), 'name': tag.name} for tag in all_tags}
+        article.tags = [all_tags[str(id)] for id in article.tags if str(id) in all_tags]
     return {'article': {'id': id, 'title': article.title, 'draft': article.draft,
                         'tags': article.tags}}
 
