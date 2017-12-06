@@ -120,12 +120,14 @@ $(function () {
                     this.editingTag.path = '';
                 }
             },
-            toDelTag(index) {
+            async toDelTag(index) {
                 let result = confirm('是否确认删除标签');
                 if (result) {
-                    let {code, msg, data} = tagService.del(this.tags[index].id);
+                    let {code, msg, data} = await tagService.del(this.tags[index].id);
+
                     if (code === '1000') {
                        this.tags.splice(index, 1);
+                       console.log(this.tags);
                     }
                 }
             },
