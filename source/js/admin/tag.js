@@ -7,6 +7,7 @@ import {urls} from 'admin/common';
 import Vue from 'vue';
 import Message from 'message';
 import imageUpload from 'imageUpload.vue';
+import tagService from './service/tag';
 
 $(function () {
     Vue.use(Message, {transitionName: 'message-fade', duration: 2, classPre: 'admin'});
@@ -37,19 +38,17 @@ $(function () {
             nextKey() {
                 return this.key++;
             },
-            findTags() {
+            async findTags() {
                 this.cancelEdit();
-                $.post(urls.api_tags_find, {
-                    name: this.name
-                }).then(result => {
-                    if (result.code === '1000') {
-                        this.editingTag.index = NOT_EDITING;
-                        result.data.tags.map((value, index, array) => {
-                            value.key = this.nextKey();
-                        });
-                        this.tags = result.data.tags;
-                    }
-                });
+                this.tags = [];
+                let {code, msg, data} = await tagService.find(this.name);
+                if (code === '1000') {
+                    this.editingTag.index = NOT_EDITING;
+                    data.tags.map(value => {
+                        value.key = this.nextKey();
+                    });
+                    this.tags = data.tags;
+                }
             },
             isEditing(index) {
                 return this.editingTag.index === index;
@@ -72,7 +71,7 @@ $(function () {
                 this.mode = null;
                 this.editingTag.index = NOT_EDITING;
             },
-            comfirmEdit() {
+            async comfirmEdit() {
                 if (this.editingTag.name === '') {
                     this.$message.error('请填写标签名');
                     return;
@@ -82,35 +81,27 @@ $(function () {
                         this.$message.error('请上传标签图片');
                         return;
                     }
-                    $.post(urls.api_tags_add, {
-                        'name': this.editingTag.name,
-                        'logo': this.editingTag.path
-                    }).then(result => {
-                        if (result.code === '1000') {
-                            this.tags[this.editingTag.index].name = this.editingTag.name;
-                            this.tags[this.editingTag.index].logo = this.editingTag.logo;
-                            this.tags[this.editingTag.index].id = result.data.id;
-                            this.mode = null;
-                            this.editingTag.index = NOT_EDITING;
-                        } else {
-                            this.$message.error(result.msg);
-                        }
-                    });
+                    let {code, msg, data} = await tagService.add(this.editingTag.name, this.editingTag.path);
+                    if (code === '1000') {
+                        this.tags[this.editingTag.index].name = this.editingTag.name;
+                        this.tags[this.editingTag.index].logo = this.editingTag.logo;
+                        this.tags[this.editingTag.index].id = data.id;
+                        this.mode = null;
+                        this.editingTag.index = NOT_EDITING;
+                    } else {
+                        this.$message.error(msg);
+                    }
                 } else {
-                    $.post(urls.api_tags_edit, {
-                        'id': this.tags[this.editingTag.index].id,
-                        'name': this.editingTag.name,
-                        'logo': this.editingTag.path
-                    }).then(result => {
-                        if (result.code === '1000') {
-                            this.tags[this.editingTag.index].name = this.editingTag.name;
-                            this.tags[this.editingTag.index].logo = this.editingTag.logo;
-                            this.mode = null;
-                            this.editingTag.index = NOT_EDITING;
-                        } else {
-                            this.$message.error(result.msg);
-                        }
-                    });
+                    let {code, msg, data} = await tagService.edit(this.tags[this.editingTag.index].id,
+                        this.editingTag.name, this.editingTag.path);
+                    if (code === '1000') {
+                        this.tags[this.editingTag.index].name = this.editingTag.name;
+                        this.tags[this.editingTag.index].logo = this.editingTag.logo;
+                        this.mode = null;
+                        this.editingTag.index = NOT_EDITING;
+                    } else {
+                        this.$message.error(msg);
+                    }
                 }
 
             },
@@ -132,13 +123,10 @@ $(function () {
             toDelTag(index) {
                 let result = confirm('是否确认删除标签');
                 if (result) {
-                    $.post(urls.api_tags_del, {
-                        id: this.tags[index].id
-                    }).then(result => {
-                        if (result.code === '1000') {
-                           this.tags.splice(index, 1);
-                        }
-                    });
+                    let {code, msg, data} = tagService.del(this.tags[index].id);
+                    if (code === '1000') {
+                       this.tags.splice(index, 1);
+                    }
                 }
             },
             imageUploaded(result) {
