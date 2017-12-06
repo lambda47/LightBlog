@@ -7,6 +7,8 @@ import imageUpload from 'imageUpload.vue';
 import Message from 'message';
 import {urls, matchImageUrl} from 'admin/common';
 import Vue from 'vue';
+import tagService from './service/tag'
+import articleService from './service/article'
 
 $(function () {
     Vue.use(Message, {transitionName: 'message-fade', duration: 2, classPre: 'admin'});
@@ -40,65 +42,57 @@ $(function () {
             }
         },
         methods: {
-            findArticle(id) {
-                $.post(urls.api_article_detail, {
-                    id: id
-                }).then(result => {
-                    if (result.code === '1000') {
-                        const article = result.data.article;
-                        this.article.title = article.title;
-                        this.article.draft = article.draft;
-                        this.article.tags.unshift(...article.tags);
-                    } else {
-                        this.$message.error(result.msg);
-                    }
-                });
+            async findArticle(id) {
+                let {code, msg, data} = await articleService.detail(id);
+                if (code === '1000') {
+                    const article = data.article;
+                    this.article.title = article.title;
+                    this.article.draft = article.draft;
+                    this.article.tags.unshift(...article.tags);
+                } else {
+                    this.$message.error(msg);
+                }
             },
-            toDraft() {
+            async toDraft() {
                 if (this.article.title === '') {
                     this.$message.error('请输入文章标题');
                     return;
                 }
                 if (this.article.id === null) { // 新增
-                    $.post(urls.api_article_add, {
-                        type: DRAFT,
+                    let {code, msg, data} = await articleService.add(DRAFT, {
                         title: this.article.title,
                         draft: this.$refs.editor.markdown()
-                    }).then(result => {
-                        if (result.code === '1000') {
-                            this.$message.info('已经保存为草稿');
-                        }
                     });
+                    if (code === '1000') {
+                        this.$message.info('已经保存为草稿');
+                    }
                 } else { // 保存
-                    $.post(urls.api_article_save, {
+                    let {code, msg, data} = await articleService.save(this.article.id, DRAFT, {
                         type: DRAFT,
-                        id: this.article.id,
                         title: this.article.title,
                         draft: this.$refs.editor.markdown()
-                    }).then(result => {
-                        if (result.code === '1000') {
-                            this.$message.info('已经保存为草稿');
-                        }
                     });
+                    if (code === '1000') {
+                        this.$message.info('已经保存为草稿');
+                    }
                 }
             },
-            toPublish() {
+            async toPublish() {
                 this.article.content = this.$refs.editor.html();
                 // 获取文章内首张图片
                 if (this.article.img === '') {
                     this.article.img = matchImageUrl(this.article.content);
                 }
-                $.post(urls.api_tags_find, {}, result => {
-                    if (result.code === '1000') {
-                        this.existedTags = new Map();
-                        for (let tag of result.data.tags) {
-                            this.existedTags.set(tag.name, tag.id);
-                        }
-                        this.showPublishBar = true;
+                let {code, msg, data} = await tagService.find('');
+                if (code === '1000') {
+                    this.existedTags = new Map();
+                    for (let tag of data.tags) {
+                        this.existedTags.set(tag.name, tag.id);
                     }
-                });
+                    this.showPublishBar = true;
+                }
             },
-            confirmPublish() {
+            async confirmPublish() {
                 if (this.article.title === '') {
                     this.$message.error('请输入文章标题');
                     return;
@@ -110,33 +104,30 @@ $(function () {
                     }
                 }
                 if (this.article.id === null) { // 新增
-                    $.post(urls.api_article_add, {
-                        type: PUBLISH,
+                    let {code, msg, data} = await articleService.add(PUBLISH, {
                         title: this.article.title,
                         draft: this.$refs.editor.markdown(),
                         content: this.$refs.editor.html(),
                         img: this.article.imgPath,
                         tags
-                    }).then(result => {
-                        if (result.code === '1000') {
-                            this.$message.info('已发布成功');
-                        }
                     });
+                    if (code === '1000') {
+                        this.$message.info('已发布成功');
+                        this.showPublishBar = false;
+                    }
                 } else { // 保存
-                    $.post(urls.api_article_save, {
-                        id: this.article.id,
-                        type: PUBLISH,
-                        title: this.article.title,
-                        draft: this.$refs.editor.markdown(),
-                        content: this.$refs.editor.html(),
-                        img: this.article.imgPath,
-                        tags
-                    }).then(result => {
-                        if (result.code === '1000') {
-                            this.$message.info('已发布成功');
-                            this.showPublishBar = false;
-                        }
-                    });
+                    let {code, msg, data} = await articleService.save(this.article.id,
+                        PUBLISH, {
+                            title: this.article.title,
+                            draft: this.$refs.editor.markdown(),
+                            content: this.$refs.editor.html(),
+                            img: this.article.imgPath,
+                            tags
+                        });
+                    if (code === '1000') {
+                        this.$message.info('已发布成功');
+                        this.showPublishBar = false;
+                    }
                 }
             },
             cancelPublish() {
