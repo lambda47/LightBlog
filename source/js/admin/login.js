@@ -8,8 +8,6 @@ import {urls} from 'admin/common'
 import userService from './service/user';
 
 $(function() {
-    Vue.component('vue-form', vueForm);
-
     let vm = new Vue({
         el: '#login-panel',
         data: {
