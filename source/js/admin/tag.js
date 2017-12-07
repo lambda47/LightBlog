@@ -127,7 +127,6 @@ $(function () {
 
                     if (code === '1000') {
                        this.tags.splice(index, 1);
-                       console.log(this.tags);
                     }
                 }
             },
