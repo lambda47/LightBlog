@@ -91,20 +91,48 @@
       visibility: hidden;
     }
 
-    .bootstrap-switch {
-      border: 0;
+    .lb-switch {
+      width: 76px;
+      height: 32px;
 
-      .bootstrap-switch-container {
+      border-radius: 3px;
 
-        .bootstrap-switch-primary {
-          background: $CROWN;
+      .lb-switch-wrapper {
+        transition: left .5s;
+
+        %switch-btn-common {
+          font: 14px/32px 'SimHei';
+
+          cursor: pointer;
+        }
+
+        .switch-on-btn {
+          @extend %switch-btn-common;
+          color: $WHITE;
+
+          background-color: $CROWN;
+        }
+
+        .switch-block {
+          @extend %switch-btn-common;
+          background-color: $WHITE;
+        }
+
+        .switch-off-btn {
+          @extend %switch-btn-common;
+          color: $BLACK;
+
+          background-color: darken($GRAY, 5%);
         }
       }
     }
 
     button {
       height: 32px;
-      width: 100px;
+      width: 98px;
+      margin: {
+        left: 5px;
+      };
 
       font: 14px "Lucida Family";
       color: #FFFFFF;
@@ -113,6 +141,7 @@
       border-radius: 3px;
 
       outline: none;
+      cursor: pointer;
     }
   }
 
