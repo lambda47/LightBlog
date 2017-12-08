@@ -13,7 +13,7 @@ def login():
     """用户登录"""
     username = request.form.get('username', '')
     password = request.form.get('password', '')
-    remember_me = bool(request.form.get('remember_me', False))
+    remember_me = request.form.get('remember_me', '') == 'true'
 
     if username == '':
         raise Exception('REQUIRE_USERNAME')

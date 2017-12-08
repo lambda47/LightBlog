@@ -49,8 +49,9 @@ $(function() {
             },
             async login() {
                 if (this.loginValid()) {
+                    const remember_me = this.$refs.remember_me.value;
                     let {code, msg, data} = await userService.login(this.username.value,
-                        this.password.value);
+                        this.password.value, remember_me);
                     if (code === '1000') {
                         document.location.href = urls.view_admin_index;
                     } else {
