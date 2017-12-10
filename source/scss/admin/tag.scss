@@ -151,7 +151,8 @@
           }
 
           .tag-box-control {
-            display: block;
+            display: flex;
+            justify-content: flex-end;
 
             width: 100%;
             height: 30px;
@@ -163,7 +164,6 @@
             border-radius: 0 0 5px 5px;
 
             a {
-              float: right;
               display: block;
 
               width: 30px;
@@ -193,8 +193,9 @@
             transform: rotateY(180deg);
 
             .image-box-wrapper {
-              float:left;
-              position: relative;
+              position: absolute;
+              top: 0;
+              left: 0;
 
               width: 90px;
               height: 90px;
@@ -253,8 +254,6 @@
             .tag-box-control {
               button {
                 @extend %btn;
-
-                float: right;
 
                 height: 20px;
                 width: 40px;
