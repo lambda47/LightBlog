@@ -74,179 +74,199 @@
     }
   }
 
-  .content-main {
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+
+    margin: {
+      left: 15px;
+      right: 15px;
+    };
+
     perspective: 800px;
 
-    .tag-box-wrapper {
-      position: relative;
+    .tag-wrapper {
+      width: 25%;
+      padding: {
+        left: 15px;
+        right: 15px;
+      };
 
-      height: 90px;
-      margin: {
-        bottom: 15px;
-      }
-
-      transform-style: preserve-3d;
-      transition: transform 1s;
-
-      &.flipped {
-        transform: rotateY(180deg);
-      }
-
-      .tag-box {
-        position: absolute;
-        top: 0;
-        left: 0;
+      .tag-box-wrapper {
+        position: relative;
 
         height: 90px;
-        width: 100%;
+        margin: {
+          bottom: 15px;
+        }
+        padding: {
+          left: 15px;
+          right: 15px;
+        }
 
-        border-radius: 5px;
-        background-color: darken($GRAY, 5%);
+        transform-style: preserve-3d;
+        transition: transform 1s;
 
-        backface-visibility: hidden;
+        &.flipped {
+          transform: rotateY(180deg);
+        }
 
-        .tag-box-icon, .image {
+        .tag-box {
           position: absolute;
           top: 0;
           left: 0;
-          z-index: 3;
 
-          width: 90px;
           height: 90px;
-
-          background-color: $WHITE;
-          border-radius: 5px;
-        }
-
-        .tag-box-title {
-          display:block;
-          overflow: hidden;
-
-          height: 60px;
-          margin: {
-            left: 90px;
-          }
-          padding: 5px 10px;
-
-          color: $BLACK;
-        }
-
-        .tag-box-control {
-          display: block;
-
           width: 100%;
-          height: 30px;
-          padding: {
-            right: 10px;
-          }
 
-          background-color: lighten($BLUE, 10%);
-          border-radius: 0 0 5px 5px;
+          border-radius: 5px;
+          background-color: darken($GRAY, 5%);
 
-          a {
-            float: right;
-            display: block;
+          backface-visibility: hidden;
 
-            width: 30px;
-            height: 30px;
-
-            line-height: 30px;
-            text-align: center;
-
-            cursor: pointer;
-
-            &:hover {
-              text-decoration: none;
-            }
-
-            &.edit-btn {
-              color: $CROWN;
-            }
-
-            &.del-btn {
-              color: $RED;
-            }
-          }
-        }
-
-        &.editing {
-          z-index: 4;
-          transform: rotateY(180deg);
-
-          .image-box-wrapper {
-            float:left;
-            position: relative;
+          .tag-box-icon, .image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 3;
 
             width: 90px;
             height: 90px;
 
-            .file {
-              display: none;
-            }
-
-            .mask {
-              position: absolute;
-              top: 0;
-              left: 0;
-              z-index: 4;
-
-              width: 100%;
-              height: 100%;
-
-              border-radius: 5px;
-              background-color: $BLACK;
-              opacity: 0.5;
-
-              i {
-                display: block;
-                width: 100%;
-                height: 100%;
-
-                text-align: center;
-                color: $WHITE;
-                font-weight: 900;
-                font-size: 30px;
-                line-height: 90px;
-              }
-            }
+            background-color: $WHITE;
+            border-radius: 5px;
           }
 
-          .editor-wraper {
+          .tag-box-title {
+            display:block;
+            overflow: hidden;
+
             height: 60px;
             margin: {
               left: 90px;
             }
+            padding: 5px 10px;
 
-            textarea {
-              width: 100%;
-              height: 60px;
-              padding: 4px 9px;
-
-              color: $BLACK;
-
-              border: 1px solid $BLUE;
-              border-radius: 0 5px 0 0;
-
-              resize: none;
-            }
+            color: $BLACK;
           }
 
           .tag-box-control {
-            button {
-              @extend %btn;
+            display: block;
 
+            width: 100%;
+            height: 30px;
+            padding: {
+              right: 10px;
+            }
+
+            background-color: lighten($BLUE, 10%);
+            border-radius: 0 0 5px 5px;
+
+            a {
               float: right;
+              display: block;
 
-              height: 20px;
-              width: 40px;
-              margin: 5px 0 5px 10px;
+              width: 30px;
+              height: 30px;
 
-              font-size: 12px;
+              line-height: 30px;
+              text-align: center;
 
-              border-radius: 10px;
+              cursor: pointer;
 
-              &.cancel-btn {
-                background-color: darken($GRAY, 20%);
+              &:hover {
+                text-decoration: none;
+              }
+
+              &.edit-btn {
+                color: $CROWN;
+              }
+
+              &.del-btn {
+                color: $RED;
+              }
+            }
+          }
+
+          &.editing {
+            z-index: 4;
+            transform: rotateY(180deg);
+
+            .image-box-wrapper {
+              float:left;
+              position: relative;
+
+              width: 90px;
+              height: 90px;
+
+              .file {
+                display: none;
+              }
+
+              .mask {
+                position: absolute;
+                top: 0;
+                left: 0;
+                z-index: 4;
+
+                width: 100%;
+                height: 100%;
+
+                border-radius: 5px;
+                background-color: $BLACK;
+                opacity: 0.5;
+
+                i {
+                  display: block;
+                  width: 100%;
+                  height: 100%;
+
+                  text-align: center;
+                  color: $WHITE;
+                  font-weight: 900;
+                  font-size: 30px;
+                  line-height: 90px;
+                }
+              }
+            }
+
+            .editor-wraper {
+              height: 60px;
+              margin: {
+                left: 90px;
+              }
+
+              textarea {
+                width: 100%;
+                height: 60px;
+                padding: 4px 9px;
+
+                color: $BLACK;
+
+                border: 1px solid $BLUE;
+                border-radius: 0 5px 0 0;
+
+                resize: none;
+              }
+            }
+
+            .tag-box-control {
+              button {
+                @extend %btn;
+
+                float: right;
+
+                height: 20px;
+                width: 40px;
+                margin: 5px 0 5px 10px;
+
+                font-size: 12px;
+
+                border-radius: 10px;
+
+                &.cancel-btn {
+                  background-color: darken($GRAY, 20%);
+                }
               }
             }
           }
