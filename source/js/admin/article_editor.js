@@ -3,7 +3,7 @@ import 'admin/article_editor.scss';
 
 import 'bootstrap/dist/js/bootstrap.js';
 import editor from 'editor.vue';
-import imageUpload from 'imageUpload.vue';
+import ImageUpload from 'image-upload';
 import Message from 'message';
 import {urls, matchImageUrl} from 'admin/common';
 import Vue from 'vue';
@@ -12,7 +12,7 @@ import articleService from './service/article'
 
 $(function () {
     Vue.use(Message, {transitionName: 'message-fade', duration: 2, classPre: 'admin'});
-    Vue.component('vue-img-uploader', imageUpload);
+    Vue.use(ImageUpload);
     Vue.component('vue-editor', editor);
 
     const DRAFT = 1;

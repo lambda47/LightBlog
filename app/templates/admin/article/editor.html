@@ -20,7 +20,7 @@
     <vue-editor ref="editor" :upload-action="uploadAction" :upload-params="{type: 'article'}" :min-height="editorMinHeight"></vue-editor>
     <transition name="fade-slide-up">
         <div class="article-info" v-if="showPublishBar">
-            <vue-img-uploader name="image" :img="article.img" :action="uploadAction" :params="{type: 'tag'}" @result="imageUploaded"></vue-img-uploader>
+            <lb-image-upload name="image" :img-src="article.img" :action="uploadAction" :params="{type: 'tag'}" @result="imageUploaded"></lb-image-upload>
             <div class="tags">
                 <div class="tag" :class="{error: isErrorTag(index)}" v-for="(tag, index) in article.tags" @click="editTag(index)">
                     <span>{{tag.name}}</span>

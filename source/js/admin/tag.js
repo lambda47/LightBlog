@@ -6,12 +6,12 @@ import 'bootstrap/dist/js/bootstrap.js';
 import {urls} from 'admin/common';
 import Vue from 'vue';
 import Message from 'message';
-import imageUpload from 'imageUpload.vue';
+import ImageUpload from 'image-upload'
 import tagService from './service/tag';
 
 $(function () {
     Vue.use(Message, {transitionName: 'message-fade', duration: 2, classPre: 'admin'});
-    Vue.component('vue-img-uploader', imageUpload);
+    Vue.use(ImageUpload);
 
     const NOT_EDITING = Symbol('no_editing_index');
     const MODE = {
