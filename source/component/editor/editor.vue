@@ -14,6 +14,7 @@ import 'highlight.js/styles/solarized-dark.css';
 
 import SimpleMDE from 'simplemde';
 import hljs from 'highlight.js';
+import request from '../../js/util/request';
 
 export default {
     props: {
@@ -48,32 +49,26 @@ export default {
                 codeMirrorEditor.classList.remove('editor-dragover');
             }
         },
-        uploadImage(file) {
+        async uploadImage(file) {
             let cm = this.simplemde.codemirror;
             let start = cm.getCursor();
             cm.replaceSelection('![](uploading...)');
             let end = cm.getCursor();
             cm.setOption('readOnly', true);
 
-            let formData = new FormData();
-            formData.append(this.name, file);
-            for (let key in this.uploadParams) {
-                formData.append(key, this.uploadParams[key]);
-            }
-            $.ajax({
-                url: this.uploadAction,
-                type: 'post',
-                data: formData,
-                cache: false,
-                processData: false,
-                contentType: false,
-            }).then(result => {
-                cm.replaceRange(`![](${result.data.url})`, start, end);
-                cm.setOption('readOnly', false);
-            }).fail(() => {
+            try {
+                let {code, msg, data} = await request(this.uploadAction, 'POST',
+                    {...this.uploadParams, [this.name]: file});
+                if (code === '1000') {
+                    cm.replaceRange(`![](${data.url})`, start, end);
+                } else {
+                    cm.replaceRange('![]()', start, end);
+                }
+            } catch(err) {
                 cm.replaceRange('![]()', start, end);
+            } finally {
                 cm.setOption('readOnly', false);
-            });
+            }
         }
     },
 

@@ -17,7 +17,7 @@
     </div>
 </div>
 <div class="content-main" data-id="${article_id}">
-    <vue-editor ref="editor" :upload-action="uploadAction" :upload-params="{type: 'article'}" :min-height="editorMinHeight"></vue-editor>
+    <lb-editor ref="editor" name="image" :upload-action="uploadAction" :upload-params="{type: 'article'}" :min-height="editorMinHeight"></lb-editor>
     <transition name="fade-slide-up">
         <div class="article-info" v-if="showPublishBar">
             <lb-image-upload name="image" :img-src="article.img" :action="uploadAction" :params="{type: 'tag'}" @result="imageUploaded"></lb-image-upload>
