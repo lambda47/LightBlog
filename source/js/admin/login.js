@@ -5,7 +5,7 @@ import Switch from 'switch';
 import {urls} from 'admin/common'
 import userService from './service/user';
 
-$(function() {
+document.addEventListener('DOMContentLoaded', function() {
     Vue.use(Switch);
     let vm = new Vue({
         el: '#login-panel',
@@ -68,4 +68,4 @@ $(function() {
             }
         }
     });
-});
+}, false);

@@ -10,7 +10,7 @@ import Vue from 'vue';
 import tagService from './service/tag'
 import articleService from './service/article'
 
-$(function () {
+document.addEventListener('DOMContentLoaded', function() {
     Vue.use(Message, {transitionName: 'message-fade', duration: 2, classPre: 'admin'});
     Vue.use(ImageUpload);
     Vue.use(Editor);
@@ -209,5 +209,5 @@ $(function () {
                 }
             }
         }
-    });
+    }, false);
 });

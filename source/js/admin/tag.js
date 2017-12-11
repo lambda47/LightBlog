@@ -9,7 +9,7 @@ import Message from 'message';
 import ImageUpload from 'image-upload'
 import tagService from './service/tag';
 
-$(function () {
+document.addEventListener('DOMContentLoaded', function() {
     Vue.use(Message, {transitionName: 'message-fade', duration: 2, classPre: 'admin'});
     Vue.use(ImageUpload);
 
@@ -141,4 +141,4 @@ $(function () {
             this.findTags();
         }
     });
-});
+}, false);
