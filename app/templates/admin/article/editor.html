@@ -8,13 +8,9 @@
 {% endblock %}
 {% block content %}
 <div class="content-header">
-    <div class="title-wrapper">
-        <input type="text" class="title" placeholder="标题..." v-model="article.title" />
-    </div>
-    <div class="btn-group">
-        <button class="draft-btn iconfont icon-Drafts" @click="toDraft">草稿</button>
-        <button class="publish-btn iconfont icon-publish" @click="toPublish">发布</button>
-    </div>
+    <input type="text" class="title" placeholder="标题..." v-model="article.title" />
+    <button class="draft-btn iconfont icon-Drafts" @click="toDraft">草稿</button>
+    <button class="publish-btn iconfont icon-publish" @click="toPublish">发布</button>
 </div>
 <div class="content-main" data-id="${article_id}">
     <lb-editor ref="editor" name="image" :upload-action="uploadAction" :upload-params="{type: 'article'}" :min-height="editorMinHeight"></lb-editor>
