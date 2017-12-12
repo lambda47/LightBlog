@@ -14,3 +14,8 @@ def add_article():
 def edit_article(id):
     return render_template('admin/article/editor.html', title='编辑',
                            article_id=id)
+
+@article.route('/list', methods=['GET'])
+@admin_login_require()
+def artilce_list():
+    return render_template('admin/article/list.html', title='文章')

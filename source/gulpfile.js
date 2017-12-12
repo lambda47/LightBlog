@@ -8,7 +8,8 @@ gulp.task('default', function(){
 			'admin/login': './js/admin/login.js',
 			'admin/index': './js/admin/index.js',
 			'admin/tag': './js/admin/tag.js',
-            'admin/article_editor': './js/admin/article_editor.js'
+            'admin/article_editor': './js/admin/article_editor.js',
+			'admin/article_list': './js/admin/article_list.js'
 		},
 
 		output: {
@@ -39,7 +40,7 @@ gulp.task('default', function(){
                                 options: {
                                     minimize: true
                                 }
-                            },
+							},
                             {
                                 loader: 'sass-loader'
                             }]

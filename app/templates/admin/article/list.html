@@ -1,17 +1,48 @@
-<!DOCTYPE html>
-<html lang="zh-cn">
-<head>
-    {% block head %}
-    <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" href="${ url_for('static', filename='admin/common.css') }">
-    <script src="${ url_for('static', filename='admin/common.js') }"></script>
-    {% endblock %}
-</head>
-<body>
-    {% include 'admin/common/nav.html' ignore missing %}
-    {% include 'admin/common/menu.html' ignore missing %}
-    <div class="content" v-cloak>{% block content %}{% endblock %}</div>
-    <footer></footer>
-</body>
-</html>
+{% extends 'admin/base.html' %}
+{% set active_page = 'article' %}
+{% block title %}文章{% endblock %}
+{% block head %}
+    ${ super() }
+    <link rel="stylesheet" href="${ url_for('static', filename='admin/article_list.css') }">
+    <script src="${ url_for('static', filename='admin/article_list.js') }"></script>
+{% endblock %}
+{% block content %}
+<div class="content-header">
+    <input type="text" class="title" placeholder="标题..." />
+    <input type="date" class="date" />
+    <button class="search-btn iconfont icon-search">搜索</button>
+</div>
+<div class="content-main">
+    <div class="articles">
+        <ul class="articles-list">
+            <li class="article-wrap">
+                <div class="article">
+                    <div class="text-info">
+                        <h1>文章标题文章标题文章标题</h1>
+                        <p>文章简介文章简介文章简介文章简介文章简介文章简介文章简介文章简介文章简介文章简介文章简介文章简介
+                    文章简介文章简介文章简介文章简介文章简介</p>
+                    </div>
+                    <img />
+                    <div class="ext-info"><span class="read">110</span><span class="date">2017-11-11 16:22</span></div>
+                </div>
+            </li>
+            <li class="article-wrap">
+                <div class="article">
+                </div>
+            </li>
+            <li class="article-wrap">
+                <div class="article">
+                </div>
+            </li>
+            <li class="article-wrap">
+                <div class="article">
+                </div>
+            </li>
+            <li class="article-wrap">
+                <div class="article">
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

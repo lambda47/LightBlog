@@ -6,6 +6,7 @@ from flask_uploads import UploadSet
 from flask_uploads import IMAGES
 from flask_uploads import configure_uploads
 import os
+from datetime import timedelta
 
 app = Flask(__name__, static_folder='static', template_folder='templates')
 app.app_context().push()
@@ -16,6 +17,7 @@ app.jinja_env.variable_end_string = '}'
 
 # session
 app.config['SESSION_TYPE'] = 'filesystem'
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=2)
 Session(app)
 
 # flask-login
