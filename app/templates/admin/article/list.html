@@ -23,7 +23,13 @@
                     文章简介文章简介文章简介文章简介文章简介</p>
                     </div>
                     <img />
-                    <div class="ext-info"><span class="read">110</span><span class="date">2017-11-11 16:22</span></div>
+                    <div class="ext-info">
+                        <div class="stat">
+                            <span class="read iconfont icon-view">110</span>
+                        </div>
+                        <span class="date">2017-11-11 16:22</span>
+                        <a class="edit-btn iconfont icon-edit" @click="toEditTag(index)"></a>
+                        <a class="del-btn iconfont icon-delete" @click="toDelTag(index)"></a></div>
                 </div>
             </li>
             <li class="article-wrap">
@@ -42,6 +48,17 @@
                 <div class="article">
                 </div>
             </li>
+        </ul>
+        <ul class="pages">
+            <li><a><<</a></li>
+            <li><a><</a></li>
+            <li><a>1</a></li>
+            <li><a>2</a></li>
+            <li class="active"><a>3</a></li>
+            <li><a>4</a></li>
+            <li><a>5</a></li>
+            <li><a>></a></li>
+            <li><a>>></a></li>
         </ul>
     </div>
 </div>

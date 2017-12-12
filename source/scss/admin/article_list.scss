@@ -80,7 +80,7 @@
         box-sizing: border-box;
 
         width: 50%;
-        height: 102px;
+        height: 112px;
         margin: {
           bottom: 15px;
         };
@@ -127,39 +127,123 @@
             flex-shrink: 0;
             z-index: 1;
 
-            width: 90px;
-            height: 90px;
+            width: 75px;
+            height: 75px;
 
             border-radius: 5px;
           }
 
           .ext-info {
+            display: flex;
             position: absolute;
             left: 0;
             bottom: 0;
 
             width: 100%;
-            height: 20px;
+            height: 25px;
             padding: {
               left: 10px;
               right: 10px;
             }
 
-            font: 14px/20px 'YimHei';
-            color: $WHITE;
+            font: 14px/25px 'Lucida Family';
+            color: $CROWN;
 
             background-color: lighten($BLUE, 10%);
-            border-radius: 0 0 5px 5px;
 
-            .read {
+            .stat {
+              flex-grow: 1;
 
+              span::before {
+                margin-right: 5px;
+              }
             }
 
             .date {
-              float: right;
-              margin-right: 90px;
+              width: 110px;
+            }
+
+            a {
+              display: block;
+
+              width: 30px;
+              height: 20px;
+
+              text-align: center;
+
+              cursor: pointer;
+
+              &:hover {
+                text-decoration: none;
+              }
+
+              &.edit-btn {
+                color: $CROWN;
+              }
+
+              &.del-btn {
+                color: $RED;
+              }
             }
           }
+        }
+      }
+    }
+
+    .pages {
+      display: flex;
+      justify-content: flex-end;
+
+      padding: {
+        left: 15px;
+        right: 15px;
+      };
+
+      list-style: none;
+
+      li {
+        display: block;
+        box-sizing: border-box;
+
+        min-width: 30px;
+        height: 30px;
+        margin: {
+          left: 2px;
+          right: 2px;
+        };
+
+        text-align: center;
+
+        border: 1px solid darken($GRAY, 20%);
+        border-radius: 4px;
+
+        cursor: pointer;
+        transition: all .5s ease-in-out;
+
+        a {
+          color: darken($GRAY, 50%);
+          font: 12px/30px 'Lucida Family';
+
+          &:hover {
+            text-decoration: none;
+          }
+        }
+
+        &:hover {
+          a {
+            color: $CROWN;
+          }
+          border-color: $CROWN;
+          transition: all .5s ease-in-out;
+        }
+
+        &.active {
+          a {
+            color: $WHITE;
+          }
+          background-color: $CROWN;
+          border-color: $CROWN;
+          transition: all .5s ease-in-out;
         }
       }
     }
