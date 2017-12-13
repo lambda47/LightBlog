@@ -108,9 +108,15 @@
             flex-grow: 1;
             flex-shrink: 1;
 
+            min-width: 0;
+
             h1 {
               font: 20px/30px 'SimHei';
               color: $BLACK;
+
+              overflow: hidden;
+              text-overflow:ellipsis;
+              white-space: nowrap;
             }
 
             p {
@@ -160,7 +166,7 @@
             }
 
             .date {
-              width: 110px;
+              width: 120px;
             }
 
             a {
