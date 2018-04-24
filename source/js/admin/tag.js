@@ -8,8 +8,10 @@ import Vue from 'vue';
 import Message from 'message';
 import ImageUpload from 'image-upload'
 import tagService from './service/tag';
+import Menu from 'menu';
 
 document.addEventListener('DOMContentLoaded', function() {
+    Vue.use(Menu);
     Vue.use(Message, {transitionName: 'message-fade', duration: 2, classPre: 'admin'});
     Vue.use(ImageUpload);
 
@@ -20,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
 
     let vm = new Vue({
-        el: '.content',
+        el: '#app',
         data: {
             name: '',
             tags: [],

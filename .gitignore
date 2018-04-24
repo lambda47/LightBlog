@@ -5,3 +5,4 @@ app/static/
 flask_session/
 *.pyc
 upload/
+.idea/

@@ -1,20 +1,29 @@
 <aside class="menu">
-    <ul>
-        <li><a href="${ url_for('view_admin_article.add_article') }" {% if active_page == 'publish' %}class="active"{% endif %}><i class="iconfont icon-edit"></i>发布</a></li>
-        <li><a href="${ url_for('view_admin_article.artilce_list') }" {% if active_page == 'article'%}class="active"{% endif %}><i class="iconfont icon-viewlist"></i>文章</a></li>
-        <li class="seprator">设置</li>
-        <li><a href="${ url_for('view_admin_tag.tags') }" {% if active_page == 'tag' %}class="active"{% endif %}>
-            <i class="iconfont icon-biaoqian"></i>标签</a>
-        </li>
-        <li>
-            <a href="#my" class="collapsed" data-toggle="collapse">
+    <lb-menu>
+        <lb-menu-item to="${ url_for('view_admin_article.add_article') }" :active="${'true' if active_page == 'publish' else 'false'}">
+            <template slot="title"><i class="iconfont icon-edit"></i>发布</template>
+        </lb-menu-item>
+        <lb-menu-item to="${ url_for('view_admin_article.artilce_list') }" :active="${'true' if active_page == 'article' else 'false'}">
+            <template slot="title"><i class="iconfont icon-viewlist"></i>文章</template>
+        </lb-menu-item>
+        <lb-separator>设置</lb-separator>
+        <lb-menu-item to="${ url_for('view_admin_tag.tags') }" :active="${'true' if active_page == 'tag' else 'false'}">
+            <template slot="title"><i class="iconfont icon-biaoqian"></i>标签</template>
+        </lb-menu-item>
+        <lb-sub-menu>
+            <template slot="title">
                 <i class="iconfont icon-account"></i>我的
-                <i class="iconfont icon-more"></i>
-            </a>
-            <ul id="my" class="sub-menu collapse">
-                <li><a><i class="iconfont icon-xuanzekuangmoren"></i>信息</a></li>
-                <li><a><i class="iconfont icon-xuanzekuangmoren"></i>密码</a></li>
-            </ul>
-        </li>
-    </ul>
+            </template>
+            <lb-menu-item>
+                <template slot="title">
+                    <i class="iconfont icon-xuanzekuangmoren"></i>信息
+                </template>
+            </lb-menu-item>
+            <lb-menu-item>
+                <template slot="title">
+                    <i class="iconfont icon-xuanzekuangmoren"></i>密码
+                </template>
+            </lb-menu-item>
+        </lb-sub-menu>
+    </lb-menu>
 </aside>

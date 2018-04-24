@@ -9,9 +9,11 @@
     {% endblock %}
 </head>
 <body>
-    {% include 'admin/common/nav.html' ignore missing %}
-    {% include 'admin/common/menu.html' ignore missing %}
-    <div class="content" v-cloak>{% block content %}{% endblock %}</div>
-    <footer></footer>
+    <div id="app">
+        {% include 'admin/common/nav.html' ignore missing %}
+        {% include 'admin/common/menu.html' ignore missing %}
+        <div class="content" v-cloak>{% block content %}{% endblock %}</div>
+        <footer></footer>
+    </div>
 </body>
 </html>

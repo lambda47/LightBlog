@@ -9,8 +9,10 @@ import {urls, matchImageUrl} from 'admin/common';
 import Vue from 'vue';
 import tagService from './service/tag'
 import articleService from './service/article'
+import Menu from 'menu'
 
 document.addEventListener('DOMContentLoaded', function() {
+    Vue.use(Menu);
     Vue.use(Message, {transitionName: 'message-fade', duration: 2, classPre: 'admin'});
     Vue.use(ImageUpload);
     Vue.use(Editor);
@@ -21,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const NOT_EDITING = Symbol('no_editing_index');
 
     let vm = new Vue({
-        el: '.content',
+        el: '#app',
         data: {
             article: {
                 id: null,

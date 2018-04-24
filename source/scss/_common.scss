@@ -120,7 +120,7 @@ body {
           cursor: pointer;
         }
 
-        &:hover, &.active {
+        &:hover {
           background-color: $CROWN;
           transition: all .2s ease-in-out;
         }
@@ -142,20 +142,33 @@ body {
           transform: rotate(90deg);
           transition: transform 0.5s;
         }
+      }
 
-        &.collapsed .icon-more {
-            transform:rotate(180deg);
-            transition:transform 0.5s;
+      &.active > a{
+        background-color: $CROWN;
+        transition: all .2s ease-in-out;
+      }
+
+      &.collapsed {
+        .icon-more {
+          transform: rotate(180deg);
+          transition: transform 0.5s;
+        }
+
+        ul {
+          display: none;
         }
       }
 
-      &.seprator {
+      &.lb-menu-separator {
         text-align: center;
         color: #5A5C51;
         font-size: 15px;
       }
 
       ul {
+        overflow: auto;
+
         margin-top: 10px;
 
         li {
