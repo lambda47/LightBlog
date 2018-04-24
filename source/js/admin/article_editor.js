@@ -1,7 +1,5 @@
-import 'bootstrap/dist/css/bootstrap.css';
 import 'admin/article_editor.scss';
 
-import 'bootstrap/dist/js/bootstrap.js';
 import Editor from 'editor';
 import ImageUpload from 'image-upload';
 import Message from 'message';

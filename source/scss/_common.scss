@@ -37,23 +37,78 @@ body {
 }
 
 .navbar {
+  position: relative;
   z-index: 2;
 
   margin: {
     bottom: 0;
   }
+  padding: 0 15px 0 0;
 
   border: none;
   background-color: $BLACK;
+  border-radius: 4px;
   opacity: 0.9;
 
+  .navbar-header {
+    float: left;
+  }
+
   li.dropdown {
-    > a {
-      background-color: $BLACK;
+    position: relative;
+
+    cursor: pointer;
+
+    > a, > a:hover, a.collapsed:hover {
+      background-color: $CROWN;
     }
 
-    &.open > a, > a:hover {
-      background-color: $CROWN;
+    &.collapsed {
+      > a {
+        background-color: $BLACK;
+      }
+
+      ul {
+        display: none;
+      }
+    }
+
+    ul {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      min-width: 160px;
+      padding: 5px 0;
+      margin: 2px 0 0;
+
+      font-size: 14px;
+      text-align: left;
+
+      background-color: $WHITE;
+      border: 1px solid rgba(0,0,0,.15);
+      border-radius: 4px;
+      box-shadow: 0 6px 12px rgba(0,0,0,.175);
+
+      list-style: none;
+
+      li > a {
+        display: block;
+        padding: 3px 20px;
+        clear: both;
+
+        font-weight: 400;
+        line-height: 1.42857143;
+        color: #333;
+        white-space: nowrap;
+
+        text-decoration: none;
+
+        &:hover {
+          background-color: #f5f5f5;
+
+          text-decoration: none;
+        }
+      }
     }
   }
 

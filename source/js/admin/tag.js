@@ -1,7 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.css';
 import 'admin/tag.scss';
-
-import 'bootstrap/dist/js/bootstrap.js';
 
 import {urls} from 'admin/common';
 import Vue from 'vue';
