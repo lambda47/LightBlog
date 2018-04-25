@@ -40,18 +40,41 @@ body {
   position: relative;
   z-index: 2;
 
+  height: 50px;
   margin: {
     bottom: 0;
   }
-  padding: 0 15px 0 0;
+  padding: 0 15px;
 
   border: none;
   background-color: $BLACK;
   border-radius: 4px;
   opacity: 0.9;
 
+  a, a:hover {
+    text-decoration: none;
+  }
+
   .navbar-header {
     float: left;
+
+    height: 100%;
+
+    line-height: 50px;
+    font-size: 20px;
+    font-weight: bold;
+  }
+
+  .navbar-collapse {
+    float: right;
+
+    .navbar-nav {
+      list-style: none;
+    }
+  }
+
+  li {
+    line-height: 50px;
   }
 
   li.dropdown {
@@ -60,6 +83,11 @@ body {
     cursor: pointer;
 
     > a, > a:hover, a.collapsed:hover {
+      display: block;
+
+      height: 100%;
+      padding: 0 15px;
+      
       background-color: $CROWN;
     }
 
