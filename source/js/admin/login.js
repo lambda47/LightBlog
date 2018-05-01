@@ -52,14 +52,14 @@ document.addEventListener('DOMContentLoaded', function() {
                     const remember_me = this.$refs.remember_me.value;
                     let {code, msg, data} = await userService.login(this.username.value,
                         this.password.value, remember_me);
-                    if (code === '1000') {
+                    if (code === 1000) {
                         document.location.href = urls.view_admin_index;
                     } else {
-                        if (!this.username.show_err && code === '1102' || code === '1104') {
+                        if (!this.username.show_err && code === 1102 || code === 1104) {
                             this.username.err_msg = msg;
                             this.username.show_err = true;
-                        } else if (!this.password.show_err && code === '1103'
-                                || code === '1105') {
+                        } else if (!this.password.show_err && code === 1103
+                                || code === 1105) {
                             this.password.err_msg = msg;
                             this.password.show_err = true;
                         }
