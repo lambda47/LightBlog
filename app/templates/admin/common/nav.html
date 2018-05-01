@@ -4,7 +4,7 @@
             <a href="${ url_for('view_admin_index.main') }" class="navbar-brand">Light Blog</a>
         </div>
         <div class="navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
+            <lb-menu class="nav navbar-nav navbar-right" :drop-down-menu="true">
                 <lb-sub-menu class="dropdown">
                     <template slot="title">
                         ${session['user']['username']}
@@ -15,7 +15,7 @@
                         </template>
                     </lb-menu-item>
                 </lb-sub-menu>
-            </ul>
+            </lb-menu>
         </div>
     </nav>
 </header>

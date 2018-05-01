@@ -25,6 +25,9 @@ export default {
             this.subMenuCollapsed = !this.subMenuCollapsed;
             event.preventDefault();
             event.cancelBubble = true;
+        },
+        collapse() {
+            this.subMenuCollapsed = true;
         }
     }
 }
