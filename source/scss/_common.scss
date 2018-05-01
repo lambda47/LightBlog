@@ -87,7 +87,7 @@ body {
 
       height: 100%;
       padding: 0 15px;
-      
+
       background-color: $CROWN;
     }
 
@@ -176,6 +176,7 @@ body {
 
       a {
         display: block;
+        box-sizing: border-box;
 
         height: 40px;
         width: 100%;
