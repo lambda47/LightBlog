@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.cancelEdit();
                 this.tags = [];
                 let {code, msg, data} = await tagService.find(this.name);
-                if (code === '1000') {
+                if (code === 1000) {
                     this.editingTag.index = NOT_EDITING;
                     data.tags.map(value => {
                         value.key = this.nextKey();
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         return;
                     }
                     let {code, msg, data} = await tagService.add(this.editingTag.name, this.editingTag.path);
-                    if (code === '1000') {
+                    if (code === 1000) {
                         this.tags[this.editingTag.index].name = this.editingTag.name;
                         this.tags[this.editingTag.index].logo = this.editingTag.logo;
                         this.tags[this.editingTag.index].id = data.id;
@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 } else {
                     let {code, msg, data} = await tagService.edit(this.tags[this.editingTag.index].id,
                         this.editingTag.name, this.editingTag.path);
-                    if (code === '1000') {
+                    if (code === 1000) {
                         this.tags[this.editingTag.index].name = this.editingTag.name;
                         this.tags[this.editingTag.index].logo = this.editingTag.logo;
                         this.mode = null;
@@ -124,13 +124,13 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (result) {
                     let {code, msg, data} = await tagService.del(this.tags[index].id);
 
-                    if (code === '1000') {
+                    if (code === 1000) {
                        this.tags.splice(index, 1);
                     }
                 }
             },
             imageUploaded(result) {
-                if (result.code === '1000') {
+                if (result.code === 1000) {
                     this.editingTag.logo = result.data.url;
                     this.editingTag.path = result.data.path;
                 }

@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
         methods: {
             async findArticle(id) {
                 let {code, msg, data} = await articleService.detail(id);
-                if (code === '1000') {
+                if (code === 1000) {
                     const article = data.article;
                     this.article.title = article.title;
                     this.article.draft = article.draft;
@@ -63,7 +63,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         title: this.article.title,
                         draft: this.$refs.editor.markdown()
                     });
-                    if (code === '1000') {
+                    if (code === 1000) {
                         this.$message.info('已经保存为草稿');
                     }
                 } else { // 保存
@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         title: this.article.title,
                         draft: this.$refs.editor.markdown()
                     });
-                    if (code === '1000') {
+                    if (code === 1000) {
                         this.$message.info('已经保存为草稿');
                     }
                 }
@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.article.img = matchImageUrl(this.article.content);
                 }
                 let {code, msg, data} = await tagService.find('');
-                if (code === '1000') {
+                if (code === 1000) {
                     this.existedTags = new Map();
                     for (let tag of data.tags) {
                         this.existedTags.set(tag.name, tag.id);
@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         img: this.article.imgPath,
                         tags
                     });
-                    if (code === '1000') {
+                    if (code === 1000) {
                         this.$message.info('已发布成功');
                         this.showPublishBar = false;
                     }
@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             img: this.article.imgPath,
                             tags
                         });
-                    if (code === '1000') {
+                    if (code === 1000) {
                         this.$message.info('已发布成功');
                         this.showPublishBar = false;
                     }
@@ -178,7 +178,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 return false;
             },
             imageUploaded(result) {
-                if (result.code === '1000') {
+                if (result.code === 1000) {
                     this.article.img = result.data.url;
                     this.article.imgPath = result.data.path;
                 } else {

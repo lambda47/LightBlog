@@ -12,7 +12,7 @@ def apiview(func):
             if result is not None and (type(result) == list or type(result) == dict):
                 data = result
             return jsonify({
-                'code': '1000',
+                'code': 1000,
                 'msg': '成功',
                 'data': data
             })
