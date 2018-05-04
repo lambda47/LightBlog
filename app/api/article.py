@@ -5,11 +5,14 @@ from ..lib.apiview import apiview
 from ..lib.auth import admin_login_require
 from ..model.article import Article
 from ..model.tag import Tag
+from .. import images
+from bs4 import BeautifulSoup
 
 article = Blueprint('api_article', __name__)
 
 DRAFT = 1
 PUBLISH = 2
+
 
 @article.route('/add', methods=['POST'])
 @apiview
@@ -27,16 +30,18 @@ def add_article():
         'draft': draft,
         'content': content,
         'img': img,
-        'status': type
+        'status': type,
+        'views': 0
     }
     if type == PUBLISH and len(tags) > 0:
         article['tags'] = [ObjectId(tag_id) for tag_id in set(tags)]
     Article.add(article)
 
+
 @article.route('/detail', methods=['POST'])
 @apiview
 @admin_login_require('api')
-def article_detial():
+def article_detail():
     """文章详情"""
     id = request.form.get('id')
     if id is None:
@@ -55,10 +60,11 @@ def article_detial():
     return {'article': {'id': id, 'title': article.title, 'draft': article.draft,
                         'tags': article.tags}}
 
+
 @article.route('/save', methods=['POST'])
 @apiview
 @admin_login_require('api')
-def article_detail():
+def edit_detail():
     """保存文章"""
     id = request.form.get('id')
     type = int(request.form.get('type', DRAFT))
@@ -84,3 +90,24 @@ def article_detail():
         if img != '':
             article.img = img
     article.save()
+
+
+@article.route('/find', methods=['POST'])
+@apiview
+@admin_login_require('api')
+def find_articles():
+    """查找文章"""
+    title = request.form.get('title', '')
+    date = request.form.get('date', '')
+    page = int(request.form.get('page', 1))
+    limit = int(request.form.get('limit', 10))
+    articles = Article.find_by_condition(title, date).limit(limit).skip(limit * (page - 1))
+    return {'articles': [{
+        'id': str(article._id),
+        'title': article.title,
+        'img': images.url(article.img) if article.img else '',
+        'content': article.content,
+        'summary': BeautifulSoup(article.content).get_text()[0:100],
+        'status': article.status,
+        'views': article.views
+    } for article in articles]}
