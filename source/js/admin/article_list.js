@@ -1,7 +1,8 @@
 import 'admin/article_list.scss';
 
 import Vue from 'vue';
-import Menu from 'menu'
+import Menu from 'menu';
+import articleService from './service/article';
 
 document.addEventListener('DOMContentLoaded', function() {
     Vue.use(Menu);
@@ -11,6 +12,9 @@ document.addEventListener('DOMContentLoaded', function() {
         data: {
 
         },
-
+        async created() {
+            let result = await articleService.find('', '');
+            console.log(result)
+        }
     });
 }, false);
