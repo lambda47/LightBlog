@@ -7,6 +7,8 @@ from ..model.article import Article
 from ..model.tag import Tag
 from .. import images
 from bs4 import BeautifulSoup
+from datetime import datetime
+from dateutil import tz
 
 article = Blueprint('api_article', __name__)
 
@@ -31,7 +33,8 @@ def add_article():
         'content': content,
         'img': img,
         'status': type,
-        'views': 0
+        'views': 0,
+        'published_at': datetime.utcnow()
     }
     if type == PUBLISH and len(tags) > 0:
         article['tags'] = [ObjectId(tag_id) for tag_id in set(tags)]
@@ -109,5 +112,6 @@ def find_articles():
         'content': article.content,
         'summary': BeautifulSoup(article.content).get_text()[0:100],
         'status': article.status,
-        'views': article.views
+        'views': article.views,
+        'published_at': datetime.strftime(article.published_at.astimezone(tz.gettz('CST')), '"%Y-%m-%d %H:%M:%S')
     } for article in articles]}
