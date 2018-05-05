@@ -34,10 +34,11 @@ def add_article():
         'img': img,
         'status': type,
         'views': 0,
-        'published_at': datetime.utcnow()
     }
-    if type == PUBLISH and len(tags) > 0:
-        article['tags'] = [ObjectId(tag_id) for tag_id in set(tags)]
+    if type == PUBLISH:
+        article['published_at'] = datetime.utcnow()
+        if len(tags) > 0:
+            article['tags'] = [ObjectId(tag_id) for tag_id in set(tags)]
     Article.add(article)
 
 
@@ -86,6 +87,9 @@ def edit_detail():
     article.draft = draft
     if type == PUBLISH:
         article.content = content
+        # 首次发布，设置发布时间
+        if article.type == DRAFT:
+            article.published_at = datetime.utcnow()
         # 标签
         tags = [ObjectId(tag_id) for tag_id in set(tags)]
         article.tags = tags
@@ -113,5 +117,6 @@ def find_articles():
         'summary': BeautifulSoup(article.content).get_text()[0:100],
         'status': article.status,
         'views': article.views,
-        'published_at': datetime.strftime(article.published_at.astimezone(tz.gettz('CST')), '"%Y-%m-%d %H:%M:%S')
+        'published_at': datetime.strftime(article.published_at.astimezone(tz.gettz('CST')), '%Y-%m-%d %H:%M:%S')
+            if article.published_at else ''
     } for article in articles]}

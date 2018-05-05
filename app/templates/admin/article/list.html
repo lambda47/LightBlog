@@ -8,44 +8,27 @@
 {% endblock %}
 {% block content %}
 <div class="content-header">
-    <input type="text" class="title" placeholder="标题..." />
-    <input type="date" class="date" />
+    <input type="text" class="title" placeholder="标题..." v-model="title" />
+    <input type="date" class="date" v-model="date" />
     <button class="search-btn iconfont icon-search">搜索</button>
 </div>
 <div class="content-main">
     <div class="articles">
         <ul class="articles-list">
-            <li class="article-wrap">
+            <li class="article-wrap" v-for="article in articles">
                 <div class="article">
                     <div class="text-info">
-                        <h1><em>草稿</em>文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题文章标题</h1>
-                        <p>文章简介文章简介文章简介文章简介文章简介文章简介文章简介文章简介文章简介文章简介文章简介文章简介
-                    文章简介文章简介文章简介文章简介文章简介</p>
+                        <h1><em v-if="article.status == 1">草稿</em>{{article.title}}</h1>
+                        <p>{{article.summary}}</p>
                     </div>
-                    <img />
+                    <img v-if="article.img" :src="article.img" />
                     <div class="ext-info">
                         <div class="stat">
-                            <span class="read iconfont icon-view">110</span>
+                            <span class="read iconfont icon-view">{{article.views}}</span>
                         </div>
-                        <span class="date">2017-11-11 16:22</span>
-                        <a class="edit-btn iconfont icon-edit" @click="toEditTag(index)"></a>
+                        <span class="date">{{article.published_at}}</span>
+                        <a class="edit-btn iconfont icon-edit" :href="'/admin/article/edit/' + article.id"></a>
                         <a class="del-btn iconfont icon-delete" @click="toDelTag(index)"></a></div>
-                </div>
-            </li>
-            <li class="article-wrap">
-                <div class="article">
-                </div>
-            </li>
-            <li class="article-wrap">
-                <div class="article">
-                </div>
-            </li>
-            <li class="article-wrap">
-                <div class="article">
-                </div>
-            </li>
-            <li class="article-wrap">
-                <div class="article">
                 </div>
             </li>
         </ul>

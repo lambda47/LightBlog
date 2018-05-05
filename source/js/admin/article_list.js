@@ -10,11 +10,20 @@ document.addEventListener('DOMContentLoaded', function() {
     let vm = new Vue({
         el: '#app',
         data: {
-
+            title: '',
+            date: '',
+            articles: []
         },
-        async created() {
-            let result = await articleService.find('', '');
-            console.log(result)
+        methods: {
+           async findArticles() {
+               let {code, msg, data} = await articleService.find(this.title, this.date);
+               if (code === 1000) {
+                    this.articles = data.articles;
+               }
+           }
+        },
+        created() {
+            this.findArticles();
         }
     });
 }, false);
