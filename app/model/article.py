@@ -1,7 +1,7 @@
 from .model import Model
 import re
 import pymongo
-import datetime
+from datetime import datetime
 import time
 
 # state
@@ -26,7 +26,9 @@ class Article(Model):
                 title = re.compile('.*{}.*'.format(title), re.IGNORECASE)
             query['title'] = title
         if date:
-            begin_date = datetime.datetime.utcfromtimestamp(time.strptime(date, '%Y-%m-%d 0:0:0'))
-            end_date = datetime.datetime.utcfromtimestamp(time.strptime(date, '%Y-%m-%d 23:59:59'))
-            query['date'] = {'$gte': begin_date, '$lge': end_date}
+            begin_date = datetime.utcfromtimestamp(
+                time.mktime(time.strptime("{} 00:00:00".format(date), '%Y-%m-%d %H:%M:%S')))
+            end_date = datetime.utcfromtimestamp(
+                time.mktime(time.strptime("{} 23:59:59".format(date), '%Y-%m-%d %H:%M:%S')))
+            query['published_at'] = {'$gte': begin_date, '$lte': end_date}
         return cls.find_all(query).sort('updated_at', pymongo.DESCENDING)

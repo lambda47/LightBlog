@@ -15,12 +15,15 @@ document.addEventListener('DOMContentLoaded', function() {
             articles: []
         },
         methods: {
-           async findArticles() {
-               let {code, msg, data} = await articleService.find(this.title, this.date);
-               if (code === 1000) {
+            async findArticles() {
+                let {code, msg, data} = await articleService.find(this.title, this.date);
+                if (code === 1000) {
                     this.articles = data.articles;
-               }
-           }
+                }
+            },
+            search() {
+                this.findArticles();
+            }
         },
         created() {
             this.findArticles();

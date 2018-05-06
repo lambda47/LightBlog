@@ -1,6 +1,6 @@
 import request from '../../util/request'
 
-export const find = (title, name, page = 1, limit = 5) => request('/article/find', 'POST', {title, name, page, limit});
+export const find = (title, date, page = 1, limit = 5) => request('/article/find', 'POST', {title, date, page, limit});
 
 export const detail = id => request('/article/detail', 'POST', {id});
 
