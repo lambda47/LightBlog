@@ -1,6 +1,5 @@
 from .model import Model
 import re
-import pymongo
 from datetime import datetime
 import time
 
@@ -31,4 +30,4 @@ class Article(Model):
             end_date = datetime.utcfromtimestamp(
                 time.mktime(time.strptime("{} 23:59:59".format(date), '%Y-%m-%d %H:%M:%S')))
             query['published_at'] = {'$gte': begin_date, '$lte': end_date}
-        return cls.find_all(query).sort('updated_at', pymongo.DESCENDING)
+        return cls.find_all(query)

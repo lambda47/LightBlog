@@ -9,6 +9,8 @@ from .. import images
 from bs4 import BeautifulSoup
 from datetime import datetime
 from dateutil import tz
+import pymongo
+import math
 
 article = Blueprint('api_article', __name__)
 
@@ -108,15 +110,22 @@ def find_articles():
     date = request.form.get('date', '')
     page = int(request.form.get('page', 1))
     limit = int(request.form.get('limit', 10))
-    articles = Article.find_by_condition(title, date).limit(limit).skip(limit * (page - 1))
+    query =  Article.find_by_condition(title, date)
+    articles = query \
+        .sort('updated_at', pymongo.DESCENDING) \
+        .limit(limit) \
+        .skip(limit * (page - 1))
+    pages = math.ceil(query.count() / limit)
     return {'articles': [{
-        'id': str(article._id),
-        'title': article.title,
-        'img': images.url(article.img) if article.img else '',
-        'content': article.content,
-        'summary': BeautifulSoup(article.content).get_text()[0:100],
-        'status': article.status,
-        'views': article.views,
-        'published_at': datetime.strftime(article.published_at.astimezone(tz.gettz('CST')), '%Y-%m-%d %H:%M:%S')
-            if article.published_at else ''
-    } for article in articles]}
+                'id': str(article._id),
+                'title': article.title,
+                'img': images.url(article.img) if article.img else '',
+                'content': article.content,
+                'summary': BeautifulSoup(article.content).get_text()[0:100],
+                'status': article.status,
+                'views': article.views,
+                'published_at': datetime.strftime(article.published_at.astimezone(tz.gettz('CST')), '%Y-%m-%d %H:%M:%S')
+                    if article.published_at else ''
+            } for article in articles],
+            'pages': pages
+        }
