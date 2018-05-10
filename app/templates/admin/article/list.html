@@ -10,7 +10,7 @@
 <div class="content-header">
     <input type="text" class="title" placeholder="标题..." v-model="title" />
     <input type="date" class="date" v-model="date" />
-    <button class="search-btn iconfont icon-search" @click="search">搜索</button>
+    <button class="search-btn iconfont icon-search" @click="findArticles">搜索</button>
 </div>
 <div class="content-main">
     <div class="articles">
@@ -32,17 +32,7 @@
                 </div>
             </li>
         </ul>
-        <ul class="pages">
-            <li><a><<</a></li>
-            <li><a><</a></li>
-            <li><a>1</a></li>
-            <li><a>2</a></li>
-            <li class="active"><a>3</a></li>
-            <li><a>4</a></li>
-            <li><a>5</a></li>
-            <li><a>></a></li>
-            <li><a>>></a></li>
-        </ul>
+        <lb-page class="pages" :pages="pages" @page-change="findArticles"></lb-page>
     </div>
 </div>
 {% endblock %}

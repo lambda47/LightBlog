@@ -116,7 +116,8 @@ def find_articles():
         .limit(limit) \
         .skip(limit * (page - 1))
     pages = math.ceil(query.count() / limit)
-    return {'articles': [{
+    return {
+            'articles': [{
                 'id': str(article._id),
                 'title': article.title,
                 'img': images.url(article.img) if article.img else '',
