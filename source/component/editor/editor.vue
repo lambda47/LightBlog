@@ -59,7 +59,7 @@ export default {
             try {
                 let {code, msg, data} = await request(this.uploadAction, 'POST',
                     {...this.uploadParams, [this.name]: file});
-                if (code === '1000') {
+                if (code === 1000) {
                     cm.replaceRange(`![](${data.url})`, start, end);
                 } else {
                     cm.replaceRange('![]()', start, end);
