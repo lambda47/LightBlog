@@ -53,6 +53,9 @@ app.register_blueprint(view_admin_tag, url_prefix='/admin/tags')
 # 管理后台文章管理页
 from .admin.article import article as view_admin_article
 app.register_blueprint(view_admin_article, url_prefix='/admin/article')
+# 管理后台设置密码页
+from .admin.setting import setting as view_admin_setting
+app.register_blueprint(view_admin_setting, url_prefix='/admin/setting')
 # 文件上传接口
 from .api.upload import upload as api_upload
 app.register_blueprint(api_upload, url_prefix='/upload')

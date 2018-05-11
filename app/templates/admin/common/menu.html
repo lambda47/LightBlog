@@ -10,17 +10,17 @@
         <lb-menu-item to="${ url_for('view_admin_tag.tags') }" :active="${'true' if active_page == 'tag' else 'false'}">
             <template slot="title"><i class="iconfont icon-biaoqian"></i>标签</template>
         </lb-menu-item>
-        <lb-sub-menu>
+        <lb-sub-menu :collapsed="${ 'true' if active_page not in ['about', 'password'] else 'false' }">
             <template slot="title">
                 <i class="iconfont icon-account"></i>我的
                 <i class="iconfont icon-more"></i>
             </template>
-            <lb-menu-item>
+            <lb-menu-item to="${ url_for('view_admin_setting.about') }" :active="${'true' if active_page == 'about' else 'false'}">
                 <template slot="title">
                     <i class="iconfont icon-xuanzekuangmoren"></i>信息
                 </template>
             </lb-menu-item>
-            <lb-menu-item>
+            <lb-menu-item to="${ url_for('view_admin_setting.password') }" :active="${'true' if active_page == 'password' else 'false'}">
                 <template slot="title">
                     <i class="iconfont icon-xuanzekuangmoren"></i>密码
                 </template>

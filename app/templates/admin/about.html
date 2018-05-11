@@ -1,0 +1,10 @@
+{% extends 'admin/base.html' %}
+{% set active_page = 'about' %}
+{% block title %}信息{% endblock %}
+{% block head %}
+    ${ super() }
+    <link rel="stylesheet" href="${ url_for('static', filename='admin/index.css') }">
+    <script src="${ url_for('static', filename='admin/index.js') }"></script>
+{% endblock %}
+{% block content %}
+{% endblock %}

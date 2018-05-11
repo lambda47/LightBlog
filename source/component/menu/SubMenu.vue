@@ -13,11 +13,12 @@
 export default {
     name: 'SubMenu',
     props: {
+        collapsed: {type: Boolean, default: true},
         classPre: {type: String, default: 'lb'}
     },
     data () {
         return {
-            subMenuCollapsed: true,
+            subMenuCollapsed: this.collapsed,
         }
     },
     methods: {

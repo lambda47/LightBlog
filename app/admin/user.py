@@ -9,6 +9,7 @@ from ..lib.auth import admin_login_require
 
 user = Blueprint('view_admin_user', __name__)
 
+
 @user.route('/login', methods=['GET'])
 def login():
     if admin_loggedin():
