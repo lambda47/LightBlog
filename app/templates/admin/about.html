@@ -3,8 +3,17 @@
 {% block title %}信息{% endblock %}
 {% block head %}
     ${ super() }
-    <link rel="stylesheet" href="${ url_for('static', filename='admin/index.css') }">
-    <script src="${ url_for('static', filename='admin/index.js') }"></script>
+    <link rel="stylesheet" href="${ url_for('static', filename='admin/about.css') }">
+    <script src="${ url_for('static', filename='admin/about.js') }"></script>
 {% endblock %}
 {% block content %}
+<div class="content-header">
+    <input type="text" class="site-title" placeholder="标题">
+    <input type="text" class="site-desc" placeholder="描述">
+    <button>确定</button>
+    <button class="cancel-btn">取消</button>
+</div>
+<div class="content-main">
+    <lb-editor ref="editor" name="image"></lb-editor>
+</div>
 {% endblock %}

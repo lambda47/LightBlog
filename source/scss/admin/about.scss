@@ -1,0 +1,33 @@
+@import "article_editor";
+
+.content-header {
+  .site-title, .site-desc {
+    height: 30px;
+    width: 250px;
+    padding-left: 10px;
+    margin-right: 15px;
+
+    border: 1px solid $CROWN;
+    border-radius: 10px;
+  }
+
+  .site-title {
+    margin-left: 15px;
+  }
+
+  .site-desc {
+    flex-grow: 1;
+  }
+
+  button {
+    @extend %btn;
+
+    &.cancel-btn {
+      color: $CROWN;
+      line-height: 28px;
+
+      background-color: transparent;
+      border: 1px solid $CROWN;
+    }
+  }
+}
