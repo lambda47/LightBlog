@@ -33,6 +33,18 @@
   opacity: 0
 }
 
+.list-fade-enter-active {
+  transition: opacity 1.5s
+}
+
+.list-fade-leave-active {
+  transition: 0s;
+}
+
+.list-fade-enter, .list-fade-leave-to {
+  opacity: 0
+}
+
 .fade-slide-up-enter-active, .slide-slide-up-leave-active {
   transition:  all 1s ease;
 }
