@@ -9,7 +9,8 @@ gulp.task('default', function(){
 			'admin/index': './js/admin/index.js',
 			'admin/tag': './js/admin/tag.js',
             'admin/article_editor': './js/admin/article_editor.js',
-			'admin/article_list': './js/admin/article_list.js'
+			'admin/article_list': './js/admin/article_list.js',
+			'admin/password': './js/admin/password.js'
 		},
 
 		output: {
