@@ -14,8 +14,8 @@
 </div>
 <div class="content-main">
     <div class="articles">
-        <ul class="articles-list">
-            <li class="article-wrap" v-for="article in articles">
+        <transition-group class="articles-list" name="fade" tag="ul">
+            <li class="article-wrap" v-for="article in articles" :key="article.id">
                 <div class="article">
                     <div class="text-info">
                         <h1><em v-if="article.status == 1">草稿</em>{{article.title}}</h1>
@@ -31,7 +31,7 @@
                         <a class="del-btn iconfont icon-delete" @click="toDelTag(index)"></a></div>
                 </div>
             </li>
-        </ul>
+        </transition-group>
         <lb-page class="pages" :pages="pages" @page-change="findArticles"></lb-page>
     </div>
 </div>
