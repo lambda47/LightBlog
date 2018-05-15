@@ -3,7 +3,7 @@
 .content {
 
   .content-header {
-    overflow: auto;
+    display: flex;
 
     padding: 15px;
     margin: {
@@ -13,13 +13,14 @@
     background-color: $GRAY;
 
     .search-bar {
-      float: left;
+      flex-grow: 1;
       position: relative;
 
       height: 30px;
       width: 220px;
       margin: {
         left: 15px;
+        right: 15px;
       }
 
       $borderWidth: 1px;
@@ -60,7 +61,7 @@
       @extend %btn;
 
       width: 80px;
-      margin-left: 30px;
+      margin-right: 15px;
 
       border-radius: 10px;
 
@@ -260,6 +261,7 @@
                 margin: 5px 0 5px 10px;
 
                 font-size: 12px;
+                line-height: 20px;
 
                 border-radius: 10px;
 
