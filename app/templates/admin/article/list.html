@@ -28,7 +28,7 @@
                         </div>
                         <span class="date">{{article.published_at}}</span>
                         <a class="edit-btn iconfont icon-edit" :href="'/admin/article/edit/' + article.id"></a>
-                        <a class="del-btn iconfont icon-delete" @click="toDelTag(index)"></a></div>
+                        <a class="del-btn iconfont icon-delete" @click="toDelArticle(article.id)"></a></div>
                 </div>
             </li>
         </transition-group>

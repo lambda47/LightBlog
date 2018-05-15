@@ -24,7 +24,19 @@ document.addEventListener('DOMContentLoaded', function() {
                     this.articles = data.articles;
                     this.pages = data.pages;
                 }
-            }
+            },
+            async toDelArticle(id) {
+                let result = confirm('是否确认删除文章');
+                if (result) {
+                    let {code, msg, data} = await articleService.del(id);
+
+                    if (code === 1000) {
+                        this.findArticles();
+                    } else {
+                        this.$message.error(msg);
+                    }
+                }
+            },
         },
         created() {
             this.findArticles();

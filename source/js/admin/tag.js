@@ -125,7 +125,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     let {code, msg, data} = await tagService.del(this.tags[index].id);
 
                     if (code === 1000) {
-                       this.tags.splice(index, 1);
+                        this.tags.splice(index, 1);
+                    } else {
+                        this.$message.error(msg);
                     }
                 }
             },

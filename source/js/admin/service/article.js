@@ -8,9 +8,12 @@ export const save = (id, type, article) => request('/article/save', 'POST', {id,
 
 export const add = (type, article) => request('/article/add', 'POST', {type, ...article});
 
+export const del = id => request('/article/del', 'POST', {id});
+
 export default {
     detail,
     save,
     add,
-    find
+    find,
+    del
 }

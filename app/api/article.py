@@ -130,3 +130,18 @@ def find_articles():
             } for article in articles],
             'pages': pages
         }
+
+
+@article.route('/del', methods=['POST'])
+@apiview
+@admin_login_require('api')
+def del_article():
+    """删除文章"""
+    id = request.form.get('id', '')
+
+    if id == '':
+        raise Exception('ARTICLE_NOT_EXIST')
+    article = Article.find(id)
+    if article is None:
+        raise Exception('ARTICLE_NOT_EXIST')
+    article.remove()
