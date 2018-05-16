@@ -15,6 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
             title: '',
             date: '',
             articles: [],
+            page: 1,
             pages: 0
         },
         methods: {
@@ -31,7 +32,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     let {code, msg, data} = await articleService.del(id);
 
                     if (code === 1000) {
-                        this.findArticles();
+                        console.log(this.page);
+                        this.findArticles(this.page);
                     } else {
                         this.$message.error(msg);
                     }

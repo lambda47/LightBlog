@@ -32,7 +32,7 @@
                 </div>
             </li>
         </transition-group>
-        <lb-page class="pages" :pages="pages" @page-change="findArticles"></lb-page>
+        <lb-page class="pages" :current-page.sync="page" :pages="pages" @page-change="findArticles"></lb-page>
     </div>
 </div>
 {% endblock %}

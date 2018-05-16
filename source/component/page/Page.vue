@@ -1,5 +1,5 @@
 <template>
-    <ul>
+    <ul v-if="pageNumbers">
         <li><a @click="toFirst"><<</a></li>
         <li><a @click="toPrev"><</a></li>
         <li v-for="num in pageNumbers" :class="{active: page == num}"><a @click="to(num)">{{num}}</a></li>
@@ -22,11 +22,15 @@ export default {
     },
     computed: {
        pageNumbers() {
-           let begin = Math.max(1, this.page - Math.floor(this.pageNumber / 2));
-           let end = Math.min(this.pages, this.page + Math.floor(this.pageNumber / 2));
-           if (end - begin - 1 < this.pageNumber) {
-               begin = Math.max(1, this.page - (this.pageNumber - (end - begin - 1)));
-               end = Math.min(this.pages, this.page + (this.pageNumber - (end - begin - 1)));
+           if (this.pages === 0) {
+               return [];
+           }
+           let offset = Math.floor(this.pageNumber / 2);
+           let begin = Math.max(1, this.page - offset);
+           let end = Math.min(this.pages, this.page + offset);
+           if (end - begin + 1 < this.pageNumber) {
+               begin = Math.max(1, end - this.pageNumber + 1);
+               end = Math.min(this.pages, begin + this.pageNumber - 1);
            }
            let items = [];
            for (let i = begin; i <= end; i++) {
@@ -38,7 +42,8 @@ export default {
     methods: {
         to(page) {
             this.page = page;
-            this.$emit('page-change', this.page);
+            this.$emit('update:currentPage', page);
+            this.$emit('page-change', page);
         },
         toFirst() {
             this.to(1);
