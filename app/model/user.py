@@ -17,6 +17,7 @@ def load_user(userid):
         session['user'] = user.as_dict()
         return user
 
+
 class User(UserMixin, Model):
     """用户"""
 

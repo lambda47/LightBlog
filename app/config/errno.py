@@ -5,9 +5,14 @@ errno = {
     'REQUIRE_PASSWORD' : {'code': 1103, 'msg': '请填写密码'},
     'USER_NOT_EXIST': {'code': 1104, 'msg': '用户不存在'},
     'PASSWORD_ERROR': {'code': 1105, 'msg': '密码不正确'},
+    'REQUIRE_OLD_PASSWORD': {'code': 1106, 'msg': '请输入原密码'},
+    'REQUIRE_NEW_PASSWORD': {'code': 1107, 'msg': '请输入新密码'},
+    'PASSWORD_NOT_SAME': {'code': 1108, 'msg': '两次输入的密码不一致'},
+    'OLD_PASSWORD_ERROR': {'code': 1109, 'msg': '原密码不正确'},
     'TAG_NOT_EXIST': {'code': 1201, 'msg': '标签不存在'},
     'TAG_NAME_PARAM_EMPTY': {'code': 1202, 'msg': '请填写标签名'},
     'TAG_LOGO_PARAM_EMPTY': {'code': 1203, 'msg': '请上传标签图片'},
     'TAG_ALREADY_EXIST': {'code': 1204, 'msg': '该标签已存在'},
     'ARTICLE_NOT_EXIST': {'code': 1301, 'msg': '文章不存在'}
+
 }
