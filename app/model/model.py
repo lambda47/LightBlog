@@ -107,3 +107,14 @@ class Model(metaclass=ModelMetaclass):
             self.updated_at = datetime.datetime.utcnow()
             return self.save()
 
+    def filter(self, *args, **kwargs):
+        """过滤属性，转换为dict"""
+        result = {}
+        for arg in args:
+            result[arg] = getattr(self, arg, None)
+        for key, val in kwargs.items():
+            if callable(val):
+                result[key] = val(self)
+            else:
+                result[key] = getattr(self, val, None)
+        return result

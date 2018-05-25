@@ -25,9 +25,4 @@ def save_info_setting():
 def get_info_setting():
     """获取设置信息"""
     setting = Setting.get()
-    return {'setting': {
-            'title': setting.title,
-            'intro': setting.intro,
-            'draft': setting.draft
-        }
-    }
+    return {'setting': setting.filter('title', 'intro', 'draft')}

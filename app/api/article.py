@@ -63,8 +63,7 @@ def article_detail():
         all_tags = Tag.find_all({'_id': {'$in': article.tags}})
         all_tags = {str(tag._id): {'id': str(tag._id), 'name': tag.name} for tag in all_tags}
         article.tags = [all_tags[str(id)] for id in article.tags if str(id) in all_tags]
-    return {'article': {'id': id, 'title': article.title, 'draft': article.draft,
-                        'tags': article.tags}}
+    return {'article': article.filter('title', 'draft', 'tags')}
 
 
 @article.route('/save', methods=['POST'])
@@ -122,7 +121,7 @@ def find_articles():
                 'title': article.title,
                 'img': images.url(article.img) if article.img else '',
                 'content': article.content,
-                'summary': BeautifulSoup(article.content).get_text()[0:100],
+                'summary': BeautifulSoup(article.content, "html.parser").get_text()[0:100],
                 'status': article.status,
                 'views': article.views,
                 'published_at': datetime.strftime(article.published_at.astimezone(tz.gettz('CST')), '%Y-%m-%d %H:%M:%S')
