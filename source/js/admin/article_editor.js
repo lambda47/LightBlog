@@ -47,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 if (code === 1000) {
                     const article = data.article;
                     this.article.title = article.title;
+                    this.article.img = article.img;
                     this.article.draft = article.draft;
                     this.article.tags.unshift(...article.tags);
                 } else {

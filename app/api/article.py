@@ -64,7 +64,8 @@ def article_detail():
         all_tags = Tag.find_all({'_id': {'$in': article.tags}})
         all_tags = {str(tag._id): {'id': str(tag._id), 'name': tag.name} for tag in all_tags}
         article.tags = [all_tags[str(id)] for id in article.tags if str(id) in all_tags]
-    return {'article': article.filter('title', 'draft', 'tags')}
+    return {'article': article.filter('title', 'draft', 'tags',
+                img=lambda article: images.url(article.img) if article.img else '')}
 
 
 @article.route('/save', methods=['POST'])
