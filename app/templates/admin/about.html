@@ -8,12 +8,12 @@
 {% endblock %}
 {% block content %}
 <div class="content-header">
-    <input type="text" class="site-title" placeholder="标题">
-    <input type="text" class="site-desc" placeholder="描述">
-    <button>确定</button>
-    <button class="cancel-btn">取消</button>
+    <input type="text" class="site-title" placeholder="标题" v-model="title">
+    <input type="text" class="site-intro" placeholder="描述" v-model="intro">
+    <button @click="saveAboutInfo">确定</button>
+    <button class="cancel-btn" @click="cancelEdit">取消</button>
 </div>
 <div class="content-main">
-    <lb-editor ref="editor" name="image"></lb-editor>
+    <lb-editor ref="editor" name="image" :upload-action="uploadAction" :upload-params="{type: 'article'}" :min-height="editorMinHeight"></lb-editor>
 </div>
 {% endblock %}

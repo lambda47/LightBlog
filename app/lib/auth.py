@@ -1,7 +1,7 @@
 from flask import redirect
 from flask import url_for
 from flask_login import current_user
-from functools import wraps
+from functools import wraps, partial
 
 
 def is_logged_in(is_admin=False):
@@ -13,9 +13,7 @@ def is_logged_in(is_admin=False):
     return logged_in
 
 
-def admin_is_logged_in():
-    """管理员是否登录"""
-    return is_logged_in(True)
+admin_is_logged_in = partial(is_logged_in, True)
 
 
 def admin_login_require(mode = 'web'):

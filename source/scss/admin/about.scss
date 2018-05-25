@@ -1,7 +1,7 @@
 @import "article_editor";
 
 .content-header {
-  .site-title, .site-desc {
+  .site-title, .site-intro {
     height: 30px;
     width: 250px;
     padding-left: 10px;
@@ -15,7 +15,7 @@
     margin-left: 15px;
   }
 
-  .site-desc {
+  .site-intro {
     flex-grow: 1;
   }
 

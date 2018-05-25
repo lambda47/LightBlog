@@ -32,8 +32,8 @@ export default {
     },
 
     methods: {
-        markdown(value = '') {
-            if (value === '')
+        markdown(value = null) {
+            if (value === null)
                 return this.simplemde.value();
             else
                 this.simplemde.value(value);

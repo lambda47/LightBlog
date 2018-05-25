@@ -1,6 +1,7 @@
 from pymongo.cursor import Cursor
 from functools import wraps
 
+
 def result(result, t):
     """ 包装查找结果
 
@@ -18,6 +19,7 @@ def result(result, t):
         return ResultList(t, result)
     else:
         raise Exception('参数类型错误')
+
 
 class ResultList:
     """ 查询结果的可迭代对象，成员为指定类型的实例"""

@@ -4,6 +4,7 @@ from bson import errors
 from ..lib.result import result
 import datetime
 
+
 class ModelMetaclass(type):
     def __new__(cls, name, bases, attrs):
         attrs['cx'] = mongo.cx
@@ -12,6 +13,7 @@ class ModelMetaclass(type):
         else:
             attrs['db'] = getattr(mongo.db, name.lower())
         return type.__new__(cls, name, bases, attrs)
+
 
 class Model(metaclass=ModelMetaclass):
     #　软删除
