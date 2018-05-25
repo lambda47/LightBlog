@@ -33,6 +33,7 @@ def add_article():
         'title': title,
         'draft': draft,
         'content': content,
+        'summary': BeautifulSoup(content, "html.parser").get_text()[0:100],
         'img': img,
         'status': type,
         'views': 0,
@@ -88,6 +89,7 @@ def edit_detail():
     article.draft = draft
     if type == PUBLISH:
         article.content = content
+        article.summary = BeautifulSoup(article.content, "html.parser").get_text()[0:100]
         # 首次发布，设置发布时间
         if article.type == DRAFT:
             article.published_at = datetime.utcnow()
@@ -120,8 +122,7 @@ def find_articles():
                 'id': str(article._id),
                 'title': article.title,
                 'img': images.url(article.img) if article.img else '',
-                'content': article.content,
-                'summary': BeautifulSoup(article.content, "html.parser").get_text()[0:100],
+                'summary': article.summary,
                 'status': article.status,
                 'views': article.views,
                 'published_at': datetime.strftime(article.published_at.astimezone(tz.gettz('CST')), '%Y-%m-%d %H:%M:%S')
