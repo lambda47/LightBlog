@@ -30,7 +30,7 @@
                     <lb-image-upload name="image" :img-src="editingTag.logo" :action="uploadAction" :params="{type: 'tag'}" @result="imageUploaded"></lb-image-upload>
                     <div class="editor-wraper"><textarea placeholder="标签名..." v-model="editingTag.name"></textarea></div>
                     <div class="tag-box-control">
-                        <button class="confirm-btn" @click="comfirmEdit">确定</button>
+                        <button class="confirm-btn" @click="confirmEdit">确定</button>
                         <button class="cancel-btn" @click="cancelEdit">取消</button>
                     </div>
                 </div>

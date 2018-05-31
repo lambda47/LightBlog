@@ -6,6 +6,7 @@ import Message from 'message';
 import ImageUpload from 'image-upload'
 import tagService from './service/tag';
 import Menu from 'menu';
+import 'confirm'
 
 document.addEventListener('DOMContentLoaded', function() {
     Vue.use(Menu);
@@ -70,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 this.mode = null;
                 this.editingTag.index = NOT_EDITING;
             },
-            async comfirmEdit() {
+            async confirmEdit() {
                 if (this.editingTag.name === '') {
                     this.$message.error('请填写标签名');
                     return;
@@ -120,8 +121,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             },
             async toDelTag(index) {
-                let result = confirm('是否确认删除标签');
-                if (result) {
+                this.$confirm('是否确认删除标签').then(async() => {
                     let {code, msg, data} = await tagService.del(this.tags[index].id);
 
                     if (code === 1000) {
@@ -129,7 +129,8 @@ document.addEventListener('DOMContentLoaded', function() {
                     } else {
                         this.$message.error(msg);
                     }
-                }
+                }).catch(() => {
+                });
             },
             imageUploaded(result) {
                 if (result.code === 1000) {

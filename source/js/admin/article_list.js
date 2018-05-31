@@ -4,6 +4,7 @@ import Vue from 'vue';
 import Menu from 'menu';
 import Page from 'page';
 import articleService from './service/article';
+import 'confirm';
 
 document.addEventListener('DOMContentLoaded', function() {
     Vue.use(Menu);
@@ -27,17 +28,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             },
             async toDelArticle(id) {
-                let result = confirm('是否确认删除文章');
-                if (result) {
+                this.$confirm('是否确认删除文章').then(async() => {
                     let {code, msg, data} = await articleService.del(id);
 
                     if (code === 1000) {
-                        console.log(this.page);
                         this.findArticles(this.page);
                     } else {
                         this.$message.error(msg);
                     }
-                }
+                }).catch(() => {
+                });
             },
         },
         created() {
