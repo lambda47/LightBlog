@@ -52,6 +52,10 @@ class ResultList:
         return self.type(next(self.iter))
 
     def filter(self, *args, **kwargs):
+        """
+        过滤返回结果（调用Model filter函数）
+        :result 返回array类型
+        """
         result = []
         try:
             while True:
