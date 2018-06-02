@@ -3,6 +3,7 @@ from flask import jsonify
 from ..config.errno import errno
 import traceback
 
+
 def apiview(func):
     @wraps(func)
     def json_response(*args, **kwargs):

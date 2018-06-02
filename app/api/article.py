@@ -65,7 +65,7 @@ def article_detail():
         all_tags = {str(tag._id): {'id': str(tag._id), 'name': tag.name} for tag in all_tags}
         article.tags = [all_tags[str(id)] for id in article.tags if str(id) in all_tags]
     return {'article': article.filter('title', 'draft', 'tags',
-                img=lambda article: images.url(article.img) if article.img else '')}
+            img=lambda article: images.url(article.img) if article.img else '')}
 
 
 @article.route('/save', methods=['POST'])
@@ -119,16 +119,11 @@ def find_articles():
         .skip(limit * (page - 1))
     pages = math.ceil(query.count() / limit)
     return {
-            'articles': [{
-                'id': str(article._id),
-                'title': article.title,
-                'img': images.url(article.img) if article.img else '',
-                'summary': article.summary,
-                'status': article.status,
-                'views': article.views,
-                'published_at': datetime.strftime(article.published_at.astimezone(tz.gettz('CST')), '%Y-%m-%d %H:%M:%S')
-                    if article.published_at else ''
-            } for article in articles],
+            'articles': articles.filter('title', 'summary', 'status', 'views',
+                                        img=lambda article: images.url(article.img) if article.img else '',
+                                        id=lambda article: str(article._id),
+                                        published_at=lambda article: datetime.strftime(
+                                            article.published_at.astimezone(tz.gettz('CST')), '%Y-%m-%d %H:%M:%S') if article.published_at else ''),
             'pages': pages
         }
 

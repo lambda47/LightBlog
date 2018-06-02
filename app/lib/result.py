@@ -45,9 +45,17 @@ class ResultList:
         else:
             return attr
 
-
     def __iter__(self):
         return self
 
     def __next__(self):
         return self.type(next(self.iter))
+
+    def filter(self, *args, **kwargs):
+        result = []
+        try:
+            while True:
+                t = self.__next__()
+                result.append(t.filter(*args, **kwargs))
+        except StopIteration:
+            return result
