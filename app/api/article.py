@@ -40,8 +40,13 @@ def add_article():
     }
     if type == PUBLISH:
         article['published_at'] = datetime.utcnow()
+        article['tags'] = []
         if len(tags) > 0:
-            article['tags'] = [ObjectId(tag_id) for tag_id in set(tags)]
+            for tag_id in tags:
+                tag = Tag.find(tag_id)
+                if tag:
+                    tag.num += 1
+                    article['tags'].append(ObjectId(tag_id))
     Article.add(article)
 
 
@@ -96,6 +101,8 @@ def edit_detail():
             article.published_at = datetime.utcnow()
         # 标签
         tags = [ObjectId(tag_id) for tag_id in set(tags)]
+        # 更新标签数量
+        Tag.change_tag_num(article.tags, tags)
         article.tags = tags
         # 更新图片
         if img != '':
