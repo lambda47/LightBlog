@@ -1,0 +1,167 @@
+@import 'common';
+
+.content {
+  display: flex;
+  width: 1180px;
+  margin: 0 auto;
+}
+
+.articles-container {
+  flex-grow: 1;
+
+  margin-right: 30px;
+}
+
+.tags-container {
+  width: 300px;
+  flex-shrink: 0;
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    position: relative;
+
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+
+    cursor: pointer;
+
+    img {
+      width: 100%;
+      height: 100%;
+
+      border-radius: 5px;
+    }
+
+    .mask {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 1;
+
+      width: 100%;
+      height: 100%;
+
+      background-color: #000;
+      border-radius: 5px;
+      opacity: .5;
+    }
+
+    em {
+      display: none;
+      position: absolute;
+      left: 0;
+      top: 0;
+      z-index: 2;
+
+      width: 100%;
+      height: 100%;
+
+      line-height: 50px;
+      font-weight: bold;
+      font-size: 12px;
+      color: #FFF;
+    }
+
+    &:hover {
+      .mask, em {
+        display: block;
+      }
+    }
+  }
+}
+
+.articles-container {
+  .article {
+    display: flex;
+
+    margin-bottom: 20px;
+  }
+
+  .mate {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+
+    width: 200px;
+    height: 130px;
+    padding: 10px 20px 0 0;
+
+    border-right: 1px solid #000;
+
+    .year {
+      font-size: 30px;
+      font-weight: bold;
+    }
+
+    .date {
+      font-size: 20px;
+
+      em {
+        font-size: 25px;
+      }
+    }
+
+    .stat {
+      margin-top: 10px;
+    }
+  }
+
+  .info {
+    margin-left: 20px;
+
+    .main-container {
+      display: flex;
+
+      .text {
+        flex-grow: 1;
+
+        height: 90px;
+        margin-right: 5px;
+      }
+
+      img {
+        flex-shrink: 0;
+
+        width: 90px;
+        height: 90px;
+
+        border-radius: 8px;
+      }
+    }
+
+    .title {
+      font-size: 18px;
+      font-weight: 500;
+      text-align: left;
+      line-height: 30px;
+    }
+
+    .desc {
+      margin-top: 5px;
+
+      text-align: left;
+    }
+
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+
+      .tag {
+        margin-right: 5px;
+
+        img {
+          width: 25px;
+          height: 25px;
+
+          border-radius: 12.5px;
+        }
+      }
+    }
+  }
+}
